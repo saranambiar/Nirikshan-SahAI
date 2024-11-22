@@ -1,0 +1,163 @@
+body{
+    background-color: #BED7DC;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    position: relative;
+}
+*{
+    text-decoration: none;
+}
+.navbar {
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Premium gradient background */
+    font-family: 'Arial', sans-serif; /* Modern font */
+    padding: 5px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .navdiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo a {
+    font-size: 28px; /* Larger font size for a more prominent logo */
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    letter-spacing: 1px; /* Slight spacing for a cleaner look */
+  }
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between menu items */
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  li a {
+    color: #ffffff;
+    font-size: 16px; /* Slightly smaller font size for menu items */
+    font-weight: 600; /* Slightly less bold for a modern feel */
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    position: relative;
+  }
+  
+  li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px; /* Position underline below text */
+    width: 100%;
+    height: 2px;
+    background: #03a9f4; /* Accent color for underline */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  li a:hover::after {
+    transform: scaleX(1); /* Underline appears on hover */
+  }
+
+.container-wrapper {
+    display: flex;
+    justify-content: center; 
+    padding-top: 120px; 
+}
+  
+
+.container {
+    display: flex;
+    gap: 20px;
+    max-width: 550px;
+    width: 100%;
+    position: relative;
+}
+.card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 14px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+textarea {
+    height: 190px;
+    width: 500px;
+    resize: none;
+}
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.upload-icon {
+    font-size: 48px;
+    color: #999;
+    margin-bottom: 10px;
+}
+button {
+    background-color: #00a8e8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background-color: #0091c9;
+}
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.cancel-button {
+    background-color: #f1f1f1;
+    color: #333;
+}
+.cancel-button:hover {
+    background-color: #e1e1e1;
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+.submit-container {
+    margin-top: 50px; /* Space above the button */
+    display: flex;
+    justify-content: center;
+  }

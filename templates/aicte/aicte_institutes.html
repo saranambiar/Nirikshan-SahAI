@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registered Institutes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #0288d1;
+      --secondary-color: #03a9f4;
+      --background-color: #BED7DC;
+      --text-color: #333;
+      --card-bg-color: #ffffff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      padding: 10px 20px;
+    }
+
+    .navdiv {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navdiv .logo img {
+      height: 50px;
+      padding: 5px;
+    }
+
+    .navdiv ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navdiv ul li {
+      margin-left: 20px;
+    }
+
+    .navdiv ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .navdiv .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .navdiv .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      .navdiv ul {
+        display: none;
+      }
+      .navdiv .hamburger {
+        display: flex;
+      }
+    }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f5f5f5;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Modals */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body class="bg-[#BED7DC]">
+  <nav class="navbar">
+    <div class="navdiv">
+      <div class="logo">
+        <a href="homepage.html">
+          <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo" height="50" style="padding: 5px;">
+        </a>
+      </div>
+      <ul>
+        <li><a href="{%url 'homepage' %}">Home</a></li>
+        <li><a href="{%url 'aictemain' %}">Admin Controls</a></li>
+      </ul>
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-4 md:mb-6"> Registered Institutes</h1>
+      <div class="search-filter">
+        <input type="text" id="search-input" placeholder="Search institutes">
+        <button id="filter-btn">Filter</button>
+      </div>
+      <table id="institutes-table">
+        <thead>
+          <tr>
+            <th>Institute Name</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Approval Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for institute in institutes %}
+          <tr>
+            <td>{{ institute.college_name }}</td>
+            <td>{{ institute.state }}</td>
+            <td>{{ institute.city }}</td>
+            <td>{{ institute.approved }}</td>
+            <td>
+              <!-- View Button -->
+              <button class="btn-view-details" data-id="{{ institute.id }}"
+                      data-college-name="{{ institute.college_name }}"
+                      data-college-id="{{ institute.college_id }}"
+                      data-email="{{ institute.email }}"
+                      data-pin-id="{{ institute.pin_id }}"
+                      data-state="{{ institute.state }}"
+                      data-city="{{ institute.city }}"
+                      data-approved="{{ institute.approved }}"
+                      onclick="viewDetails(this)">
+                View
+              </button>
+              
+              <!-- Edit Button -->
+              <button class="edit-institute-btn" data-id="{{ institute.id }}" 
+                  data-college-name="{{ institute.college_name }}" 
+                  data-college-code="{{ institute.college_id }}" 
+                  data-email="{{ institute.email }}" 
+                  data-pin-id="{{ institute.pin_id }}" 
+                  data-state="{{ institute.state }}" 
+                  data-city="{{ institute.city }}" 
+                  data-approved="{{ institute.approved }}">
+                  Edit
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+      <!-- View Modal -->
+      <div id="view-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('view-modal')">&times;</span>
+            <h2>Institute Details</h2>
+            <p><strong>College Name:</strong> <span id="view-college-name"></span></p>
+            <p><strong>College ID:</strong> <span id="view-college-id"></span></p>
+            <p><strong>Email:</strong> <span id="view-email"></span></p>
+            <p><strong>PIN ID:</strong> <span id="view-pin-id"></span></p>
+            <p><strong>State:</strong> <span id="view-state"></span></p>
+            <p><strong>City:</strong> <span id="view-city"></span></p>
+            <p><strong>Status:</strong> <span id="view-approved-status"></span></p>
+        </div>
+      </div>
+
+    <div id="edit-institute-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h2>Edit Institute</h2>
+          <form id="edit-institute-form" action="" method="post">
+              {% csrf_token %}
+              
+              <!-- College Name -->
+              <div class="form-group">
+                  <label for="edit-college-name">College Name:</label>
+                  <input type="text" id="edit-college-name" name="college_name" required>
+              </div>
+              
+              <!-- College Code -->
+              <div class="form-group">
+                  <label for="edit-college-code">College Code:</label>
+                  <input type="text" id="edit-college-code" name="college_code" required>
+              </div>
+  
+              <!-- Email -->
+              <div class="form-group">
+                  <label for="edit-email">Email:</label>
+                  <input type="email" id="edit-email" name="email" required>
+              </div>
+  
+              <!-- PIN -->
+              <div class="form-group">
+                  <label for="edit-pin-id">PIN:</label>
+                  <input type="text" id="edit-pin-id" name="pin_id" required>
+              </div>
+  
+              <!-- State -->
+              <div class="form-group">
+                  <label for="edit-state">State:</label>
+                  <input type="text" id="edit-state" name="state" required>
+              </div>
+  
+              <!-- City -->
+              <div class="form-group">
+                  <label for="edit-city">City:</label>
+                  <input type="text" id="edit-city" name="city" required>
+              </div>
+  
+              <!-- Approval Status Dropdown -->
+              <div class="form-group">
+                  <label for="edit-approved-status">Approval Status:</label>
+                  <select id="edit-approved-status" name="approved" required>
+                      <option value="Pending">Pending</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Rejected">Rejected</option>
+                  </select>
+              </div>
+  
+              <!-- Submit Button -->
+              <button type="submit" class="btn">Save Changes</button>
+          </form>
+      </div>
+    </div>
+    
+  
+
+    <script>
+      function viewDetails(button) {
+        const instituteData = button.dataset;
+      
+        // Populate modal with data
+        document.getElementById('view-college-name').innerText = instituteData.collegeName;
+        document.getElementById('view-college-id').innerText = instituteData.collegeId;
+        document.getElementById('view-email').innerText = instituteData.email;
+        document.getElementById('view-pin-id').innerText = instituteData.pinId;
+        document.getElementById('view-state').innerText = instituteData.state;
+        document.getElementById('view-city').innerText = instituteData.city;
+        document.getElementById('view-approved-status').innerText = instituteData.approved;
+      
+        // Show the modal
+        document.getElementById('view-modal').style.display = 'block';
+      }
+      
+      // Close modal functionality
+      document.querySelector('.close-button').addEventListener('click', function () {
+        document.getElementById('view-modal').style.display = 'none';
+      });
+      
+      // Close modal if clicked outside modal content
+      window.addEventListener('click', function (event) {
+        const modal = document.getElementById('view-modal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        // Modal elements
+        const modal = document.getElementById("edit-institute-modal");
+        const closeButton = modal.querySelector(".close-button");
+        const collegeNameInput = document.getElementById("edit-college-name");
+        const collegeCodeInput = document.getElementById("edit-college-code");
+        const emailInput = document.getElementById("edit-email");
+        const pinIdInput = document.getElementById("edit-pin-id");
+        const stateInput = document.getElementById("edit-state");
+        const cityInput = document.getElementById("edit-city");
+        const approvalStatusSelect = document.getElementById("edit-approved-status");
+        const editForm = document.getElementById("edit-institute-form");
+    
+        // Open modal when edit button is clicked
+        document.querySelectorAll(".edit-institute-btn").forEach(button => {
+          button.addEventListener("click", function () {
+            const instituteId = this.dataset.id;
+            const collegeName = this.dataset.collegeName;
+            const collegeCode = this.dataset.collegeCode;
+            const email = this.dataset.email;
+            const pinId = this.dataset.pinId;
+            const state = this.dataset.state;
+            const city = this.dataset.city;
+            const approved = this.dataset.approved;
+    
+            // Populate modal inputs with institute data
+            collegeNameInput.value = collegeName;
+            collegeCodeInput.value = collegeCode;
+            emailInput.value = email;
+            pinIdInput.value = pinId;
+            stateInput.value = state;
+            cityInput.value = city;
+            approvalStatusSelect.value = approved;
+    
+            // Update form action URL to the institute update URL
+            editForm.action = `/institutes/${instituteId}/update/`;
+    
+            // Show modal
+            modal.style.display = "block";
+          });
+        });
+    
+        // Close modal
+        closeButton.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+    
+        // Close modal when clicking outside of content
+        window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+
+
+{% endblock %}

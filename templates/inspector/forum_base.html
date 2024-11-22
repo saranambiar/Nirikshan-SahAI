@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AICTE Inspector Forum{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #BED7DC;
+        }
+        .navbar-custom {
+            background-color: #043a54;
+        }
+        .logo {
+            max-height: 50px;
+            padding: 5px;
+        }
+        .btn-primary {
+            background-color: #006699;
+            border-color: #006699;
+        }
+        .btn-primary:hover {
+            background-color: #004d73;
+            border-color: #004d73;
+        }
+        .card {
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar-custom text-white py-2 px-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'homepage' %}" class="flex items-center">
+                <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo" class="logo">
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="{% url 'homepage' %}" class="hover:text-gray-200">Home</a>
+                <a href="{% url 'report2' %}" class="hover:text-gray-200">Reports</a>
+                <a href="{% url 'view_reports' %}" class="hover:text-gray-200">College Data</a>
+                <div class="flex items-center">
+                    <img src="{% static 'images/profile-placeholder.png' %}" alt="Profile" 
+                         class="w-8 h-8 rounded-full border-2 border-white ml-2">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto py-6 px-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

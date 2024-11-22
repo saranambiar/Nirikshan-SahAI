@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirikshan SahaAI - AI-Driven Institute Inspection</title>
+    <link rel="stylesheet" href="{%static 'css/homepage.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="fi">
+        <div class="header-container">
+            <div class="imageee">
+                <a href="homepage.html" class="hh">
+                    <img src="{% static 'images/logo.png' %}" alt="image here" height="45" width="45">
+                </a>
+            </div>
+            <div class="components">
+                <div class="home">
+                    <a href="{% url 'homepage' %}" class="hh">Home</a>
+                </div>
+                <div class="aboutus">
+                    <a href="#" class="hh">About </a>
+                </div>
+                <!-- <div class="login">
+                    <a href="options.html" class="hh">Login</a>
+                </div> -->
+                <!-- <div class="home"> <a href="#"></a>working</div> -->
+            </div>
+        </div>
+    </header>
+    
+      
+      
+
+    <section class="hero" id="home">
+        <!-- <img src="./djd.png" alt="img is here"> -->
+        <img src="{% static 'images/inspx.background.png' %}" class="of">
+        <div class="hero-content">
+            <div style="font-size: 60px; ">Introducing Nirikshan SahAI</div>
+            <p>An AI-driven solution to the inspection of institutes</p>
+            <div class="cta-buttons">
+                <a href="{% url 'options' %}" class="cta-btn primary" id="get-started-btn">
+                    <button class="animated-button wo">
+                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                        </svg>
+                        <span class="text">Get Started</span>
+                        <span class="circle"></span>
+                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <section id="what-we-do" class="section-light">
+        <div class="container">
+            <h2>What We Do</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="icon-efficiency"></i>
+                    <h3>Streamline Inspections</h3>
+                    <p>Our AI-powered solution simplifies and accelerates the institute evaluation process.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-accuracy"></i>
+                    <h3>Enhance Accuracy</h3>
+                    <p>Leverage machine learning for precise and consistent assessments.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="icon-insights"></i>
+                    <h3>Provide Actionable Insights</h3>
+                    <p>Generate comprehensive reports with clear recommendations for improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-inspx" class="section-dark">
+        <div class="container">
+            <h2>Why Choose Nirikshan SahAI?</h2>
+            <ul class="benefits-list">
+                <li><strong>Efficiency: </strong> Reduce inspection time by up to 50%</li>
+                <!-- <li><strong>Accuracy:</strong> Minimize human error with our 99.9% accurate AI analysis</li> -->
+                <li><strong>Insights: </strong> Receive detailed reports with data-driven recommendations</li>
+                <li><strong>Compliance: </strong> Stay up-to-date with the latest educational standards</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer"  style="padding-top: 32px; align-items: center;">
+        <div class="footer-content">
+            <div >
+                <div class="footer-logo">
+                   
+                    <h4>Contact Us</h4>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@nirikshanai.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Pune Institute of Computer Technology , Pune</span>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                
+            </div>
+            <div class="map-section" style="flex: 1; margin-left: 3rem; ">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.576189831729!2d73.84825867388511!3d18.457542082623785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2eac85230ba47%3A0x871eddd0a8a0a108!2sSCTR'S%20Pune%20Institute%20of%20Computer%20Technology!5e0!3m2!1sen!2sin!4v1731908258586!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="220" 
+                   
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        
+        
+        <div class="footer-copyright">
+            <p>&copy; 2024 Nirikshan SahAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+  
+
+   
+</body>
+</html>

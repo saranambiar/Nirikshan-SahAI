@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annexures - inspX.ai</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="aicte_annexure.css">
+</head>
+<body>
+    <style>
+        :root {
+    --primary-color: #0288d1;
+    --secondary-color: #03a9f4;
+    --background-color: #bed7dc;
+    --text-color: #333;
+    --card-bg-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --navbar-bg: #2c3e50;
+    --accent-color: #03a9f4;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: 60px;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: var(--navbar-bg);
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    margin-left: 20px;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0px;
+    left: 0;
+    background-color: var(--accent-color);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.navbar-toggler {
+    border-color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Main content styles */
+.main-content {
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: var(--navbar-bg);
+    font-weight: 600;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+/* Accordion styles */
+.accordion-item {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.accordion-button {
+    background-color: #f8f9fa;
+    color: var(--navbar-bg);
+    font-weight: 600;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.125);
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-body {
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 10px;
+}
+
+.list-group-item i {
+    color: var(--accent-color);
+    margin-right: 10px;
+}
+
+.list-group-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.list-group-item a:hover {
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        background-color: var(--navbar-bg);
+        padding: 10px;
+    }
+    .navbar-nav .nav-link {
+        margin-left: 0;
+        padding: 10px 0;
+    }
+}
+    </style>
+    <nav class="navbar navbar-expand-md fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="homepage.html">
+                <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'homepage' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'aictemain' %}">Admin Controls</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container main-content">
+        <h1 class="section-title">Important Documents</h1>
+        <div class="accordion" id="accordionDocuments">
+            <!-- Accordion items here -->
+            <!-- ... (The rest of your accordion content remains unchanged) ... -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAnnexures">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAnnexures" aria-expanded="true" aria-controls="collapseAnnexures">
+                        <i class="fas fa-file-alt me-2"></i> Annexures
+                    </button>
+                </h2>
+                <div id="collapseAnnexures" class="accordion-collapse collapse show" aria-labelledby="headingAnnexures">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="upload_excel.html" target="_blank">ANNEXURE-1: Documents to be uploaded/submitted / shown for Setting up a New Technical Institution</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-2: Documents to be uploaded/submitted by Existing Institutions</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-3: Norms for Essential and Desired requirements for Technical Institution</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-4: Duration and Entry Level Qualifications for the Technical Program</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-5: Approved Titles of Courses at UG, PG and Diploma Level</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-6: Subject-wise Master List of Experts for Scrutiny and Evaluation Committee</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-7: Composition of Scrutiny and Evaluation Committee</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-8: Composition of Standing Appellate Committee (SAC)</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-9: Composition of Standing Hearing Committee (SHC)</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-10: Composition of Evaluation Committee for Vocational Courses</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-11: Norms for Intake & Number of Courses/Divisions in the Technical Institutions</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-12: List of existing/discontinued MCA Institutions eligible for restoration of intake</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-13: List of AICTE approved Minority Institutions</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-14: List of Category-I States and Category-II States</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-15: List of Standalone Institutions</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-16: List of All India Survey on Higher Education (AISHE) Codes</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-17: List of 21 Domains allocated by MHRD (NEP-2020)</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">ANNEXURE-18: List of Institutions approved for Skill Development Programs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAffidavits">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAffidavits" aria-expanded="false" aria-controls="collapseAffidavits">
+                        <i class="fas fa-book me-2"></i> Affidavits
+                    </button>
+                </h2>
+                <div id="collapseAffidavits" class="accordion-collapse collapse" aria-labelledby="headingAffidavits">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-1: For creation of New Password/Forgotten Password</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-2: For the Applications Submitted under Chapter 1,2 & 4</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-3: For the Applications Submitted under Chapter 3</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-4: For the Applications Submitted under Chapter 5</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-5: For the Applications Submitted under Chapter 6</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-6: For the Applications Submitted under Chapter 7</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-7: Format for submission of Deviations</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-8: Format for submission of Land Related Documents</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-9: Format for submission of Building Related Documents</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-10: Format for submission of Faculty Related Documents</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-11: Format for submission of Course Related Documents</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-12: Format for submission of Minority Institution Related Documents</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">AFFIDAVIT-13: Format for submission of Change of Name Related Documents</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingCertificates">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCertificates" aria-expanded="false" aria-controls="collapseCertificates">
+                        <i class="fas fa-certificate me-2"></i> Certificates
+                    </button>
+                </h2>
+                <div id="collapseCertificates" class="accordion-collapse collapse" aria-labelledby="headingCertificates">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">CERTIFICATE-1: Certificate of an Advocate (To be produced in the Letterhead of Advocate)</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">CERTIFICATE-2: Certificate of an Architect Registered with Council of Architecture (To be produced in the Letterhead of Architect)</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">CERTIFICATE-3: Certificate – Resolution (To be provided on the letterhead of the Society/Trust/Company)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFormats">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormats" aria-expanded="false" aria-controls="collapseFormats">
+                        <i class="fas fa-folder me-2"></i> Formats
+                    </button>
+                </h2>
+                <div id="collapseFormats" class="accordion-collapse collapse" aria-labelledby="headingFormats">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">FORMAT-1: No Objection Certificate from the State Government/ UT</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">FORMAT-2: No Objection Certificate from the Affiliating University/ Board</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">FORMAT-3: Resolution of the Trust/ Society/ Company seeking approval for starting a new Institution</a></li>
+                            <li class="list-group-item"><i class="fas fa-caret-right"></i><a href="#" target="_blank">FORMAT-4: Resolution of the Trust/ Society/ Company for designating the authorized signatory</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

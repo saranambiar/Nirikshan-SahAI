@@ -1,0 +1,76 @@
+
+{% load static %}
+
+
+
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Role - inspX.ai</title>
+    <link rel="stylesheet" href="{% static 'css/options.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+    <div class="options-container">
+        <h1 class="options-heading">Select </h1>
+        <div class="options-wrapper">
+            <div class="option-card" data-role="viewer">
+                <div class="option-icon">
+                    <svg fill="#ffffff" width="50px" height="50px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+
+                        <rect x="0" fill="none" width="20" height="20"/>
+                        
+                        <g>
+                        
+                        <path d="M18 12h-2.18c-.17.7-.44 1.35-.81 1.93l1.54 1.54-2.1 2.1-1.54-1.54c-.58.36-1.23.63-1.91.79V19H8v-2.18c-.68-.16-1.33-.43-1.91-.79l-1.54 1.54-2.12-2.12 1.54-1.54c-.36-.58-.63-1.23-.79-1.91H1V9.03h2.17c.16-.7.44-1.35.8-1.94L2.43 5.55l2.1-2.1 1.54 1.54c.58-.37 1.24-.64 1.93-.81V2h3v2.18c.68.16 1.33.43 1.91.79l1.54-1.54 2.12 2.12-1.54 1.54c.36.59.64 1.24.8 1.94H18V12zm-8.5 1.5c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+                        
+                        </g>
+                        
+                        </svg>
+                </div>
+                <h2>AICTE Admin</h2>
+                <p>Institute ,Inspector and Data Management</p>
+                <a href="{% url 'aicte_login' %}" class="option-btn">Admin</a>
+            </div>
+            <div class="option-card" data-role="inspector">
+                <div class="option-icon">
+                    <svg fill="#ffffff" height="50px" width="50px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            viewBox="0 0 512 512"  xml:space="preserve">
+                        <style type="text/css">
+                            .st0{fill:#efe6e6;}
+                        </style>
+                        <g>
+                            <path class="st0" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087
+                                c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512
+                                c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/>
+                            <path class="st0" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0
+                                c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/>
+                        </g>
+                        </svg>
+                
+                </div>
+                <h2>Inspector</h2>
+                <p>Conduct inspections and generate reports</p>
+                <a href="{% url 'inspector_login' %}" class="option-btn">Inspector</a>
+            </div>
+            <div class="option-card" data-role="viewer">
+                <div class="option-icon">
+                    <svg fill="#ffffff" width="50px" height="50px" viewBox="0 -64 640 640" xmlns="http://www.w3.org/2000/svg"><path d="M0 224v272c0 8.84 7.16 16 16 16h80V192H32c-17.67 0-32 14.33-32 32zm360-48h-24v-40c0-4.42-3.58-8-8-8h-16c-4.42 0-8 3.58-8 8v64c0 4.42 3.58 8 8 8h48c4.42 0 8-3.58 8-8v-16c0-4.42-3.58-8-8-8zm137.75-63.96l-160-106.67a32.02 32.02 0 0 0-35.5 0l-160 106.67A32.002 32.002 0 0 0 128 138.66V512h128V368c0-8.84 7.16-16 16-16h96c8.84 0 16 7.16 16 16v144h128V138.67c0-10.7-5.35-20.7-14.25-26.63zM320 256c-44.18 0-80-35.82-80-80s35.82-80 80-80 80 35.82 80 80-35.82 80-80 80zm288-64h-64v320h80c8.84 0 16-7.16 16-16V224c0-17.67-14.33-32-32-32z"/></svg>
+                </div>
+                <h2>College</h2>
+                <p>Input data and analyze inspection results</p>
+                <a href="{% url 'college_login' %}" class="option-btn">College</a>
+            </div>
+
+            
+        </div>
+    </div>
+    <script src="option.js"></script>
+</body>
+
+
+{% endblock %}

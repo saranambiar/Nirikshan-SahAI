@@ -1,0 +1,97 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/aicte/aicte_login.css' %}">
+
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+     
+
+      <title>login</title>
+   </head>
+   <body>
+      <header>
+     
+         
+           
+   </header>
+      <div class="login">
+         <img src="{% static 'images/login_bg4.jpeg'%}" alt="login image" class="login__img">
+
+         <form action="{% url 'aicte_login_check' %}" method="POST" class="login__form">
+            {% csrf_token %}
+            <h1 class="login__title">Login</h1>
+
+            {% if messages %}
+            <div class="messages">
+            {% for message in messages %}
+            <h3><div class="alert {{ message.tags }}">{{ message }}</div></h3>
+            {% endfor %}
+            </div>
+            {% endif %}
+            <br>
+            <div class="login__content">
+               <div class="login__box">
+                  <div class="option-icon">
+                     <svg fill="#000000" height="15px" width="15px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            viewBox="0 0 512 512"  xml:space="preserve">
+                        
+                        <g>
+                            <path class="st0" d="M458.159,404.216c-18.93-33.65-49.934-71.764-100.409-93.431c-28.868,20.196-63.938,32.087-101.745,32.087
+                                c-37.828,0-72.898-11.89-101.767-32.087c-50.474,21.667-81.479,59.782-100.398,93.431C28.731,448.848,48.417,512,91.842,512
+                                c43.426,0,164.164,0,164.164,0s120.726,0,164.153,0C463.583,512,483.269,448.848,458.159,404.216z"/>
+                            <path class="st0" d="M256.005,300.641c74.144,0,134.231-60.108,134.231-134.242v-32.158C390.236,60.108,330.149,0,256.005,0
+                                c-74.155,0-134.252,60.108-134.252,134.242V166.4C121.753,240.533,181.851,300.641,256.005,300.641z"/>
+                        </g>
+                        </svg>  </div>
+
+                  <div class="login__box-input">
+                     <input type="text" required class="login__input" id="aicte-user" name="aicte-user" placeholder="">
+                     <label for="login-text" class="login__label" style="font-size: 15px;">AICTE username</label>
+                  </div>
+               </div>
+
+               <div class="login__box">
+                  <svg width="15px" height="15px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+                     <title>number_sign [#110]</title>
+                     <desc>Created with Sketch.</desc>
+                     <defs>
+                 
+                 </defs>
+                     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                         <g id="Dribbble-Light-Preview" transform="translate(-382.000000, -7721.000000)" fill="#000000">
+                             <g id="icons" transform="translate(56.000000, 160.000000)">
+                                 <path d="M332,7571 L336,7571 L336,7567 L332,7567 L332,7571 Z M342,7567 L342,7565 L338,7565 L338,7561 L336,7561 L336,7565 L332,7565 L332,7561 L330,7561 L330,7565 L326,7565 L326,7567 L330,7567 L330,7571 L326,7571 L326,7573 L330,7573 L330,7577 L332,7577 L332,7573 L336,7573 L336,7577 L338,7577 L338,7573 L342,7573 L342,7571 L338,7571 L338,7567 L342,7567 Z" id="number_sign-[#110]">
+                 
+                 </path>
+                             </g>
+                         </g>
+                     </g>
+                 </svg>
+
+                  <div class="login__box-input">
+                     <input type="password" required class="login__input" id="login-pass" name="login-pass" placeholder=" ">
+                     <label for="login-pass" class="login__label" style="font-size: 15px;">Password</label>
+                     
+                  </div>
+
+                  
+               </div>
+            </div>
+
+           
+            <button type="submit" class="option-btn login__button">Login</button>
+
+           
+         </form>
+      </div>
+
+      <script src="main.js"></script>
+   
+   </body>
+</html>

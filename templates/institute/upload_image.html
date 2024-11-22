@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inspX.ai - Upload Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style_img.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="logo">
+                <a href="homepage.html">
+                    <img src="logo.png" alt="inspX.ai Logo" height="50" style="padding: 5px;">
+                </a>
+            </div>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="options.html">Login</a></li>
+                <li><a href="index.html">Upload</a></li>
+                <li><a href="upload_pdf.html">Upload Pdf</a></li>
+            </ul>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard">
+        <div class="container">
+            <h1 class="dashboard-title">Upload Dashboard</h1>
+            <div class="card-grid">
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('classroom.jpg');"></div>
+                            <div class="content">
+                                <p class="heading">Classroom</p>
+                                <p>Upload the various pictures of Classrooms</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Classrooms</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('lab.jpeg');"></div>
+                            <div class="content">
+                                <p class="heading">Labs</p>
+                                <p>Upload the various pictures of Labs</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Labs</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="canteen_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('canteen.jpeg');"></div>
+                            <div class="content">
+                                <p class="heading">Canteen</p>
+                                <p>Upload the pictures of the Canteen</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Canteen</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('library.jpg');"></div>
+                            <div class="content">
+                                <p class="heading">Library</p>
+                                <p>Upload the various pictures of Library</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Library</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('pwd.png');"></div>
+                            <div class="content">
+                                <p class="heading">PWD facilities</p>
+                                <p>Upload the various pictures of PWD facilities</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">PWD Facilities</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="canteen_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('parking.jpg');"></div>
+                            <div class="content">
+                                <p class="heading">Parking</p>
+                                <p>Upload the pictures of parking</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Parking</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('solar.jfif');"></div>
+                            <div class="content">
+                                <p class="heading">Solar Panels</p>
+                                <p>Upload the various pictures of Solar panels</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Solar Panels</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="classroom_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('medical.avif');"></div>
+                            <div class="content">
+                                <p class="heading">Medical Facilities</p>
+                                <p>Upload pictures of First AID boxes, medical & counselling facilities</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Medical Facilities</div>
+                </div>
+
+                <div class="card-container">
+                    <a href="canteen_upload.html">
+                        <div class="card">
+                            <div class="img-content" style="background-image: url('washroom.jpg');"></div>
+                            <div class="content">
+                                <p class="heading">Washrooms</p>
+                                <p>Upload the pictures of Washrooms</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="label">Washrooms</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.navbar ul');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
