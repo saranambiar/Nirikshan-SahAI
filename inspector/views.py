@@ -16,13 +16,17 @@ def login_view(request):
             # Authenticate the user
             user = Inspector.objects.get(user_id=user_id, password=password)
             # Save session data
-            request.session['inspector_id'] = str(user.id)
+            request.session['user_id'] = str(user.user_id)
             return redirect('view_reports')  # Redirect to dashboard
         except DoesNotExist:
             messages.error(request, 'Invalid credentials')
             return redirect('inspector_login')
 
     return render(request, 'inspector/inspector_login.html')
+
+def inspector_logout(request):
+    request.session.flush()
+    return render(request, 'options.html')
 
 @login_required
 def view_certificates(request):

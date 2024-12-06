@@ -411,10 +411,14 @@
                     >
                         View
                     </button>
-                    <button 
-                        class="btn btn-edit"
-                        onclick="openEditModal('{{ institute.college_name }}', '{{ institute.id }}', '{{ institute.email }}', '{{ institute.pin_id }}', '{{ institute.state }}', '{{ institute.city }}', '{{ institute.approved }}')"
-                    >
+                    <button class="btn btn-edit edit-institute-btn" data-id="{{ institute.id }}" 
+                        data-college-name="{{ institute.college_name }}" 
+                        data-college-code="{{ institute.college_id }}" 
+                        data-email="{{ institute.email }}" 
+                        data-pin-id="{{ institute.pin_id }}" 
+                        data-state="{{ institute.state }}" 
+                        data-city="{{ institute.city }}" 
+                        data-approved="{{ institute.approved }}">
                         Edit
                     </button>
                 </td>
@@ -464,7 +468,7 @@
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('edit-institute-modal')">&times;</span>
             <h2>Edit Institute</h2>
-            <form class="edit-form" method="POST">
+            <form class="edit-form" action="" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="edit-college-name">College Name</label>
@@ -480,7 +484,7 @@
                 </div>
                 <div class="form-group">
                     <label for="edit-pin">PIN</label>
-                    <input type="text" id="edit-pin" name="pin" required>
+                    <input type="text" id="edit-pin" name="pin_id" required>
                 </div>
                 <div class="form-group">
                     <label for="edit-state">State</label>
@@ -491,8 +495,8 @@
                     <input type="text" id="edit-city" name="city" required>
                 </div>
                 <div class="form-group">
-                    <label for="edit-approval-status">Approval Status</label>
-                    <select id="edit-approval-status" name="approved" required>
+                    <label for="edit-approved-status">Approval Status</label>
+                    <select id="edit-approved-status" name="approved" required>
                         <option value="Pending">Pending</option>
                         <option value="Approved">Approved</option>
                         <option value="Rejected">Rejected</option>
@@ -520,17 +524,62 @@
         document.getElementById('view-modal').style.display = 'flex';
     }
 
-    function openEditModal(name, id, email, pinId, state, city, status) {
+    {% comment %} function openEditModal(name, id, email, pinId, state, city, status) {
         document.getElementById('edit-college-name').value = name;
         document.getElementById('edit-college-code').value = id;
         document.getElementById('edit-email').value = email;
         document.getElementById('edit-pin').value = pinId;
         document.getElementById('edit-state').value = state;
         document.getElementById('edit-city').value = city;
-        document.getElementById('edit-approval-status').value = status;
+        document.getElementById('edit-approved-status').value = status;
 
         document.getElementById('edit-institute-modal').style.display = 'flex';
-    }
+    } {% endcomment %}
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("edit-institute-modal");
+        const closeButton = modal.querySelector(".close-button");
+        const collegeNameInput = document.getElementById("edit-college-name");
+        const collegeCodeInput = document.getElementById("edit-college-code");
+        const emailInput = document.getElementById("edit-email");
+        const pinIdInput = document.getElementById("edit-pin");
+        const stateInput = document.getElementById("edit-state");
+        const cityInput = document.getElementById("edit-city");
+        const approvalStatusSelect = document.getElementById("edit-approved-status");
+        const editForm = modal.querySelector("form");
+    
+        document.querySelectorAll(".edit-institute-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const instituteId = this.dataset.id;
+                const collegeName = this.dataset.collegeName;
+                const collegeCode = this.dataset.collegeCode;
+                const email = this.dataset.email;
+                const pinId = this.dataset.pinId;
+                const state = this.dataset.state;
+                const city = this.dataset.city;
+                const approved = this.dataset.approved;
+    
+                // Populate modal inputs
+                collegeNameInput.value = collegeName;
+                collegeCodeInput.value = collegeCode;
+                emailInput.value = email;
+                pinIdInput.value = pinId;
+                stateInput.value = state;
+                cityInput.value = city;
+                approvalStatusSelect.value = approved;
+    
+                // Update form action
+                editForm.action = `/institutes/${instituteId}/update/`;
+    
+                // Show modal
+                modal.style.display = "flex";
+            });
+        });
+    
+        closeButton.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    });
 
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = 'none';

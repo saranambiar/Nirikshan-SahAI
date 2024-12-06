@@ -19,7 +19,7 @@ def login_view(request):
         try:
             # Authenticate the user by fetching from the AICTEUser model
             user = AICTEUser.objects.get(aicte_user=username, password=password)
-            
+            request.session['aicte'] = str(user.aicte_user)
             # If the user is found, login is successful
             messages.success(request, 'Login successful!')
             return redirect('aictemain') 
@@ -31,6 +31,12 @@ def login_view(request):
         return redirect('aicte_login')
 
     return render(request, 'aicte_login.html')
+
+def aicte_logout(request):
+    request.session.flush()
+    return render(request, 'options.html')
+
+
 # List all inspectors
 def inspector_list(request):
     inspectors = Inspector.objects.all()  

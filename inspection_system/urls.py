@@ -22,7 +22,7 @@ from django.urls import path
 from core import views
 import inspector.views
 import institute.views
-from aicte_admin.views import login_view
+from aicte_admin.views import login_view, aicte_logout
 
 urlpatterns = [
     #common
@@ -37,6 +37,7 @@ urlpatterns = [
     #aicte
     path('aicte_login/', views.aicte_login, name='aicte_login'),
     path('aicte_login_check/', login_view, name='aicte_login_check'),
+    path('aicte_logout/', aicte_logout ,name='aicte_logout'),
     path('aictemain/', views.aictemain, name='aictemain'),
     path('aicte_institutes/', views.aicte_institutes, name='aicte_institutes'),
     path('aicte_inspector/', views.aicte_inspector, name='aicte_inspector'),
@@ -46,6 +47,7 @@ urlpatterns = [
     #inspector
     path('inspector_login/', views.inspector_login, name='inspector_login'),
     path('inspector_login_check',inspector.views.login_view,name='inspector_check'),
+    path('inspector_logout/', inspector.views.inspector_logout ,name='inspector_logout'),
     path('view_image/', views.view_image, name='view_image'),
     path('annexure/', views.annexure, name="annexure"),
     path('report2/', views.report2, name="report2"),
@@ -71,8 +73,7 @@ urlpatterns = [
     path('college_signup_check/',institute.views.signup_view,name='college_signup_check'),
     path('index/', views.index, name='index'),
     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
-    path('upload_certificate_check/',institute.views.upload_certificate,name='upload_certificates_check')
- 
-
+    path('upload_certificate_check/',institute.views.upload_certificate,name='upload_certificates_check'),
+    path('college_logout/', institute.views.college_logout ,name='college_logout')
 ]
 

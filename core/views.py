@@ -17,7 +17,8 @@ def aicte_login(request):
     return render(request, 'aicte/aicte_login.html')
 
 def aictemain(request):
-    return render(request, 'aicte/aictemain.html')
+    aicte = request.GET.get('aicte', 'Guest')
+    return render(request, 'aicte/aictemain.html',{'aicte': aicte})
 
 def aicte_institutes(request):
     return render(request, 'aicte/aicte_institutes.html')
@@ -51,16 +52,11 @@ def upload_certificate(request):
 
 
 
-
-
-
-
-
-
 #inspector
 
 def view_reports(request):
-    return render(request, 'inspector/view_reports.html')
+    user_id = request.GET.get('user_id', 'Guest')
+    return render(request, 'inspector/view_reports.html',{'user_id': user_id})
 
 
 def discussion_forum(request):

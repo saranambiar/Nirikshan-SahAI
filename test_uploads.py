@@ -1,5 +1,4 @@
 from mongoengine import StringField, FileField, Document, connect
-
 MONGO_ATLAS_URI = 'mongodb+srv://param4mc:3Fj0PbA9t4V6bT1E@cluster0.9f6ij.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&appName=Cluster0'
 connect('Login',host=MONGO_ATLAS_URI)
 

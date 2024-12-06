@@ -138,8 +138,12 @@ def upload_certificate(request):
                 college_name=request.session.get('college_name')  # Add metadata like the college name
             )
             certificate_entry.save()
-            
+
         messages.success(request, 'Certificate uploaded successfully!')
         return redirect('index')
 
     return redirect('index')
+
+def college_logout(request):
+    request.session.flush()
+    return render(request, 'options.html')

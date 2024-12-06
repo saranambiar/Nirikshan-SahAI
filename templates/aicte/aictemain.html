@@ -177,19 +177,18 @@
         </div>
         <ul>
          <li><a href="{% url 'homepage' %}">Home</a></li>
-         <li><a href="{% url 'options' %}">Login</a></li>
           <li class="profile-container">
             <button class="profile-button" onclick="toggleDropdown()">
               <img src="{% static 'images/profile-placeholder.png' %}" 
                    alt="Profile Picture" 
                    class="profile-image">
-              <span class="profile-name">Admin</span>
+              <span class="profile-name">{{ request.session.aicte }}</span>
               <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
             </button>
             <div id="profileDropdown" class="profile-dropdown">
-              <a href="/logout">
+              <a href="{% url 'aicte_logout' %}">
                 <svg class="profile-dropdown-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                   <polyline points="16 17 21 12 16 7"></polyline>

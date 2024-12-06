@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 def index(request):
     college_name = request.GET.get('college_name', 'Guest')  # Fallback to 'Guest' if not provided
