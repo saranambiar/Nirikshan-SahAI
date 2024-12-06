@@ -65,7 +65,9 @@ def signup_view(request):
     return render(request, 'signup.html')
 
 def login_view(request):
+    print("E")
     if request.method == 'POST':
+        print("POST request received")
         college_name = request.POST.get('college_name')
         college_id = request.POST.get('college_code')
         password = request.POST.get('password')
@@ -96,28 +98,48 @@ def login_view(request):
 
 # upload certificates
 def upload_certificate(request):
-    # Fixed certificate name (example: you can customize it further)
-    fixed_certificate_name = "Certificate of Advocate"  # Adjust this based on the certificate type
-    college_name = request.session.get('college_name')
     if request.method == 'POST':
-        form = CertificateUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Capture the file and certificate details
-            file = form.cleaned_data['file']
-            
-            # Create the certificate entry with college metadata and fixed name
-            cert = certificate(
-                name=fixed_certificate_name,  # Fixed certificate name
-                file=file,
-                college_name=college_name  # Store the college name or other metadata
+        print("POST received")  # Debugging statement
+
+        # Check if a file is included in the request
+        if 'advocate_cert' not in request.FILES:
+            print("JKEWNFUwie")
+            messages.error(request, "No file uploaded!")
+            return redirect('upload_certificate')
+
+        college_name = request.session.get('college_name')  # Fetch college name from session
+
+        names = {
+            'advocate_cert': "Certificate of Advocate",
+            'architect_cert': "Certificate of Architect Registered with Council of Architecture",
+            'bank_manager_cert': "Certificate of Bank Manager"
+        }
+
+        uploaded_certificates = []
+
+
+        for field, cert_name in names.items():
+            if field in request.FILES:  # Check if the file input exists in the uploaded files
+                file = request.FILES[field]  # Get the uploaded file
+                uploaded_certificates.append({
+                    'certificate_name': cert_name,
+                    'file': file
+                })
+            else:
+                # Log or handle missing files if required
+                print(f"{cert_name} is missing.")
+
+        # Create and save the certificate
+        for cert in uploaded_certificates:
+            # Save to the database or perform other processing
+            certificate_entry = certificate(
+                name=cert['certificate_name'],
+                file=cert['file'],
+                college_name=request.session.get('college_name')  # Add metadata like the college name
             )
-            cert.save()
+            certificate_entry.save()
+            
+        messages.success(request, 'Certificate uploaded successfully!')
+        return redirect('index')
 
-            messages.success(request, 'Certificate uploaded successfully!')
-            return redirect('index')  # Redirect to the index page after upload
-        else:
-            messages.error(request, 'There was an error with the form.')
-    else:
-        form = CertificateUploadForm()
-
-    return render(request, 'upload_certificate.html', {'form': form})
+    return redirect('index')

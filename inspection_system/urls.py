@@ -71,7 +71,7 @@ urlpatterns = [
     path('college_signup_check/',institute.views.signup_view,name='college_signup_check'),
     path('index/', views.index, name='index'),
     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
-    path('upload_Certificate_check/',institute.views.upload_certificate,name='upload_certificates_check')
+    path('upload_certificate_check/',institute.views.upload_certificate,name='upload_certificates_check')
  
 
 ]

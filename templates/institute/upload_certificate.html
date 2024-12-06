@@ -88,6 +88,7 @@
     </style>
 </head>
 <body>
+    {{ request.session.college_name }}
     <div class="upload-container">
         <div class="upload-header">
             <h1>Certificate Upload Portal</h1>
@@ -443,6 +444,36 @@
                 const fileName = event.target.files[0]?.name || 'No file chosen'; // Get the file name or set default text
                 fileNameElement.textContent = fileName; // Update the file-name span
             });
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("form"); // Select the form element
+
+        form.addEventListener("submit", (event) => {
+            // List of input file IDs and their corresponding labels
+            const certificates = [
+                { id: "advocate_cert", name: "Certificate of Advocate" },
+                { id: "architect_cert", name: "Certificate of Architect" },
+                { id: "bank_manager_cert", name: "Certificate of Bank Manager" },
+            ];
+
+            let missingCertificates = []; // To store names of missing certificates
+
+            // Check each certificate file input
+            certificates.forEach((cert) => {
+                const input = document.getElementById(cert.id);
+                if (!input.files || input.files.length === 0) {
+                    missingCertificates.push(cert.name);
+                }
+            });
+
+            // If any files are missing, show an error and stop submission
+            if (missingCertificates.length > 0) {
+                event.preventDefault();
+                alert(`The following files are missing:\n\n${missingCertificates.join("\n")}`);
+            }
         });
     });
 </script>
