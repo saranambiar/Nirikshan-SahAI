@@ -50,7 +50,7 @@ urlpatterns = [
     path('annexure/', views.annexure, name="annexure"),
     path('report2/', views.report2, name="report2"),
     path('view_reports/', views.view_reports, name='view_reports'),
-     path('discussion-forum/', views.discussion_forum, name='discussion_forum'),
+    path('discussion-forum/', views.discussion_forum, name='discussion_forum'),
     path('view_certificates/', views.view_certificates, name='view_certificates'),
     path('feedback/', views.feedback, name="feedback"),
     path('pattern_pred/',views.pattern_pred, name='pattern_pred'),
@@ -71,6 +71,7 @@ urlpatterns = [
     path('college_signup_check/',institute.views.signup_view,name='college_signup_check'),
     path('index/', views.index, name='index'),
     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
+    path('upload_Certificate_check/',institute.views.upload_certificate,name='upload_certificates_check')
  
 
 ]

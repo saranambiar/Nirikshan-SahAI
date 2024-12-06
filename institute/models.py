@@ -1,5 +1,5 @@
 from django.db import models
-from mongoengine import Document, StringField, EmailField
+from mongoengine import Document, StringField, EmailField, FileField
 from django import forms
 class College(Document):
     college_name = StringField(required=True)
@@ -23,3 +23,12 @@ class CollegeForm(forms.Form):
     state = forms.CharField(max_length=100, required=True, label="State")
     city = forms.CharField(max_length=100, required=True, label="City")
     approved = forms.ChoiceField(choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], required=True, label="Approval Status")
+
+class certificate(Document):
+    name = StringField(required=True) 
+    file = FileField(required=True)
+    college_name = StringField(required=True)
+
+    meta = {
+        'collection': 'certificate_unverified'
+    }

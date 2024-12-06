@@ -94,7 +94,7 @@
             <p class="disclaimer">✱ Ensure all certificates meet AICTE norms and are signed and stamped.</p>
         </div>
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'upload_certificates_check' %}">
             {% csrf_token %}
 
             <!-- 1. Anti-Ragging Committee Certificate -->
@@ -432,4 +432,18 @@
         </form>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select all file input elements
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+    
+        fileInputs.forEach(input => {
+            input.addEventListener('change', (event) => {
+                const fileNameElement = input.nextElementSibling.nextElementSibling; // Find the file-name span
+                const fileName = event.target.files[0]?.name || 'No file chosen'; // Get the file name or set default text
+                fileNameElement.textContent = fileName; // Update the file-name span
+            });
+        });
+    });
+</script>
 </html>

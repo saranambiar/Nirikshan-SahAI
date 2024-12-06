@@ -4,11 +4,11 @@ import pymongo
 from inspection_system.settings import db
 from mongoengine import DoesNotExist
 from django.contrib.auth.decorators import login_required
-from core.models import Certificate
+from .models import certificate
+from .forms import CertificateUploadForm
 from django.views.decorators.http import require_http_methods
-
 from django.contrib.auth.hashers import check_password
-
+from inspection_system.decorators import college_login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import College  # Import the College model
@@ -83,7 +83,7 @@ def login_view(request):
                 return redirect('college_login')
             elif college.approved == 'Approved':
                 # Save session data
-                request.session['college_id'] = str(college.id)
+                request.session['college_name'] = college.college_name
                 return redirect('index')  # Redirect to dashboard or index page
 
         except DoesNotExist:
@@ -95,41 +95,29 @@ def login_view(request):
 
 
 # upload certificates
+def upload_certificate(request):
+    # Fixed certificate name (example: you can customize it further)
+    fixed_certificate_name = "Certificate of Advocate"  # Adjust this based on the certificate type
+    college_name = request.session.get('college_name')
+    if request.method == 'POST':
+        form = CertificateUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Capture the file and certificate details
+            file = form.cleaned_data['file']
+            
+            # Create the certificate entry with college metadata and fixed name
+            cert = certificate(
+                name=fixed_certificate_name,  # Fixed certificate name
+                file=file,
+                college_name=college_name  # Store the college name or other metadata
+            )
+            cert.save()
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def upload_certificates(request):
-    if request.method == "POST":
-        institute = request.user.institute  # Assuming user is linked to institute
-        
-        certificate_types = [
-            'anti_ragging_cert', 'ic_cert', 'ic_report', 'scst_cert',
-            'iic_cert', 'abc_cert', 'digital_trans_cert'
-        ]
-        
-        for cert_type in certificate_types:
-            if cert_type in request.FILES:
-                file = request.FILES[cert_type]
-                cert_type_key = cert_type.replace('_cert', '')
-                
-                # Check if certificate already exists
-                existing_cert = Certificate.objects.filter(
-                    institute=institute,
-                    cert_type=cert_type_key
-                ).first()
-                
-                if existing_cert:
-                    existing_cert.file = file
-                    existing_cert.status = 'pending'
-                    existing_cert.save()
-                else:
-                    Certificate.objects.create(
-                        institute=institute,
-                        cert_type=cert_type_key,
-                        file=file
-                    )
-        
-        messages.success(request, 'Certificates uploaded successfully')
-        return redirect('institute_dashboard')
-        
-    return render(request, 'institute/upload_certificate.html')
+            messages.success(request, 'Certificate uploaded successfully!')
+            return redirect('index')  # Redirect to the index page after upload
+        else:
+            messages.error(request, 'There was an error with the form.')
+    else:
+        form = CertificateUploadForm()
+
+    return render(request, 'upload_certificate.html', {'form': form})

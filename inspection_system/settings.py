@@ -95,8 +95,7 @@ MONGODB_DATABASES = {
 }
 
 
-SESSION_ENGINE = "django_mongoengine.sessions"
-
+SESSION_ENGINE = 'django_mongoengine.sessions'
 
 # AUTHENTICATION_BACKENDS to include MongoDB auth
 AUTHENTICATION_BACKENDS = (

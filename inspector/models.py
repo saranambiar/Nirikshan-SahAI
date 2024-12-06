@@ -1,7 +1,7 @@
 # models.py
 from django.db import models
 from django.contrib.auth.models import User
-from mongoengine import Document,StringField
+from mongoengine import Document,StringField,FileField
 
 class Post(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE)
