@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Signup</title>
+  
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+   
+    <link rel="stylesheet" href="{% static 'css/institute/signup.css' %}">
+</head>
+<body>
+    
+    
+
+   
+    <div class="signup" >
+        <img src="{% static 'images/login_bg4.jpeg' %}" alt="signup image" class="signup__img">
+
+        <form action="{% url 'college_signup_check' %}" method="POST" class="signup__form" style="width: 800px;">
+            {% csrf_token %}
+            
+            <h1 class="signup__title">Sign Up</h1>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="signup__content">
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="text" 
+                            name="college_name" 
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">College Name</label>
+                    </div>
+                </div>
+
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="text" 
+                            name="college_id" 
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">College ID</label>
+                    </div>
+                </div>
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="text" 
+                            name="pin_id" 
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">Pin Code</label>
+                    </div>
+                </div>
+
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">Email</label>
+                    </div>
+                </div>
+
+                <div class="signup__box" >
+                    <div class="signup__box-input" style="color: black;">
+                        <select 
+                            name="state" 
+                            class="signup__input" 
+                            required
+                        >
+                            <option value="" disabled selected>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        <label class="signup__label" style="color: black; font-size: 17px;">State</label>
+                    </div>
+                </div>
+
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="text" 
+                            name="city" 
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">City</label>
+                    </div>
+                </div>
+
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="signup-pass"
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">Password</label>
+                        <i class="ri-eye-off-line signup__eye" id="signup-eye"></i>
+                    </div>
+                </div>
+
+                <div class="signup__box">
+                    <div class="signup__box-input">
+                        <input 
+                            type="password" 
+                            name="confirm_password" 
+                            id="signup-pass-confirm"
+                            class="signup__input" 
+                            placeholder=" " 
+                            required
+                        >
+                        <label class="signup__label">Confirm Password</label>
+                        <i class="ri-eye-off-line signup__eye" id="signup-eye-confirm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="signup__button">
+                Sign Up
+            </button>
+
+           
+        </form>
+    </div>
+
+    <script>
+      
+        const showHiddenPass = (loginPass, loginEye) =>{
+           const input = document.getElementById(loginPass),
+                 iconEye = document.getElementById(loginEye)
+   
+           iconEye.addEventListener('click', () =>{
+              
+              if(input.type === 'password'){
+              
+                 input.type = 'text'
+   
+     
+                 iconEye.classList.add('ri-eye-line')
+                 iconEye.classList.remove('ri-eye-off-line')
+              } else{
+                 
+                 input.type = 'password'
+   
+                
+                 iconEye.classList.remove('ri-eye-line')
+                 iconEye.classList.add('ri-eye-off-line')
+              }
+           })
+        }
+   
+        showHiddenPass('signup-pass','signup-eye')
+        showHiddenPass('signup-pass-confirm','signup-eye-confirm')
+    </script>
+</body>
+</html>

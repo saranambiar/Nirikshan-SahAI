@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+   
+    <title>
+        Reports
+        </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+   
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+    <link rel="stylesheet" href="{% static 'css/inspector/report2.css' %}">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+
+<body>
+    <nav class="navbar">
+     <div class="navdiv">
+      <div class="logo">
+       <a href="homepage.html">
+        <img alt="inspX.ai Logo" height="50" src="{% static 'images/logo.png' %}" style="padding: 5px;"/>
+       </a>
+      </div>
+      <ul>
+       <li>
+        <a href="{% url 'homepage' %}">
+         Home
+        </a>
+       </li>
+       <li>
+        <a href="{% url 'options' %}">
+         Login
+        </a>
+     </li>
+     <li>
+        <img src="{% static 'images/profile-placeholder.png'%}" 
+             alt="Profile" 
+             class="w-8 h-8 rounded-full border-2 border-blue-900 ml-2"
+             style="object-fit: cover;">
+     </li>
+      
+      </ul> 
+        
+       </div>
+       <div>
+       </div>
+       <div>
+       </div>
+      </div>
+     </div>
+    </nav>
+
+    
+    <main class="dashboard main-content">
+        <div class="container">
+          
+            <div class="flex items-center justify-center mb-16">
+                <h1 class="text-2xl md:text-3xl font-bold text-blue-900" style="margin-left:300px ;">Reports Dashboard</h1>
+                <button 
+                    onclick="document.getElementById('rubrics-table').scrollIntoView({behavior: 'smooth'})"
+                    class="inline-flex items-center justify-center gap-10 px-4 py-2 bg-sky-700 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md cursor-pointer"
+                style="margin-left:100px ;">
+                    View Rubrics
+                    <i class="fas fa-chevron-down text-sm"></i>
+                </button>
+            </div>
+                      <div class="card-grid">
+                <a href="Compliance_Report_ML.pdf" class="card">
+                    <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                    <h2>Compliance Report</h2>
+                    <p>Institution Compliance with AICTE norms and standards</p>
+                </a>
+                <a href="deficiency_report.pdf" class="card">
+                    <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h2>Deficiency Report</h2>
+                    <p>Highlights areas where institute lacks in meeting AICTE norms</p>
+                </a>
+                <a href="facultyreport.pdf" class="card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h2>Faculty Report</h2>
+                    <p>Highlights qualifications and compliance with norms regarding Faculty</p>
+                </a>
+                <a href="{% url 'pattern_pred' %}" class="card">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h2>Pattern Recognition</h2>
+                    <p>Predicts Patterns of student performance, infrastructure, placement analysis</p>
+                </a>
+                <a href="{% url 'feedback' %}" class="card">
+                    <div class="card-icon"><i class="fas fa-comments"></i></div>
+                    <h2>Manual Report + Feedback</h2>
+                    <p>Upload a manual report and give feedback to college.</p>
+                </a>
+                <a href="{% url 'discussion_forum' %}"  class="card" style="background-color:#216ebc;">
+                    <div class="card-icon" ><i class="fas fa-comment-dots" style="color: white;"></i></div>
+                    <h2 style="color: white;">Discussion Forum</h2>
+                    <p style="color: rgb(235, 229, 229);">Analyse the reports and discuss with peers for decision about approval</p>
+                </a>
+            </div>
+            
+            
+            <div class="action-button"  style="margin-top: 550px;">
+                <button class="approve-button" style="margin-top: 20px;">Approve Reports</button>
+            </div>
+
+            
+        
+            <!-- Rubrics Table -->
+            <div id="rubrics-table" class="mt-10 mx-auto w-11/12 max-w-6xl p-6">
+                <h2 class="text-2xl font-bold text-sky-800 text-center mb-6">
+                    Evaluation Rubrics
+                </h2>
+                
+                <div class="overflow-hidden rounded-lg shadow-lg">
+                    <table class="w-full border-collapse bg-white">
+                        <thead>
+                            <tr class="bg-sky-700 text-white">
+                                <th class="px-8 py-4 text-left font-semibold w-1/4">Report Type</th>
+                                <th class="px-8 py-4 text-left font-semibold w-2/5">Approved</th>
+                                <th class="px-8 py-4 text-left font-semibold w-2/5">Not Approved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+                                <td class="px-8 py-4 font-medium">Deficiency Report</td>
+                                <td class="px-8 py-4 text-green-600">Deficiency ≤ 10%</td>
+                                <td class="px-8 py-4 text-red-600">Deficiency ≥ 10%</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+                                <td class="px-8 py-4 font-medium">Faculty Report</td>
+                                <td class="px-8 py-4 text-green-600">Intake ≥ norms & other criterion satisfactory</td>
+                                <td class="px-8 py-4 text-red-600">Intake < norms & other criterion not satisfactory</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+                                <td class="px-8 py-4 font-medium">Compliance Report</td>
+                                <td class="px-8 py-4 text-green-600">80-90% criterion satisfied</td>
+                                <td class="px-8 py-4 text-red-600"> < 80% criterion satisfied</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+    </main>
+
+    <script src="https://cdn.tailwindcss.com">
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.navbar ul');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+
+        window.addEventListener('load', function () {
+        const mainContent = document.querySelector('.dashboard');
+        // idhar cwc ka js...........
+        mainContent.classList.add('fade-in');
+    });
+    </script>
+</body>
+
+{% endblock %}

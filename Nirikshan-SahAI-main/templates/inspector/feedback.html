@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="{% static 'css/inspector/feedback.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+		<div class="navdiv">
+			<div class="logo"><a href="homepage.html">
+                <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo" height="50" style="padding: 5px;">
+            </a> </div>
+			<ul>
+				<li><a href="{% url 'homepage' %}">Home</a></li>
+				<li><a href="{% url 'report2' %}">Report</a></li>
+			</ul>
+		</div>
+	</nav>
+    <div class="container-wrapper">
+        <div class="container">
+            <div class="card">
+                <h2>Enter Feedback</h2>
+                <p>Enter your feedback or suggestions to college below -</p>
+                <form>
+                    <div class="form-group">
+                        <textarea placeholder="Your feedback here..." ></textarea>
+                    </div>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h2>Upload Manual Report</h2>
+                <p>Attach the PDF copy of the manual report.</p>
+                <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
+                    <div class="upload-icon">&#128196;</div> 
+                    <p>Click to upload or drag and drop</p>
+                    <p id="upload-status">No Files Selected</p>
+                </div>
+                <input type="file" id="pdf-upload" style="display: none;" accept=".pdf" onchange="updateFileName()">
+                <div class="button-group">
+                    <button class="cancel-button">Cancel</button>
+                    <button>Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit-container">
+        <button type="submit" class="submit-button" style="margin-bottom:50px ;">Submit</button>
+    </div>
+</body>
+<script>
+    function updateFileName() {
+        const fileInput = document.getElementById('pdf-upload');
+        const uploadStatus = document.getElementById('upload-status');
+        if (fileInput.files.length > 0) {
+            uploadStatus.textContent = fileInput.files[0].name;
+        } else {
+            uploadStatus.textContent = 'No Files Selected';
+        }
+    }
+</script>
+
+{% endblock %}

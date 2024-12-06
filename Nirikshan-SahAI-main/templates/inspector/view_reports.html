@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+  View College Data
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   .navbar {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    padding: 10px 20px;
+   }
+   .navdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .navdiv .logo img {
+    height: 50px;
+    padding: 5px;
+   }
+   .navdiv ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+   }
+   .navdiv ul li {
+    margin-left: 20px;
+   }
+   .navdiv ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+   }
+   .navdiv .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+   }
+   .navdiv .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+   }
+   @media (max-width: 768px) {
+    .navdiv ul {
+     display: none;
+    }
+    .navdiv .hamburger {
+     display: flex;
+    }
+   }
+   .footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+   }
+
+   .action-button {
+    text-align: center;
+}
+
+.approve-button {
+    background-color: 0288d1;
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.approve-button:hover {
+    background-color: #0288d1;
+    transform: scale(1.05);
+}
+
+
+
+  </style>
+ </head>
+ <body class="bg-[#BED7DC]">
+  <nav class="navbar">
+   <div class="navdiv">
+    <div class="logo">
+     <a href="homepage.html">
+      <img alt="inspX.ai Logo" height="50" src="{% static 'images/logo.png' %}" style="padding: 5px;"/>
+     </a>
+    </div>
+    <ul>
+     <li>
+      <a href="{% url 'homepage' %}">
+       Home
+      </a>
+     </li>
+     <li>
+      <a href="{% url 'options' %}">
+       Login
+      </a>
+   </li>
+   <li>
+      <img src="{% static 'images/profile-placeholder.png'%}" 
+           alt="Profile" 
+           class="w-8 h-8 rounded-full border-2 border-blue-900 ml-2"
+           style="object-fit: cover;">
+   </li>
+    
+    </ul> 
+      
+     </div>
+     <div>
+     </div>
+     <div>
+     </div>
+    </div>
+   </div>
+  </nav>
+  <main class="p-4 md:p-8">
+   <h1 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-4 md:mb-6" style="margin-bottom:50px;margin-top:30px ;">
+    College Data Dashboard
+   </h1>
+  
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 md:gap-10" id="uploads" style="margin-bottom:50px ;">
+    <a class="bg-white p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300" href="{% url 'homepage' %}">
+     <i class="fas fa-file-pdf text-red-500 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-lg md:text-xl font-bold mb-1 md:mb-2">
+        View Mandatory Disclosure 
+     </h2>
+     <p class="text-gray-600 text-sm md:text-base">
+        View Mandatory Disclosure by college
+     </p>
+    </a>
+    <a class="bg-white p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300" href="{% url 'view_certificates' %}">
+     <i class="fas fa-certificate text-fuchsia-900 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-lg md:text-xl font-bold mb-1 md:mb-2">
+        View Certificates
+     </h2>
+     <p class="text-gray-600 text-sm md:text-base">
+        View certificates here
+     </p>
+    </a>
+    <a class="bg-white p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300" href="{% url 'view_image' %}">
+     <i class="fas fa-image text-green-500 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-lg md:text-xl font-bold mb-1 md:mb-2">
+        View Images
+     </h2>
+     <p class="text-gray-600 text-sm md:text-base">
+        View images of college infrastructure here
+     </p>
+    </a>
+    <a class="bg-white p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300" href="{% url 'annexure' %}">
+     <i class="fas fa-file text-blue-500 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-lg md:text-xl font-bold mb-1 md:mb-2">
+      View Annexure &amp; Affadavit
+     </h2>
+     <p class="text-gray-600 text-sm md:text-base">
+      View  AICTE annexure, affidavits, certificates and formats here
+     </p>
+    </a>
+    <a class="bg-sky-700 p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300" href="{% url 'report2' %}">
+     <i class="fas fa-file-alt text-yellow-200 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-white text-lg md:text-xl font-bold mb-1 md:mb-2">
+      View Reports
+     </h2>
+     <p class="text-white text-sm md:text-base">
+      View Reports Generated by NirikshanSahAI
+     </p>
+    </a>
+    <a class="bg-white p-4 md:p-6 rounded-lg shadow-md text-center block hover:shadow-lg transition-shadow duration-300"  href="{% url 'discussion_forum' %}" >
+
+     <i class="fas fa-comments text-orange-500 text-3xl md:text-4xl mb-2 md:mb-4">
+     </i>
+     <h2 class="text-lg md:text-xl font-bold mb-1 md:mb-2">
+      Discussion Forum
+     </h2>
+     <p class="text-gray-600 text-sm md:text-base">
+      Discussion Forum for Inspectors
+     </p>
+    </a>
+   </div>
+   
+  </main>
+  
+    
+ </a>
+ 
+ </body>
+
+ {% endblock %}

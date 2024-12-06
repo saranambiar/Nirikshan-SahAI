@@ -1,0 +1,109 @@
+{% extends 'inspector/forum_base.html' %}
+{% load static %}
+
+{% block title %}Discussion Thread{% endblock %}
+
+{% block extra_css %}
+<style>
+    .main-post {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .reply-card {
+        background: white;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+    }
+    .reply-card:hover {
+        transform: translateX(5px);
+    }
+    .reply-form {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Main Post -->
+<div class="main-post">
+    <div class="bg-white p-4 border-b">
+        <div class="flex items-center">
+            <img src="{% static 'images/profile-placeholder.png' %}" alt="User" 
+                 class="w-12 h-12 rounded-full border-2 border-gray-200 mr-3">
+            <div>
+                <h5 class="font-semibold text-lg">{{ post.user1.username }}</h5>
+                <span class="text-sm text-gray-500">{{ post.timestamp|date:"F d, Y H:i" }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="p-6">
+        <p class="text-gray-800 text-lg">{{ post.post_content }}</p>
+    </div>
+</div>
+
+<!-- Replies Section -->
+<div class="replies-section">
+    <h3 class="text-xl font-semibold mb-4 text-gray-800">Replies</h3>
+    
+    {% for reply in replies %}
+    <div class="reply-card">
+        <div class="flex items-start">
+            <img src="{% static 'images/profile-placeholder.png' %}" alt="User" 
+                 class="w-10 h-10 rounded-full border-2 border-gray-200 mr-3">
+            <div class="flex-grow">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold">{{ reply.user.username }}</span>
+                    <span class="text-sm text-gray-500">{{ reply.timestamp|date:"F d, Y H:i" }}</span>
+                </div>
+                <p class="text-gray-700">{{ reply.reply_content }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-4">
+        <p class="text-gray-600">No replies yet. Be the first to respond!</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Reply Form -->
+<div class="reply-form">
+    <h4 class="text-lg font-semibold mb-4">Post a Reply</h4>
+    {% if user.is_authenticated %}
+    <form method="POST" action="{% url 'create_reply' post.id %}">
+        {% csrf_token %}
+        <textarea name="content" rows="4" 
+                  class="w-full p-3 border rounded-lg mb-4"
+                  placeholder="Write your reply here..."></textarea>
+        <button type="submit" 
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Post Reply
+        </button>
+    </form>
+    {% else %}
+    <div class="text-center py-4">
+        <p class="text-gray-600">Please login to post a reply</p>
+        <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-800">Login here</a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Back to Forum Button -->
+<div class="mt-6">
+    <a href="{% url 'discussion_forum' %}" 
+       class="inline-flex items-center text-blue-600 hover:text-blue-800">
+        <i class="fas fa-arrow-left mr-2"></i>
+        Back to Forum
+    </a>
+</div>
+{% endblock %}

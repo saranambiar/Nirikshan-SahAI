@@ -1,0 +1,152 @@
+body {
+    background-color: #BED7DC;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    /* overflow: hidden; */
+    overflow-y: scroll;
+}
+
+
+.options-container {
+    text-align: center;
+    opacity: 0;
+    position: absolute;
+    /* min-height:100vh; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeOut 1s forwards, moveUp 1s forwards 1s;
+    width: 100%;
+    max-width: 1000px;
+    padding-top: 10%;
+}
+
+.options-heading {
+    color: #3e3e3e;
+    font-size: 4em;
+    margin-top: 200px;
+    margin-bottom: 90px;
+    animation: scaleUp 1s forwards;
+}
+
+.options-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.option-card {
+    background-color: #343434; /* Slightly lighter than before */
+    border: 3px solid #585757;  /* Added a subtle border */
+    border-radius: 15px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    animation-delay: 1s;
+    padding-top: 50px;
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+
+
+.option-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.option-card h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.option-card p {
+    font-size: 1em;
+    margin-bottom: 20px;
+    color: #03a9f4;
+}
+
+.option-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #ffffff;
+    background-color: #03a9f4;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.option-btn:hover {
+    background-color: #0288d1;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Existing animations */
+@keyframes scaleUp {
+    0% {
+        transform: scale(2) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        top: 50%;
+        opacity: 1;
+    }
+    100% {
+        top: 20%;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .options-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .options-container{
+        overflow-y:scroll ;
+    }
+    .option-card {
+        width: 80%;
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+}

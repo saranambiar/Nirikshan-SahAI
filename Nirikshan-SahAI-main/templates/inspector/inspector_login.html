@@ -1,0 +1,56 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+      <link rel="stylesheet" href="{% static 'css/inspector/inspector_login.css' %}">
+      <title>Inspector Login</title>
+   </head>
+   <body>
+      
+      <div class="login">
+         <img src="{% static 'images/login_bg4.jpeg' %}" alt="login image" class="login__img">
+
+         <form action="{% url 'inspector_check' %}" method="POST" class="login__form">
+            {% csrf_token %}
+            <h1 class="login__title">Login</h1>
+        
+            <div class="login__content">
+                <div class="login__box">
+                    <i class="ri-user-3-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="text" name="user_id" required class="login__input" id="login-email" placeholder=" ">
+                        <label for="login-email" class="login__label">User ID</label>
+                    </div>
+                </div>
+        
+                <div class="login__box">
+                    <i class="ri-lock-2-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="password" name="password" required class="login__input" id="login-pass" placeholder=" ">
+                        <label for="login-pass" class="login__label">Password</label>
+                        <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                    </div>
+                </div>
+            </div>
+        
+            <button type="submit" class="option-btn login__button">Login</button>
+            {% if messages %}
+            <div class="messages">
+            {% for message in messages %}
+            <h3><div class="alert {{ message.tags }}">{{ message }}</div></h3>
+            {% endfor %}
+            </div>
+            {% endif %}
+
+        </form>
+        
+      </div>
+   </body>
+</html>

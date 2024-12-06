@@ -1,0 +1,126 @@
+/* General styles for body */
+.body {
+    background-color: #BED7DC; /* Light blue background color */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for the form */
+.form-container {
+    background-color: #f0f0f0; /* Grey background for the form */
+    padding: 20px 30px;
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+    width: 100%;
+    max-width: 1100px; /* Responsive max-width */
+    overflow-y: auto; /* Allow vertical scroll if content overflows */
+    max-height: 90vh; /* Prevents the form from becoming too tall */
+}
+
+/* Form header */
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Individual form groups */
+
+    .form-group {
+        display: flex;  /* Use flexbox for layout */
+        align-items: flex-start; /* Align items to the top */
+        margin-bottom: 20px;
+    }
+
+/* Label styling */
+.form-group label {
+    font-weight: bold;
+    color: rgb(7, 7, 7);
+    width: 25%; /* Set a width to ensure it doesn’t take up too much space */
+    min-width: 100px; /* Minimum width to ensure readability */
+    text-align: left; /* Align text to the left */
+   
+    
+    
+   
+}
+
+
+.form-group span {
+    width: 50%; /* Set a width for details */
+    color: rgb(113, 112, 112);
+    font-size: 14px;
+    text-align: left; /* Align text to the left */
+}
+
+/* File input styling */
+.form-group input[type="file"] {
+    width: 20%; /* Ensure the input does not exceed form width */
+    padding: 5px;
+    
+    border-radius: 5px;
+    border: 1px transparent;
+    margin-left: 5px; /* Add a little space between label and input */
+}
+
+/* Upload button styling */
+.upload-button {
+    background-color: #44a2d1; /* Dark grey background */
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+    position: relative;
+    left: 25%;
+    text-align: center;
+    margin-top: 20px; /* Add margin for separation */
+}
+
+/* Upload button hover effect */
+.upload-button:hover {
+    background-color: #555; /* Lighter grey on hover */
+}
+
+/* Styles for form header */
+.disclaimer{
+    display: flex;
+    position: relative;
+    left: 230px;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: small;
+}
+.form-header {
+    display: flex;
+    
+    margin-bottom: 10px; 
+    font-weight: bold;
+    text-align: center;
+   position: relative;
+   column-gap: 100px;
+    left: -10px;
+    padding-bottom: 10px;
+    width: 1000px;
+   
+}
+
+.header-item {
+    width: 30%; 
+    color: #333; 
+    font-size: 16px;
+}
+
+.details{
+    font-size: 12px;
+    align-items: flex-start;
+    text-align: center;
+    color: #737272;
+    margin-top: 7px;
+}

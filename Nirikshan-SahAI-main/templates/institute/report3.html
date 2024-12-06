@@ -1,0 +1,517 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inspX.ai - Reports Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #0288d1;
+        --secondary-color: #03a9f4;
+        --background-color: #bed7dc;
+        --text-color: #333;
+        --card-bg-color: #ffffff;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        padding: 5px 20px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .navdiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 1rem;
+      }
+
+      .nav-items {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .navdiv .logo img {
+        height: 50px;
+        padding: 5px;
+        transition: transform 0.3s ease;
+      }
+
+      .navdiv .logo img:hover {
+        transform: scale(1.05);
+      }
+
+      .navdiv ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        gap: 2rem;
+      }
+
+      .navdiv ul li {
+        position: relative;
+      }
+
+      .navdiv ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .navdiv ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: #ffffff;
+        left: 0;
+        bottom: -2px;
+        transition: width 0.3s ease;
+      }
+
+      .navdiv ul li a:hover::after {
+        width: 100%;
+      }
+
+      .profile-container {
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+      }
+
+      .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #3b82f6;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.1);
+        border-color: #60a5fa;
+      }
+
+      .navdiv .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 100;
+        padding: 10px;
+      }
+
+      .navdiv .hamburger div {
+        width: 25px;
+        height: 2px;
+        background-color: white;
+        margin: 4px 0;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .navdiv ul {
+          display: none;
+        }
+
+        .mobile-menu {
+          display: block;
+          position: fixed;
+          top: 0;
+          right: -100%;
+          height: 100vh;
+          width: 80%;
+          background: linear-gradient(135deg, #2c3e50, #34495e);
+          transition: right 0.3s ease;
+          z-index: 98;
+          padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+          right: 0;
+        }
+
+        .mobile-menu .profile-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+        }
+
+        .mobile-menu .profile-img {
+          width: 80px;
+          height: 80px;
+          border-width: 3px;
+        }
+
+        .mobile-menu ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .mobile-menu ul li {
+          margin: 1.5rem 0;
+          text-align: center;
+        }
+
+        .mobile-menu ul li a {
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1.2rem;
+          display: block;
+          padding: 0.5rem 0;
+        }
+
+        .navdiv .hamburger {
+          display: flex;
+        }
+
+        .navdiv .hamburger.active div:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .navdiv .hamburger.active div:nth-child(2) {
+          opacity: 0;
+        }
+
+        .navdiv .hamburger.active div:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-items {
+          display: none;
+        }
+      }
+
+      /* Dashboard styles */
+      .dashboard {
+        padding: 20px 0 60px;
+      }
+
+      .dashboard-title {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 3.5rem;
+        color: var(--primary-color);
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+        justify-content: ce;
+      }
+
+      .card {
+        background-color: var(--card-bg-color);
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: var(--text-color);
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
+      }
+
+      .card-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+      }
+
+      .card p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .action-button {
+        text-align: center;
+      }
+
+      .approve-button {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        border: none;
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .approve-button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+      }
+
+      /* Container with perspective for the 3D effect */
+      .container {
+        perspective: 1000px; /* Creates a 3D space for the effect */
+      }
+
+      .main-content {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1);
+        filter: blur(0px);
+        transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out,
+          filter 0.8s ease-in-out;
+      }
+
+      .main-content.fade-out {
+        opacity: 0;
+        transform: rotateY(90deg) scale(0.9); /* 3D rotation */
+        filter: blur(8px); /* Blur out as it rotates */
+      }
+
+      .main-content.fade-in {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1);
+        filter: blur(0px); /* Clear and scale back to normal */
+      }
+
+      .info-btn {
+        background-color: #2c3e50;
+        color: #fff;
+        border: none;
+
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 100px;
+        right: 20px;
+      }
+
+      .info-btn:hover {
+        background-color: #2c3e50;
+      }
+
+      .info-dropdown {
+        position: absolute;
+        top: 140px;
+        right: 200px;
+
+        padding: 10px;
+        display: none;
+        width: 200px;
+      }
+
+      .info-dropdown h4 {
+        margin-top: 0;
+      }
+
+      .info-dropdown p {
+        margin-bottom: 0px;
+      }
+
+      .info-button:hover .info-dropdown {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo">
+          <a href="homepage.html">
+            <img
+              alt="inspX.ai Logo"
+              height="50"
+              src="{% static 'images/logo.png' %}"
+              style="padding: 5px"
+            />
+          </a>
+        </div>
+        <div class="nav-items">
+          <ul>
+            <li>
+              <a href="{% url 'homepage' %}">Home</a>
+            </li>
+            <li>
+              <a href="{% url 'options' %}">Login</a>
+            </li>
+          </ul>
+          <div class="profile-container">
+            <img
+              src="{% static 'images/profile-placeholder.png' %}"
+              alt="Profile"
+              class="profile-img"
+            />
+          </div>
+        </div>
+        <div class="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="mobile-menu">
+        <div class="profile-container">
+          <img
+            src="{% static 'images/profile-placeholder.png' %}"
+            alt="Profile"
+            class="profile-img"
+          />
+        </div>
+        <ul>
+          <li>
+            <a href="{% url 'homepage' %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'options' %}">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="dashboard main-content">
+      <div class="container">
+        <h1 class="dashboard-title">Reports Dashboard</h1>
+        <div class="card-grid">
+          <a href="Compliance_Report_ML.pdf" class="card">
+            <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+            <h2>Compliance Report</h2>
+            <p>Institution Compliance with AICTE norms and standards</p>
+          </a>
+          <a href="deficiency_report.pdf" class="card">
+            <div class="card-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Deficiency Report</h2>
+            <p>Highlights areas where institute lacks in meeting AICTE norms</p>
+          </a>
+          <a href="facultyreport.pdf" class="card">
+            <div class="card-icon"><i class="fas fa-users"></i></div>
+            <h2>Faculty Report</h2>
+            <p>
+              Highlights qualifications and compliance with norms regarding
+              Faculty
+            </p>
+          </a>
+          <a href="pattern_pred.html" class="card">
+            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+            <h2>Pattern Recognition</h2>
+            <p>
+              Predicts Patterns of student performance, infrastructure,
+              placement analysis
+            </p>
+          </a>
+        </div>
+      </div>
+      <div class="info-button">
+        <button class="info-btn">i</button>
+        <div class="info-dropdown">
+          <p><img src="Rubrics.png" height="160" width="380" /></p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".navbar ul");
+
+      hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+      });
+
+      window.addEventListener("load", function () {
+        const mainContent = document.querySelector(".dashboard");
+        // idhar cwc ka js...........
+        mainContent.classList.add("fade-in");
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.querySelector(".hamburger");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const overlay = document.createElement("div");
+        overlay.classList.add("mobile-menu-overlay");
+
+        hamburger.addEventListener("click", function (e) {
+          e.stopPropagation();
+          hamburger.classList.toggle("active");
+          mobileMenu.classList.toggle("active");
+        });
+
+        document.addEventListener("click", function (event) {
+          const isClickInsideMenu = mobileMenu.contains(event.target);
+          const isClickInsideHamburger = hamburger.contains(event.target);
+
+          if (
+            !isClickInsideMenu &&
+            !isClickInsideHamburger &&
+            mobileMenu.classList.contains("active")
+          ) {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("active");
+          }
+        });
+
+        const mobileLinks = document.querySelectorAll(".mobile-menu ul li a");
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

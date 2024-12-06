@@ -1,0 +1,141 @@
+{% extends 'inspector/forum_base.html' %}
+{% load static %}
+
+{% block title %}Discussion Forum{% endblock %}
+
+{% block extra_css %}
+<style>
+    .jumbotron {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .post-card {
+        background: white;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+    }
+    .post-card:hover {
+        transform: translateY(-3px);
+    }
+    .post-header {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    .post-content {
+        padding: 1.5rem;
+        color: #2c3e50;
+    }
+    .post-footer {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-top: 1px solid #eee;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 600px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Forum Header -->
+<div class="jumbotron text-center">
+    <h1 class="text-3xl font-bold text-blue-900 mb-4">AICTE Inspectors Discussion Forum</h1>
+    <p class="text-gray-600 mb-6">Connect with fellow inspectors to discuss inspection-related queries and share insights</p>
+    <button onclick="openModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        <i class="fas fa-plus-circle mr-2"></i>Add Post
+    </button>
+</div>
+
+<!-- Posts Container -->
+<div class="posts-container">
+    {% for post in posts %}
+    <div class="post-card">
+        <div class="post-header flex items-center">
+            <img src="{% static 'images/profile-placeholder.png' %}" alt="User" class="profile-img rounded-full mr-3">
+            <div>
+                <h5 class="font-semibold text-lg">{{ post.user1.username }}</h5>
+                <span class="text-sm text-gray-500">{{ post.timestamp|date:"F d, Y H:i" }}</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>{{ post.post_content }}</p>
+        </div>
+        <div class="post-footer flex justify-between items-center">
+            <a href="{% url 'view_discussion' post.id %}" class="text-blue-600 hover:text-blue-800">
+                <i class="fas fa-comments mr-2"></i>View Discussion
+            </a>
+            <span class="text-gray-500">
+                <i class="fas fa-reply mr-1"></i>{{ post.replies.count }} Replies
+            </span>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-8">
+        <p class="text-gray-600">No posts yet. Be the first to start a discussion!</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- New Post Modal -->
+<div id="postModal" class="modal">
+    <div class="modal-content">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Create New Post</h3>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form method="POST" action="{% url 'create_post' %}">
+            {% csrf_token %}
+            <textarea name="content" rows="5" class="w-full p-3 border rounded-lg mb-4" 
+                      placeholder="Write your post here..."></textarea>
+            <div class="flex justify-end">
+                <button type="button" onclick="closeModal()" class="mr-2 px-4 py-2 text-gray-600 hover:text-gray-800">
+                    Cancel
+                </button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Post
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function openModal() {
+        document.getElementById('postModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('postModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('postModal')) {
+            closeModal();
+        }
+    }
+</script>
+{% endblock %}

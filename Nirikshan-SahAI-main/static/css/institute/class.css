@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --primary: #000;
+  --white: #fff;
+  --background: #BED7DC;
+  --gray: #d3d3d3;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #bed7dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.container {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 900px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.form, .dropzone-box {
+  flex: 1;
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  max-width: 100%;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.message {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  flex-wrap: wrap; /* Allow labels to wrap to a new line */
+}
+
+.form label {
+  position: relative;
+  width: 100%; /* Make all labels full width */
+}
+
+
+.form label .input {
+  width: 100%;
+  padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  color: var(--primary);
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.75rem;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+    top: 0.75rem;
+    font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+    top: 1.75rem;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.form label .input:valid + span {
+    color: green;
+}
+
+.submit {
+    border: none;
+    outline: none;
+    background-color:  #03a9f4;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    color: black;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+    background-color: #333;
+}
+
+.dropzone-box h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.dropzone-area {
+    padding: 1rem;
+    position: relative;
+    margin-top: 1rem;
+    min-height: 16rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px dashed var(--primary);
+    border-radius: 1rem;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.dropzone-area [type="file"] {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.dropzone-area .file-upload-icon svg {
+    height: 5rem;
+    width: 5rem;
+    margin-bottom: 0.5rem;
+    stroke: var(--primary);
+}
+
+.dropzone--over {
+    border-style: solid;
+    background-color: var(--gray);
+}
+
+.dropzone-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--gray);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.dropzone-actions button {
+    flex-grow: 1;
+    min-height: 3rem;
+    font-size: 1rem;
+}
+
+.dropzone-actions button:hover {
+    text-decoration: underline;
+}
+
+.dropzone-actions button[type='reset'] {
+    background-color: transparent;
+    border: 1px solid var(--gray);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.dropzone-actions button[type='submit'] {
+    background-color:  #03a9f4;
+    border: 1px solid var(--primary);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: black;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form, .dropzone-box {
+        width: 100%;
+    }
+}
+
+
+*{
+  text-decoration: none;
+}
+.navbar{
+  background: rgb(0, 0, 0); font-family: calibri; padding-right: 10px;padding-left: 10px;
+}
+.navdiv{
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo a{
+  font-size: 25px; font-weight: bold; color: white;
+}
+li{
+  list-style: none; display: inline-block;
+}
+li a{
+  color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
+}
+button{
+  background-color: black; margin-left: 10px; border-radius: 10px; padding: 10px; width: 90px;
+}
+button a{
+  color: white; font-weight: bold; font-size: 15px;}

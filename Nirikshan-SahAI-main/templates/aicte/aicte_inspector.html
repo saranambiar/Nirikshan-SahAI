@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspector Profiles</title>
+  <link rel="stylesheet" href="inspector-profiles.css">
+</head>
+
+<style>
+    :root {
+      --primary-color: #0288d1;
+      --secondary-color: #03a9f4;
+      --background-color: #BED7DC;
+      --text-color: #333;
+      --card-bg-color: #ffffff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body{
+        background-color: #BED7DC;
+        margin: 0;
+    }
+    .navbar {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      padding: 10px 20px;
+    }
+
+    .navdiv {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navdiv .logo img {
+      height: 50px;
+      padding: 5px;
+    }
+
+    .navdiv ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navdiv ul li {
+      margin-left: 20px;
+    }
+
+    .navdiv ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .navdiv .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .navdiv .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      .navdiv ul {
+        display: none;
+      }
+      .navdiv .hamburger {
+        display: flex;
+      }
+    }
+
+  
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f5f5f5;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Modals */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navdiv">
+      <div class="logo">
+        <a href="homepage.html">
+          <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo" height="50" style="padding: 5px;">
+        </a>
+      </div>
+      <ul>
+        <li><a href="{% url 'homepage' %}">Home</a></li>
+        <li><a href="{% url 'aictemain' %}">Admin Controls</a></li>
+      </ul>
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Inspector Profiles</h1>
+    <button class="btn" id="add-inspector-btn">Add Inspector</button>
+    {% comment %} <a href="{% url 'inspector_create' %}" class="btn">Add Inspector</a> {% endcomment %}
+    <table id="inspector-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inspector in inspectors %}
+        <tr>
+          <td>{{ inspector.user_id }}</td>
+          <td>••••••••</td>
+          <td>
+            <button class="view-inspector-btn" data-id="{{ inspector.id }}">View</button>
+            <button class="edit-inspector-btn btn-primary"
+                    data-id="{{ inspector.id }}" 
+                    data-user-id="{{ inspector.user_id }}" 
+                    data-password="{{ inspector.password }}">
+                    Edit
+            </button>
+            <form action="{% url 'inspector_delete' inspector.id %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="delete-btn btn-danger" onclick="return confirm('Are you sure you want to delete this inspector?');">
+                  Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="inspector-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Add Inspector</h2>
+      <form action="{% url 'inspector_create' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="user_id">User ID:</label>
+          <input type="text" id="user_id" name="user_id" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="view-inspector-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Inspector Details</h2>
+        <div id="inspector-details">
+            <!-- Inspector details will be loaded here -->
+        </div>
+    </div>
+  </div>
+
+  <div id="edit-inspector-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Edit Inspector</h2>
+        <form id="edit-inspector-form" action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="edit-user-id">User ID:</label>
+                <input type="text" id="edit-user-id" name="user_id" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-password">Password:</label>
+                <input type="password" id="edit-password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("inspector-modal");
+    const openModalBtn = document.getElementById("add-inspector-btn");
+    const closeModalBtn = document.querySelector(".close-button");
+
+    // Open Modal
+    openModalBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+
+    // Close Modal
+    closeModalBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close Modal on Click Outside
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('view-inspector-modal');
+      const closeModalBtn = modal.querySelector('.close-button');
+      const detailsContainer = document.getElementById('inspector-details');
+
+      // Open Modal and Fetch Details
+      document.querySelectorAll('.view-inspector-btn').forEach(button => {
+          button.addEventListener('click', async (event) => {
+              const inspectorId = event.target.getAttribute('data-id');
+
+              try {
+                  // Fetch inspector details using AJAX
+                  const response = await fetch(`/inspectors/${inspectorId}/`);
+                  if (!response.ok) throw new Error('Failed to fetch details');
+                  const data = await response.json();
+
+                  // Populate modal with inspector details
+                  detailsContainer.innerHTML = `
+                      <p><strong>User ID:</strong> ${data.user_id}</p>
+                      <p><strong>Password:</strong> ${data.password}</p>
+                  `;
+
+                  // Show modal
+                  modal.style.display = 'block';
+              } catch (error) {
+                  alert('Error fetching inspector details: ' + error.message);
+              }
+          });
+      });
+
+      // Close Modal
+      closeModalBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+      });
+
+      // Close Modal on Outside Click
+      window.addEventListener('click', (event) => {
+          if (event.target === modal) {
+              modal.style.display = 'none';
+          }
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Modal elements
+      const modal = document.getElementById("edit-inspector-modal");
+      const closeButton = modal.querySelector(".close-button");
+      const userIdInput = document.getElementById("edit-user-id");
+      const passwordInput = document.getElementById("edit-password");
+      const editForm = document.getElementById("edit-inspector-form");
+
+      // Open modal when edit button is clicked
+      document.querySelectorAll(".edit-inspector-btn").forEach(button => {
+          button.addEventListener("click", function () {
+              const inspectorId = this.dataset.id;
+              const userId = this.dataset.userId;
+              const password = this.dataset.password;
+
+              // Populate modal inputs
+              userIdInput.value = userId;
+              passwordInput.value = password;
+
+              // Update form action
+              editForm.action = `/inspectors/${inspectorId}/update/`;
+
+              // Show modal
+              modal.style.display = "block";
+          });
+      });
+
+      // Close modal
+      closeButton.addEventListener("click", function () {
+          modal.style.display = "none";
+      });
+
+      // Close modal when clicking outside of the content
+      window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+              modal.style.display = "none";
+          }
+      });
+    });
+
+  </script>
+</body>
+
+
+{% endblock %}

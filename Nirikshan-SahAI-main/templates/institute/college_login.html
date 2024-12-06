@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/institute/college_login.css' %}"
+    />
+    <title>Login</title>
+  </head>
+  <body>
+    <header></header>
+    <div class="login">
+      <img
+        src="{% static 'images/login_bg4.jpeg' %}"
+        alt="login image"
+        class="login__img"
+      />
+
+      <form
+        action="{% url 'college_login_check' %}"
+        method="POST"
+        class="login__form"
+      >
+        {% csrf_token %}
+        <h1 class="login__title">Login</h1>
+
+        <!-- {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+          <div
+            class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} -->
+
+        <div class="login__content">
+          <div class="login__box">
+            <div class="login__box-input">
+              <input
+                type="text"
+                name="college_name"
+                required
+                class="login__input"
+                id="login-email"
+                placeholder=" "
+              />
+              <label for="login-email" class="login__label">College Name</label>
+            </div>
+          </div>
+
+          <div class="login__box">
+            <div class="login__box-input">
+              <input
+                type="text"
+                name="college_code"
+                required
+                class="login__input"
+                id="login-code"
+                placeholder=" "
+              />
+              <label for="login-code" class="login__label">College Code</label>
+            </div>
+          </div>
+
+          <div class="login__box">
+            <div class="login__box-input">
+              <input
+                type="password"
+                name="password"
+                required
+                class="login__input"
+                id="login-password"
+                placeholder=" "
+              />
+              <label for="login-password" class="login__label">Password</label>
+              <i
+                class="ri-eye-off-line login__eye"
+                id="toggle-password"
+                onclick="togglePasswordVisibility()"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="option-btn login__button">Login</button>
+
+        {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+          <div
+            class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="login__register">
+          Don't have an account?
+          <a href="{% url 'signup' %}">Sign up</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("login-password");
+        const eyeIcon = document.getElementById("toggle-password");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.classList.remove("ri-eye-off-line");
+          eyeIcon.classList.add("ri-eye-line");
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.classList.remove("ri-eye-line");
+          eyeIcon.classList.add("ri-eye-off-line");
+        }
+      }
+    </script>
+  </body>
+</html>
