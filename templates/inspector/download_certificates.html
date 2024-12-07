@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Download Certificate</h2>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="college_name">College Name</label>
+            <input type="text" class="form-control" id="college_name" name="college_name" required>
+        </div>
+        <div class="form-group">
+            <label for="certificate_id">Certificate ID</label>
+            <input type="text" class="form-control" id="certificate_id" name="certificate_id" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Download Certificate</button>
+    </form>
+</div>
+{% endblock %}

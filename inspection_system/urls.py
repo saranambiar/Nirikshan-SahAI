@@ -29,7 +29,6 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('options/', views.options, name='options'),
     path('certificates/upload/', views.upload_certificate, name='upload_certificate'),
-    path('certificates/view/', views.view_certificates, name='view_certificates'),
     
     path('inspector/', include('inspector.urls')),
 
@@ -53,7 +52,6 @@ urlpatterns = [
     path('report2/', views.report2, name="report2"),
     path('view_reports/', views.view_reports, name='view_reports'),
     path('discussion-forum/', views.discussion_forum, name='discussion_forum'),
-    path('view_certificates/', views.view_certificates, name='view_certificates'),
     path('feedback/', views.feedback, name="feedback"),
     path('pattern_pred/',views.pattern_pred, name='pattern_pred'),
     path('view_classroom/',views.view_classroom, name='view_classroom'),

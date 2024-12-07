@@ -2,39 +2,317 @@
 {% load static %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Certificates</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Inspector Panel</a>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #bed7dc;
+      }
+      .view-container {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 2rem;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .view-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .certificate-section {
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        background: #f9f9f9;
+      }
+      .certificate-section h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3498db;
+      }
+      .table-container {
+        margin-top: 2rem;
+      }
+      .btn-primary {
+        background-color: #3498db;
+        border: none;
+        transition: background 0.3s ease;
+      }
+      .btn-primary:hover {
+        background-color: #2980b9;
+      }
+      .btn-success {
+        background-color: #2ecc71;
+        border: none;
+        transition: background 0.3s ease;
+      }
+      .btn-success:hover {
+        background-color: #27ae60;
+      } 
+
+
+   .navbar {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    padding: 10px 20px;
+   }
+   .navdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .navdiv .logo img {
+    height: 50px;
+    padding: 5px;
+   }
+   .navdiv ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+   }
+   .navdiv ul li {
+    margin-left: 20px;
+   }
+   .navdiv ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+   }
+   .navdiv .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+   }
+   .navdiv .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+   }
+   @media (max-width: 768px) {
+    .navdiv ul {
+     display: none;
+    }
+    .navdiv .hamburger {
+     display: flex;
+    }
+   }
+   .footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+   }
+
+   .action-button {
+    text-align: center;
+}
+
+.approve-button {
+    background-color: 0288d1;
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.approve-button:hover {
+    background-color: #0288d1;
+    transform: scale(1.05);
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.profile-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.profile-name {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.dropdown-arrow {
+  fill: white;
+  transition: transform 0.2s;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #2c3e50;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+  z-index: 1000;
+  margin-top: 10px;
+}
+
+.profile-dropdown a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.profile-dropdown a:hover {
+  background-color: #34495e;
+}
+
+.profile-dropdown-icon {
+  margin-right: 10px;
+}
+
+.profile-dropdown.show {
+  display: block;
+}
+
+.profile-container:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+
+  </style>
+ </head>
+
+ <body class="bg-[#BED7DC]">
+   <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo">
+         <a href="{% url 'homepage' %}">
+            <img alt="inspX.ai Logo" height="50" src="{% static 'images/logo.png' %}" style="padding: 5px;" />
+          </a>
+        </div>
+        <ul>
+         <li><a href="{% url 'homepage' %}">Home</a></li>
+          </li>
+          <li class="profile-container">
+            <button class="profile-button" onclick="toggleDropdown()">
+              <img src="{% static 'images/profile-placeholder.png' %}" 
+                   alt="Profile Picture" 
+                   class="profile-image">
+              <span class="profile-name">{{ request.session.user_id }}</span>
+              <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div id="profileDropdown" class="profile-dropdown">
+              <a href="{% url 'inspector_logout' %}">
+                <svg class="profile-dropdown-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+              </a>
+            </div>
+          </li>
+          
+          
+        </ul>
+        
     </nav>
 
-    <div class="container mt-4">
-        <h1>Uploaded Certificates</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Certificate Name</th>
-                    <th>Uploaded By</th>
-                    <th>View Certificate</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cert in certificates %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ cert.name }}</td>
-                    <td>{{ cert.uploaded_by }}</td>
-                    <td><a href="{{ cert.url }}" target="_blank" class="btn btn-primary">View</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
+    
+ <script>
+   function toggleDropdown() {
+     const dropdown = document.getElementById('profileDropdown');
+     dropdown.classList.toggle('show');
+   }
+ 
+   document.addEventListener('click', function (event) {
+     const profileContainer = document.querySelector('.profile-container');
+     const dropdown = document.getElementById('profileDropdown');
+     if (!profileContainer.contains(event.target)) {
+       dropdown.classList.remove('show');
+     }
+   });
+ </script>
+
+
+    <div class="view-container">
+      <div class="view-header">
+        <h1>View Uploaded Certificates</h1>
+        <p class="disclaimer">
+          Below is the list of certificates uploaded by the college
+        </p>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Certificate Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cert in certificates %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ cert.name }}</td>
+              <td>{{ cert.uploaded_by }}</td>
+              <td>
+                <!-- <a href="{{ cert.url }}" target="_blank" class="btn btn-primary btn-sm">View</a> -->
+
+                <a
+                 href="{% url 'download_uploaded_certificate' cert.id %}" 
+                  
+                  class="btn btn-success btn-sm"
+                  >Download</a
+                >
+
+              </td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
         </table>
+      </div>
     </div>
-</body>
+  </body>
 {% endblock %}
+
+
+

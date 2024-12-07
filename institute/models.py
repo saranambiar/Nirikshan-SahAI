@@ -32,3 +32,7 @@ class certificate(Document):
     meta = {
         'collection': 'certificate_unverified'
     }
+    
+    def url(self):
+        # Ensure the URL is returned from the correct file field
+        return self.file.url if self.file else None
