@@ -1,7 +1,7 @@
 # models.py
 from django.db import models
 from django.contrib.auth.models import User
-from mongoengine import Document,StringField,FileField
+from mongoengine import Document,StringField,ListField
 
 class Post(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,6 +24,7 @@ class Reply(models.Model):
 class Inspector(Document):
     user_id = StringField(required=True, unique=True)
     password = StringField(required=True)
+    colleges = ListField(required=False)
 
     meta = {
         'collection': 'inspector'  # Maps to the "inspector" collection in MongoDB

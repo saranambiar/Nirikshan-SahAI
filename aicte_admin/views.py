@@ -50,7 +50,8 @@ def inspector_create(request):
             # Manually save the data to MongoDB
             inspector = Inspector(
                 user_id=form.cleaned_data['user_id'],
-                password=form.cleaned_data['password']
+                password=form.cleaned_data['password'],
+                colleges=[]
             )
             inspector.save()
             return redirect('inspector_list')
