@@ -49,6 +49,32 @@ def upload_certificate(request):
     return render(request,'institute/upload_certificate.html')
 
 
+def annexure(request):
+    return render(request,'institute/annexure.html')
+
+def upload_image(request):
+    return render(request,'institute/upload_image.html')
+
+def upload_excel(request):
+    return render(request,'institute/upload_excel.html')
+
+
+def feedback_view(request):
+    return render(request,'institute/feedback_view.html')
+
+def classroom_upload(request):
+    return render(request,'institute/classroom_upload.html')
+
+def canteen_upload(request):
+    return render(request,'institute/canteen_upload.html')
+
+def report3(request):
+    return render(request,'institute/report3.html')
+
+
+
+
+
 
 
 

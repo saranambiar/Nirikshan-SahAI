@@ -1,50 +1,560 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
-    <link rel="stylesheet" href="feedback_view.css">
-</head>
-<body>
-    <nav class="navbar">
-		<div class="navdiv">
-			<div class="logo"><a href="homepage.html">
-                <img src="./assets/logo.png" alt="inspX.ai Logo" height="50" style="padding: 5px;">
-            </a> </div>
-			<ul>
-				<li><a href="homepage.html">Home</a></li>
-				<li><a href="options.html">Login</a></li>
-			</ul>
-		</div>
-	</nav>
-    <div class="container-wrapper">
-        <div class="container">
-            <div class="card">
-                <h2>View Feedback</h2>
-                <p>View feedback given by inspectors after evaluating the reports </p>
-                <form>
-                    <div class="form-group">
-                        <textarea placeholder="Infrastructure Enhancement: While the infrastructure meets basic regulatory requirements, several areas need modernization, particularly in laboratories and research facilities. Outdated equipment may hinder student learning and limit research output. ................................................................Faculty Development: Many faculty members lack exposure to the latest teaching methodologies and industry advancements. While they are qualified, regular upskilling is necessary to maintain the relevance of their instruction."></textarea>
-                    </div>
-                    <button type="submit">Save</button>
-                </form>
-            </div>
-            
-            
-        </div>
-    </div>
-    
-</body>
-<script>
-    function updateFileName() {
-        const fileInput = document.getElementById('pdf-upload');
-        const uploadStatus = document.getElementById('upload-status');
-        if (fileInput.files.length > 0) {
-            uploadStatus.textContent = fileInput.files[0].name;
-        } else {
-            uploadStatus.textContent = 'No Files Selected';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback View | Nirakshan Sahai</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+      :root {
+        --primary-color: #1a73e8;
+        --secondary-color: #34495e;
+        --background-light: #bed7dc;
+        --text-dark: #2c3e50;
+        --card-background: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--background-light);
+        font-family: "Inter", "Roboto", "Arial", sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+      }
+
+      .navbar {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        padding: 5px 20px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .navdiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 1rem;
+      }
+
+      .nav-items {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .navdiv .logo img {
+        height: 50px;
+        padding: 5px;
+        transition: transform 0.3s ease;
+      }
+
+      .navdiv .logo img:hover {
+        transform: scale(1.05);
+      }
+
+      .navdiv ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        gap: 2rem;
+      }
+
+      .navdiv ul li {
+        position: relative;
+      }
+
+      .navdiv ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .navdiv ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: #ffffff;
+        left: 0;
+        bottom: -2px;
+        transition: width 0.3s ease;
+      }
+
+      .navdiv ul li a:hover::after {
+        width: 100%;
+      }
+
+      .profile-container {
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+      }
+
+      .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #3b82f6;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.1);
+        border-color: #60a5fa;
+      }
+
+      .navdiv .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 100;
+        padding: 10px;
+      }
+
+      .navdiv .hamburger div {
+        width: 25px;
+        height: 2px;
+        background-color: white;
+        margin: 4px 0;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .navdiv ul {
+          display: none;
         }
-    }
-</script>
+
+        .mobile-menu {
+          display: block;
+          position: fixed;
+          top: 0;
+          right: -100%;
+          height: 100vh;
+          width: 80%;
+          background: linear-gradient(135deg, #2c3e50, #34495e);
+          transition: right 0.3s ease;
+          z-index: 98;
+          padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+          right: 0;
+        }
+
+        .mobile-menu .profile-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+        }
+
+        .mobile-menu .profile-img {
+          width: 80px;
+          height: 80px;
+          border-width: 3px;
+        }
+
+        .mobile-menu ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .mobile-menu ul li {
+          margin: 1.5rem 0;
+          text-align: center;
+        }
+
+        .mobile-menu ul li a {
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1.2rem;
+          display: block;
+          padding: 0.5rem 0;
+        }
+
+        .navdiv .hamburger {
+          display: flex;
+        }
+
+        .navdiv .hamburger.active div:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .navdiv .hamburger.active div:nth-child(2) {
+          opacity: 0;
+        }
+
+        .navdiv .hamburger.active div:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-items {
+          display: none;
+        }
+      }
+
+      .container-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 100px);
+        padding: 50px 15px;
+      }
+
+      .feedback-container {
+        background: var(--card-background);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+          0 10px 20px rgba(0, 0, 0, 0.05);
+        max-width: 900px;
+        width: 100%;
+        padding: 50px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .feedback-container:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12),
+          0 15px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .feedback-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, var(--primary-color), #03a9f4);
+      }
+
+      .feedback-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .feedback-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin: 0;
+        position: relative;
+      }
+
+      .feedback-header h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+      }
+
+      .feedback-content {
+        background-color: #f9fafb;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        min-height: 250px;
+        font-size: 16px;
+        line-height: 1.8;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .feedback-content:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2),
+          inset 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .feedback-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .action-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: all 0.3s ease;
+      }
+
+      .action-btn:hover::before {
+        left: 100%;
+      }
+
+      .download-btn {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .download-btn:hover {
+        background-color: #1967d2;
+        transform: translateY(-3px);
+      }
+
+      .share-btn {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .share-btn:hover {
+        background-color: #388e3c;
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 768px) {
+        .feedback-container {
+          padding: 30px;
+          margin: 0 15px;
+        }
+
+        .feedback-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .feedback-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .action-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo">
+          <a href="{% url 'homepage' %}">
+            <img alt="inspX.ai Logo" src="{% static 'images/logo.png' %}" />
+          </a>
+        </div>
+        <div class="nav-items">
+          <ul>
+            <li>
+              <a href="{% url 'homepage' %}">Home</a>
+            </li>
+            <li>
+              <a href="{% url 'options' %}">Login</a>
+            </li>
+          </ul>
+          <div class="profile-container">
+            <img
+              src="{% static 'images/profile-placeholder.png' %}"
+              alt="Profile"
+              class="profile-img"
+            />
+          </div>
+        </div>
+        <div class="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="mobile-menu">
+        <div class="profile-container">
+          <img
+            src="{% static 'images/profile-placeholder.png' %}"
+            alt="Profile"
+            class="profile-img"
+          />
+        </div>
+        <ul>
+          <li>
+            <a href="{% url 'homepage' %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'options' %}">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-wrapper">
+      <div class="feedback-container">
+        <div class="feedback-header">
+          <h2>Feedback</h2>
+        </div>
+
+        <div
+          class="feedback-content"
+          id="feedbackContent"
+          contenteditable="true"
+          placeholder="Enter your feedback here..."
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, quasi,
+          itaque quibusdam ab consectetur aliquam eveniet odio blanditiis, quam
+          ratione mollitia voluptates aperiam ullam exercitationem libero! Eius
+          quo soluta quaerat!
+        </div>
+
+        <div class="feedback-actions">
+          <button class="action-btn download-btn" id="downloadBtn">
+            <i class="fas fa-download"></i> Download Report
+          </button>
+          <button class="action-btn share-btn" id="shareBtn">
+            <i class="fas fa-share-alt"></i> Share Insights
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          const content = document.getElementById("feedbackContent");
+          const websiteName = "Nirakshan Sahai";
+          const introduction =
+            "We are a leading AI-powered inspection and quality control solution provider, dedicated to revolutionizing industrial processes through cutting-edge technology.";
+
+          // Create a new div to hold all the content for the PDF
+          const pdfContent = document.createElement("div");
+          pdfContent.innerHTML = `
+                    <h1 style="color: #1a73e8; font-size: 24px; text-align: center; margin-bottom: 10px;">${websiteName}</h1>
+                    <p style="font-size: 14px; margin-bottom: 20px; text-align: justify;">${introduction}</p>
+                    <h2 style="color: #34495e; font-size: 18px; margin-bottom: 10px;">Feedback Content:</h2>
+                    ${content.innerHTML}
+                `;
+
+          // Options for html2pdf
+          const opt = {
+            margin: 1,
+            filename: "nirakshan_sahai_feedback.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+          };
+
+          // Generate PDF
+          html2pdf().set(opt).from(pdfContent).save();
+        });
+
+      document
+        .getElementById("shareBtn")
+        .addEventListener("click", function () {
+          const content = document.getElementById("feedbackContent").innerText;
+
+          if (navigator.share) {
+            navigator
+              .share({
+                title: "Enterprise Feedback Insights",
+                text: content,
+              })
+              .catch(console.error);
+          } else {
+            alert("Web Share API not supported in this browser");
+          }
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.querySelector(".hamburger");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const overlay = document.createElement("div");
+        overlay.classList.add("mobile-menu-overlay");
+
+        hamburger.addEventListener("click", function (e) {
+          e.stopPropagation();
+          hamburger.classList.toggle("active");
+          mobileMenu.classList.toggle("active");
+        });
+
+        document.addEventListener("click", function (event) {
+          const isClickInsideMenu = mobileMenu.contains(event.target);
+          const isClickInsideHamburger = hamburger.contains(event.target);
+
+          if (
+            !isClickInsideMenu &&
+            !isClickInsideHamburger &&
+            mobileMenu.classList.contains("active")
+          ) {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("active");
+          }
+        });
+
+        const mobileLinks = document.querySelectorAll(".mobile-menu ul li a");
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("active");
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
+
+{% endblock %}

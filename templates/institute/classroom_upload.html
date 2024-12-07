@@ -1,135 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>GevStack - Form and Dropzone</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="class.css">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+      }
 
-<body>
-    
+      :root {
+        --primary: #000;
+        --white: #fff;
+        --background: #bed7dc;
+        --gray: #d3d3d3;
+        --input-border-focus: #03a9f4;
+        --input-label-active: #03a9f4;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background-color: #bed7dc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 1rem;
+      }
+
+      .container {
+        display: flex;
+        gap: 1.5rem;
+        max-width: 900px;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .form,
+      .dropzone-box {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form {
+        max-width: 100%;
+      }
+
+      .title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      .message {
+        color: rgba(88, 87, 87, 0.822);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .flex {
+        display: flex;
+        width: 100%;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .form label {
+        position: relative;
+        width: 100%;
+      }
+
+      .form label .input {
+        width: 100%;
+        padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+        border: 2px solid var(--gray);
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        color: var(--primary);
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .form label .input:focus {
+        border-color: var(--input-border-focus);
+        box-shadow: 0 0 8px rgba(3, 169, 244, 0.3);
+      }
+
+      .form label .input + span {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.75rem;
+        color: grey;
+        font-size: 0.9em;
+        cursor: text;
+        transition: 0.3s ease;
+        pointer-events: none;
+      }
+
+      .form label .input:placeholder-shown + span {
+        top: 0.75rem;
+        font-size: 0.9em;
+      }
+
+      .form label .input:focus + span,
+      .form label .input:valid + span {
+        top: -0.75rem;
+        font-size: 0.7em;
+        font-weight: 600;
+        color: var(--input-label-active);
+        background-color: var(--white);
+        padding: 0 0.25rem;
+      }
+
+      .form label .input:valid + span {
+        color: green;
+      }
+
+      .submit {
+        border: none;
+        outline: none;
+        background-color: #03a9f4;
+        padding: 0.8rem 1rem;
+        border-radius: 0.5rem;
+        color: black;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* .submit:hover {
+        background-color: #333;
+        color: white;
+      } */
+
+      .submit::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: all 0.5s ease;
+      }
+
+      .submit:hover::before {
+        left: 100%;
+      }
+
+      .dropzone-box h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .dropzone-area {
+        padding: 1rem;
+        position: relative;
+        margin-top: 1rem;
+        min-height: 16rem;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 2px dashed var(--primary);
+        border-radius: 1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .dropzone-area [type="file"] {
+        cursor: pointer;
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .dropzone-area .file-upload-icon svg {
+        height: 5rem;
+        width: 5rem;
+        margin-bottom: 0.5rem;
+        stroke: var(--primary);
+      }
+
+      .dropzone--over {
+        border-style: solid;
+        background-color: var(--gray);
+      }
+
+      .dropzone-actions {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        border-top: 1px solid var(--gray);
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .dropzone-actions button {
+        flex-grow: 1;
+        min-height: 3rem;
+        font-size: 1rem;
+      }
+
+      .dropzone-actions button:hover {
+        text-decoration: underline;
+      }
+
+      .dropzone-actions button[type="reset"] {
+        background-color: transparent;
+        border: 1px solid var(--gray);
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .dropzone-actions button[type="submit"] {
+        background-color: #03a9f4;
+        border: 1px solid var(--primary);
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        color: black;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .form,
+        .dropzone-box {
+          width: 100%;
+        }
+      }
+
+      button {
+        background-color: black;
+        margin-left: 10px;
+        border-radius: 10px;
+        padding: 10px;
+        width: 90px;
+      }
+
+      button a {
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
     <div class="container">
-        <form class="form">
-            <p class="title">Enter College Data</p>
-            <p class="message">Enter Norms to be followed for inspection</p>
-            <div class="flex">
-                <label style="height: 50px;">
-                    <input required="" placeholder="" type="text" class="input" >
-                    <span>Branch</span>
-                </label>
+      <form class="form">
+        <p class="title">Enter College Data</p>
+        <p class="message">Enter Norms to be followed for inspection</p>
+        <div class="flex">
+          <label style="height: 50px">
+            <input required="" placeholder="" type="text" class="input" />
+            <span>Branch</span>
+          </label>
 
-                <label>
-                    <input required="" placeholder="" type="number" class="input">
-                    <span>Intake of Branch</span>
-                </label>
-            </div>
+          <label>
+            <input required="" placeholder="" type="number" class="input" />
+            <span>Intake of Branch</span>
+          </label>
+        </div>
 
-            <label>
-                <input required="" placeholder="" type="text" class="input">
-                <span>Number of Divisions</span>
-            </label>
+        <label>
+          <input required="" placeholder="" type="text" class="input" />
+          <span>Number of Divisions</span>
+        </label>
 
-            <label style="height: 90px;">
-                <input required="" placeholder="" type="number" class="input">
-                <span>Number of Batches per Divisions</span>
-            </label>
+        <label style="height: 90px">
+          <input required="" placeholder="" type="number" class="input" />
+          <span>Number of Batches per Divisions</span>
+        </label>
 
-            <button class="submit">Submit</button>
-        </form>
+        <button class="submit">Submit</button>
+      </form>
 
-        <form class="dropzone-box">
-            <h2>Upload Image</h2>
-            <p>Label each image with Classroom number</p>
-            <div class="dropzone-area">
-                <div class="file-upload-icon">
-                    <!-- SVG icon for file upload -->
-                    <svg width="800px" height="800px" viewBox="0 -2 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>image_picture</title>
-                        <desc>Created with Sketch.</desc>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Dribbble-Light-Preview" transform="translate(-340.000000, -3881.000000)" fill="#000000">
-                                <g id="icons" transform="translate(56.000000, 160.000000)">
-                                    <path d="M296,3725.5 C296,3724.948 296.448,3724.5 297,3724.5 C297.552,3724.5 298,3724.948 298,3725.5 C298,3726.052 297.552,3726.5 297,3726.5 C296.448,3726.5 296,3726.052 296,3725.5 L296,3725.5 Z M296.75,3728.75 L300,3733 L288,3733 L292.518,3726.812 L295.354,3730.625 L296.75,3728.75 Z M302,3734 C302,3734.552 301.552,3735 301,3735 L287,3735 C286.448,3735 286,3734.552 286,3734 L286,3724 C286,3723.448 286.448,3723 287,3723 L301,3723 C301.552,3723 302,3723.448 302,3724 L302,3734 Z M302,3721 L286,3721 C284.896,3721 284,3721.895 284,3723 L284,3735 C284,3736.104 284.896,3737 286,3737 L302,3737 C303.105,3737 304,3736.104 304,3735 L304,3723 C304,3721.895 303.105,3721 302,3721 L302,3721 Z" id="image_picture">
-                                    </path>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <p>Click to upload or drag and drop</p>
-                <input type="file" required id="upload-file" name="uploaded-file">
-                <p class="message">No Files Selected</p>
-            </div>
-            <div class="dropzone-actions">
-                <button type="reset">Cancel</button>
-                <button id="submit-button" type="submit">Save</button>
-            </div>
-        </form>
+      <form class="dropzone-box">
+        <h2>Upload Image</h2>
+        <p>Label each image with Classroom number</p>
+        <div class="dropzone-area">
+          <div class="file-upload-icon">
+            <!-- SVG icon for file upload -->
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 -2 20 20"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>image_picture</title>
+              <desc>Created with Sketch.</desc>
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="Dribbble-Light-Preview"
+                  transform="translate(-340.000000, -3881.000000)"
+                  fill="#000000"
+                >
+                  <g id="icons" transform="translate(56.000000, 160.000000)">
+                    <path
+                      d="M296,3725.5 C296,3724.948 296.448,3724.5 297,3724.5 C297.552,3724.5 298,3724.948 298,3725.5 C298,3726.052 297.552,3726.5 297,3726.5 C296.448,3726.5 296,3726.052 296,3725.5 L296,3725.5 Z M296.75,3728.75 L300,3733 L288,3733 L292.518,3726.812 L295.354,3730.625 L296.75,3728.75 Z M302,3734 C302,3734.552 301.552,3735 301,3735 L287,3735 C286.448,3735 286,3734.552 286,3734 L286,3724 C286,3723.448 286.448,3723 287,3723 L301,3723 C301.552,3723 302,3723.448 302,3724 L302,3734 Z M302,3721 L286,3721 C284.896,3721 284,3721.895 284,3723 L284,3735 C284,3736.104 284.896,3737 286,3737 L302,3737 C303.105,3737 304,3736.104 304,3735 L304,3723 C304,3721.895 303.105,3721 302,3721 L302,3721 Z"
+                      id="image_picture"
+                    ></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <p>Click to upload or drag and drop</p>
+          <input type="file" required id="upload-file" name="uploaded-file" />
+          <p class="message">No Files Selected</p>
+        </div>
+        <div class="dropzone-actions">
+          <button type="reset">Cancel</button>
+          <button id="submit-button" type="submit">Save</button>
+        </div>
+      </form>
     </div>
 
     <script>
-        const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
+      
 
-        const inputFiles = document.querySelectorAll(".dropzone-area input[type='file']");
 
-        const inputElement = inputFiles[0];
 
-        const dropZoneElement = inputElement.closest(".dropzone-area");
 
-        inputElement.addEventListener("change", (e) => {
-            if (inputElement.files.length) {
-                updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
-            }
+
+
+
+      
+
+      import { v2 as cloudinary } from 'cloudinary';
+
+(async function() {
+
+    
+    cloudinary.config({ 
+        cloud_name: 'dynxzxqsb', 
+        api_key: '491834354871145', 
+        api_secret: 'JAzYjhW7CXXvUFehk'
+    });
+    
+    // Upload an image
+     const uploadResult = await cloudinary.uploader
+       .upload(
+           'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
+               public_id: 'shoes',
+           }
+       )
+       .catch((error) => {
+           console.log(error);
+       });
+    
+    console.log(uploadResult);
+    
+    const optimizeUrl = cloudinary.url('shoes', {
+        fetch_format: 'auto',
+        quality: 'auto'
+    });
+    
+    console.log(optimizeUrl);
+
+    const autoCropUrl = cloudinary.url('shoes', {
+        crop: 'auto',
+        gravity: 'auto',
+        width: 500,
+        height: 500,
+    });
+    
+    console.log(autoCropUrl);    
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
+
+      const inputFiles = document.querySelectorAll(
+        ".dropzone-area input[type='file']"
+      );
+
+      const inputElement = inputFiles[0];
+
+      const dropZoneElement = inputElement.closest(".dropzone-area");
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("dropzone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("dropzone--over");
         });
+      });
 
-        dropZoneElement.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            dropZoneElement.classList.add("dropzone--over");
-        });
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
 
-        ["dragleave", "dragend"].forEach((type) => {
-            dropZoneElement.addEventListener(type, (e) => {
-                dropZoneElement.classList.remove("dropzone--over");
-            });
-        });
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
 
-        dropZoneElement.addEventListener("drop", (e) => {
-            e.preventDefault();
+          updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
+        }
 
-            if (e.dataTransfer.files.length) {
-                inputElement.files = e.dataTransfer.files;
+        dropZoneElement.classList.remove("dropzone--over");
+      });
 
-                updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
-            }
+      const updateDropzoneFileList = (dropzoneElement, file) => {
+        let dropzoneFileMessage = dropzoneElement.querySelector(".message");
 
-            dropZoneElement.classList.remove("dropzone--over");
-        });
+        dropzoneFileMessage.innerHTML = `${file.name}, ${file.size} bytes`;
+      };
 
-        const updateDropzoneFileList = (dropzoneElement, file) => {
-            let dropzoneFileMessage = dropzoneElement.querySelector(".message");
+      dropzoneBox.addEventListener("reset", (e) => {
+        let dropzoneFileMessage = dropZoneElement.querySelector(".message");
 
-            dropzoneFileMessage.innerHTML = `${file.name}, ${file.size} bytes`;
-        };
+        dropzoneFileMessage.innerHTML = `No Files Selected`;
+      });
 
-        dropzoneBox.addEventListener("reset", (e) => {
-            let dropzoneFileMessage = dropZoneElement.querySelector(".message");
-
-            dropzoneFileMessage.innerHTML = `No Files Selected`;
-        });
-
-        dropzoneBox.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const myFiled = document.getElementById("upload-file");
-            console.log(myFiled.files[0]);
-        });
+      dropzoneBox.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const myFiled = document.getElementById("upload-file");
+        console.log(myFiled.files[0]);
+      });
     </script>
-</body>
-
+  </body>
 </html>
