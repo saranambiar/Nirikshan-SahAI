@@ -74,6 +74,14 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
     path('upload_certificate_check/',institute.views.upload_certificate,name='upload_certificates_check'),
-    path('college_logout/', institute.views.college_logout ,name='college_logout')
+    path('college_logout/', institute.views.college_logout ,name='college_logout'),
+     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
+    path('annexure/', views.annexure, name='annexure'),
+    path('upload_image/', views.upload_image, name='upload_image'),
+    path('feedback_view/', views.feedback_view, name='feedback_view'),
+    path('classroom_upload/', views.classroom_upload, name='classroom_upload'),
+    path('canteen_upload/', views.canteen_upload, name='canteen_upload'),
+    path('report3/', views.report3, name="report3"),
+    path('upload_excel/',views.upload_excel, name='upload_excel'),
 ]
 
