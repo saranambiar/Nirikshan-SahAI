@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annexures - inspX.ai</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/institute/ct.css' %}">
+    
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-md fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="homepage.html">
+                <img src="{% static 'images/logo.png' %}" alt="inspX.ai Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_reports' %}">College Data</a>
+                    </li>
+                    
+                      
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container main-content">
+        <h1 class="section-title">Important Documents</h1>
+        <div class="accordion" id="accordionDocuments">
+            <!-- Accordion items here -->
+            <!-- ... (The rest of your accordion content remains unchanged) ... -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAnnexures">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAnnexures" aria-expanded="true" aria-controls="collapseAnnexures">
+                        <i class="fas fa-file-alt me-2"></i> Annexures
+                    </button>
+                </h2>
+                <div id="collapseAnnexures" class="accordion-collapse collapse show" aria-labelledby="headingAnnexures">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            
+                        <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-1%20Documents%20to%20be%20uploaded%20submitted%20%20shown%20for%20Setting%20up%20a%20New%20Technical%20Institution.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-1: Documents to be uploaded/submitted / shown for Setting up a New Technical Institution</a>
+                        </li>
+                        <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE 2  Documents to be uploaded submitted by Existing Institutions.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-2: Documents to be uploaded/submitted by Existing Institutions
+                        </a>
+                        </li>
+                        <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%203%20Norms%20for%20Land%20and%20Built%20up%20Area%20Requirements%20of%20the.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-3: Norms for Land and Built-up Area Requirements of the
+                          Technical Institutions
+                          </a>
+                        </li>
+                        <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%204%20norms%20for%20books%20library%20facilities.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-4: Norms for Books, Library facilities, Computer, Software, Internet and Laboratory Equipment of the Technical Institutions
+                          </a>
+                        </li>
+                        <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-5%20norms%20for%20faculty%20requirements.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-5: Norms for Faculty Requirements and Cadre Ratio of the
+                          Technical Institutions</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-6%20norms%20for%20pgdm%20pgcm%20courses.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-6: Norms for PGDM/PGCM Courses</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-7%20process%20flow%20chart%20for%20the%20establishment.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-7: Process Flow Chart for the Establishment of a New Technical
+                          Institution Issue of LoA/ LoR</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-8%20norms%20for%20duration%20entery%20level%20qualifications%20and%20statutory%20reservations%20for%20the%20technical.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-8: Norms for Duration, Entry Level Qualifications and Statutory
+                          Reservations for the Technical Programmes</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-9%20mba%20pgdm%20in%20iev.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-9: MBA/PGDM in Innovation, Entrepreneurship and Venture
+                          Development (IEV)</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-10%20undertaking%20to%20be%20submitted%20by%20the%20applicant%20institute.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-10: Undertaking to be submitted by the Applicant Institute /
+                          University on Letter head for Student Induction Program, Examination reforms &amp; Internship Policy</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2011%20approved%20nomenclature%20of%20courses.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-11:  Approved Nomenclature of Courses</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-12%20Closest%20available%20Nomenclature.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-12: Closest available Nomenclature</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-13%20major%20disciplines.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-13: Major Disciplines, their corresponding Courses and Relevant/
+                          Appropriate Branch of Under Graduate Degree/Diploma in Engineering and Technology and Vice-Versa</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE-14%20State%20Wise%20Competent.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-14: State Wise Competent Authorities to issue Certificates with Respect to the Land/ Building</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2015%20FELLOWPROGRAM.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-15: Fellow Programme in Management: Conduct and Admission Procedure</a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2016%20STRUCTURE%20OF%20VARIOUS%20COMMITTEES.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-16: Structure of Various Committees
+                        </a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2017%20RECOMMENDED%20COMPOSITION%20OF%20BOARD.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-17: Recommended Composition of Board of Governors (BoG)/ Board of Management (BoM) of the Technical Institutions
+                        </a>
+                        </li>
+                       <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2018%20MANDATORY%20DISCLOSURES.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>ANNEXURE-18: Mandatory Disclosures
+                        </a>
+                        </li>
+          </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAffidavits">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAffidavits" aria-expanded="false" aria-controls="collapseAffidavits">
+                        <i class="fas fa-book me-2"></i> Affidavits
+                    </button>
+                </h2>
+                <div id="collapseAffidavits" class="accordion-collapse collapse" aria-labelledby="headingAffidavits">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-1%20for%20creation%20of%20new%20password%20forgotten%20password.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-1 : For creation of New Password/Forgotten Password</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-2%20for%20the%20applications%20submitted%20under%20chapter%201%202%204.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-2: For the Applications Submitted under Chapter 1,2 &amp; 4</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-3%20for%20submitting%20the%20security%20deposit%20upon%20establishment%20of%20nrew%20tech%20institute%20new%20prog%20new%20level.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-3 For submitting the security deposit upon establishment of New Technical Institute, New program, New level</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-4%20for%20the%20progressive%20complete%20closure.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-4: For the Progressive/Complete Closure of the Institution</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-5%20for%20the%20compliance%20of%20AICTE%20norms%20for%20universities%20chapter%204.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-5:For the compliance of AICTE norms For Universities applying as per Chapter IV notified by the UGC</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-6%20for%20the%20release%20of%20security%20deposit.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-6: For the Release of Security Deposit</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-7%20for%20transfer%20of%20private%20property%20building.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-7: For transfer of private Property / Building</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-8%20for%20additional%20course%20increase%20in%20intake.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-8: For Additional Course/ Increase in Intake</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-9%20for%20change%20in%20the%20bank%20details.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-9: For change in the Bank details</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-10%20for%20change%20in%20the%20name%20address%20of%20the%20trust%20society%20company.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-10: For Change in the Name / Address of the Trust / Society/ Company</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-11%20for%20collaboration%20and%20twinning.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-11: For Collaboration and Twinning Programme Between Foreign University / Institution OR Institute of National Importance / Eminence of India and AICTE Approved Institution</a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-12.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-12: For Conducting Academic Course(s) of other Regulatory Bodies
+                  </a></li>
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/AFFIDAVIT-13.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>AFFIDAVIT-13: For Conducting Open and Distance Learning (ODL) / Online Learning Mode</a></li>
+                             </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingCertificates">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCertificates" aria-expanded="false" aria-controls="collapseCertificates">
+                        <i class="fas fa-certificate me-2"></i> Certificates
+                    </button>
+                </h2>
+                <div id="collapseCertificates" class="accordion-collapse collapse" aria-labelledby="headingCertificates">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                         
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/CERTIFICATE-1.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>CERTIFICATE-1: Certificate of an Advocate (To be produced in the Letterhead of Advocate)</a>
+                                </li><li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/CERTIFICATE-2.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>CERTIFICATE-2: Certificate of an Architect Registered with Council of Architecture (To be produced in the Letterhead of Architect)</a>
+                                </li><li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/CERTIFICATE-3_0.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>CERTIFICATE-3: Certificate of the Bank Manager where the Applicant has a Bank Account (To be produced in the Letterhead of Bank duly signed by the Bank Manager)</a>
+                                </li>
+                              </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFormats">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormats" aria-expanded="false" aria-controls="collapseFormats">
+                        <i class="fas fa-folder me-2"></i> Formats
+                    </button>
+                </h2>
+                <div id="collapseFormats" class="accordion-collapse collapse" aria-labelledby="headingFormats">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            
+
+
+                                <li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/FORMAT-1.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>FORMAT-1: No Objection Certificate from the State Government/ UT</a>
+                                </li><li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/FORMAT-2.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>FORMAT-2: No Objection Certificate from the Affiliating University/ Board</a>
+                                </li><li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/FORMAT-3.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>FORMAT-3: Resolution of the Trust/ Society/ Company</a>
+                                </li><li class="list-group-item"><a href="https://www.aicte-india.org/sites/default/files/FORMAT-4.pdf" target="_blank "><i class="fa fa-caret-right" aria-hidden="true"></i>FORMAT-4: MoU to be Signed between the Institution and Skill Knowledge Providers/ Trainers
+                  </a>
+                  
+                                </li>
+                  
+                              </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+{% endblock %}
