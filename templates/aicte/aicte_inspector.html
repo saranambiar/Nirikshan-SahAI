@@ -361,8 +361,9 @@ textarea, select {
             <button class="btn btn-edit" 
                     data-id="{{ inspector.id }}" 
                     data-user-id="{{ inspector.user_id }}" 
-                    data-password="{{ inspector.password }}">
-                    Edit
+                    data-password="{{ inspector.password }}" 
+                    data-college="{{ inspector.college }}">
+                Edit
             </button>
             <form action="{% url 'inspector_delete' inspector.id %}" method="post" style="display: inline;">
               {% csrf_token %}
@@ -422,6 +423,15 @@ textarea, select {
                 <label for="edit-password">Password:</label>
                 <input type="password" id="edit-password" name="password" required>
             </div>
+            <div class="form-group">
+              <label for="college">College:</label>
+              <select id="college" name="college" required>
+                  <option value="" disabled selected>Select a College</option>
+                  {% for college in colleges %}
+                      <option value="{{ college.college_name }}">{{ college.college_name }}</option>
+                  {% endfor %}
+              </select>
+            </div>          
             <button type="submit" class="btn-save" style="justify-self: center;">Save Changes</button>
         </form>
     </div>
@@ -499,38 +509,54 @@ textarea, select {
       const userIdInput = document.getElementById("edit-user-id");
       const passwordInput = document.getElementById("edit-password");
       const editForm = document.getElementById("edit-inspector-form");
-
+      const collegeDropdown = document.getElementById("college"); // New dropdown for colleges
+  
       // Open modal when edit button is clicked
       document.querySelectorAll(".btn-edit").forEach(button => {
           button.addEventListener("click", function () {
               const inspectorId = this.dataset.id;
               const userId = this.dataset.userId;
               const password = this.dataset.password;
-
+              const selectedCollege = this.dataset.college || ""; // Include selected college if available
+  
               // Populate modal inputs
               userIdInput.value = userId;
               passwordInput.value = password;
-
+  
+              // Set the selected option for college dropdown
+              if (selectedCollege && collegeDropdown) {
+                  Array.from(collegeDropdown.options).forEach(option => {
+                      option.selected = option.value === selectedCollege;
+                  });
+              }
+  
               // Update form action
               editForm.action = `/inspectors/${inspectorId}/update/`;
-
+  
               // Show modal
               modal.style.display = "block";
           });
       });
-
+  
       // Close modal
       closeButton.addEventListener("click", function () {
           modal.style.display = "none";
       });
-
+  
       // Close modal when clicking outside of the content
       window.addEventListener("click", function (event) {
           if (event.target === modal) {
               modal.style.display = "none";
           }
       });
-    });
+  
+      // Handle change event for college dropdown
+      if (collegeDropdown) {
+          collegeDropdown.addEventListener("change", function () {
+              console.log(`Selected college: ${this.value}`);
+          });
+      }
+  });
 
   </script>
 </body>

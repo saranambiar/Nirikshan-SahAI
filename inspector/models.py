@@ -24,7 +24,7 @@ class Reply(models.Model):
 class Inspector(Document):
     user_id = StringField(required=True, unique=True)
     password = StringField(required=True)
-    colleges = ListField(required=False)
+    college = StringField(required=False)
 
     meta = {
         'collection': 'inspector'  # Maps to the "inspector" collection in MongoDB

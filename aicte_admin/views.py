@@ -39,8 +39,9 @@ def aicte_logout(request):
 
 # List all inspectors
 def inspector_list(request):
-    inspectors = Inspector.objects.all()  
-    return render(request, 'aicte/aicte_inspector.html', {'inspectors': inspectors})
+    inspectors = Inspector.objects.all()
+    colleges = College.objects.all()
+    return render(request, 'aicte/aicte_inspector.html', {'inspectors': inspectors, 'colleges': colleges})
 
 # Create a new inspector
 def inspector_create(request):
@@ -51,7 +52,7 @@ def inspector_create(request):
             inspector = Inspector(
                 user_id=form.cleaned_data['user_id'],
                 password=form.cleaned_data['password'],
-                colleges=[]
+                college=""
             )
             inspector.save()
             return redirect('inspector_list')
@@ -74,19 +75,18 @@ def inspector_detail(request, pk):
 
 # Update an inspector
 def inspector_update(request, pk):
-    try:
-        inspector = Inspector.objects.get(id=pk)
-    except Inspector.DoesNotExist:
-        raise Http404("Inspector does not exist")
+    inspector = Inspector.objects.get(id=pk)
+    colleges = College.objects.all()
 
     if request.method == 'POST':
-        # Update inspector details
+        # Update user_id, password, and college
         inspector.user_id = request.POST.get('user_id')
         inspector.password = request.POST.get('password')
+        inspector.college = request.POST.get('college')
         inspector.save()
-        return redirect('inspector_list')  
+        return redirect('inspector_list')
 
-    return render(request, 'aicte/aicte_inspector.html', {'inspector': inspector})
+    return render(request, 'aicte/aicte_inspector_edit.html', {'inspector': inspector, 'colleges': colleges})
 
 
 # Delete an inspector
