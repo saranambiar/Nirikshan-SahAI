@@ -110,10 +110,29 @@ def upload_certificate(request):
         college_name = request.session.get('college_name')  # Fetch college name from session
 
         names = {
+            'anti_ragging_cert': "Anti-Ragging Committee Certificate",
+            'internal_committee_cert': "Internal Committee Certificate",
+            'annual_ic_report': "Annual Internal Committee Report",
+            'scst_committee_cert': "SC/ST Committee Certificate",
+            'iic_cert': "Institution’s Innovation Council (IIC) Certificate",
+            'abc_cert': "Academic Bank of Credit (ABC) Compliance",
+            'digital_transactions_cert': "Digital Transactions Certificate",
+            'mental_health_cert': "Mental Health Counselling Center Certificate",
+            'internal_assessment_cert': "Internal Assessment and Laboratory Work Compliance Certificate",
+            'fire_safety_cert': "Fire and Life Safety Certificate",
+            'occupancy_cert': "Approved Plan and Occupancy Certificate",
+            'financial_statement_cert': "Audited Financial Statement",
             'advocate_cert': "Certificate of Advocate",
             'architect_cert': "Certificate of Architect Registered with Council of Architecture",
-            'bank_manager_cert': "Certificate of Bank Manager"
+            'bank_manager_cert': "Certificate of the Bank Manager",
+            'incorporation_cert': "Certificate of Incorporation",
+            'building_cert': "Occupancy/Completion/Building License Certificate",
+            'minority_status_cert': "Certificate Regarding Minority Status",
+            'architect_details_cert': "Certificate by an Architect",
+            'structural_stability_cert': "Structural Stability Certificate",
+            'institute_undertaking': "Undertaking by the Institute"
         }
+
 
         uploaded_certificates = []
 
