@@ -110,10 +110,6 @@ def pattern_pred(request):
     return render(request,'inspector/pattern_pred.html')
 
 
-def view_certificates(request):
-    certificates = Certificate.objects.all()
-    return render(request, 'inspector/view_certificates.html', {'certificates': certificates})
-
 
 def view_classroom(request):
     return render(request,'inspector/view_classroom.html')

@@ -28,108 +28,135 @@ def inspector_logout(request):
     request.session.flush()
     return render(request, 'options.html')
 
-@login_required
-def view_certificates(request):
-    certificates = Certificate.objects.all().order_by('-upload_date')
-    
-    # Filter by institute if specified
-    institute_id = request.GET.get('institute')
-    if institute_id:
-        certificates = certificates.filter(institute_id=institute_id)
-    
-    # Filter by certificate type
-    cert_type = request.GET.get('type')
-    if cert_type:
-        certificates = certificates.filter(cert_type=cert_type)
-    
-    # Filter by status
-    status = request.GET.get('status')
-    if status:
-        certificates = certificates.filter(status=status)
-    
-    context = {
-        'certificates': certificates,
-        'certificate_types': dict(Certificate.CERTIFICATE_TYPES),
-        'statuses': dict(Certificate.STATUS_CHOICES),
-    }
-    return render(request, 'inspector/view_certificates.html', context)
-
-@login_required
-def certificate_detail(request, certificate_id):
-    certificate = Certificate.objects.get(id=certificate_id)
-    if request.method == "POST":
-        status = request.POST.get('status')
-        remarks = request.POST.get('remarks')
-        
-        certificate.status = status
-        certificate.remarks = remarks
-        certificate.save()
-        
-        messages.success(request, 'Certificate status updated successfully')
-        return redirect('view_certificates')
-    
-    return render(request, 'inspector/certificate_detail.html', {
-        'certificate': certificate
-    })
-
-
-
 
 
 def view_reports(request):
     return render(request, 'inspector/view_reports.html')
 
-@login_required
-def discussion_forum(request):
-    posts = Post.objects.all().order_by('-timestamp')
-    context = {
-        'posts': posts,
-        'user': request.user,
-    }
-    return render(request, 'inspector/discussion_forum.html', context)
+# @login_required
+# def discussion_forum(request):
+#     posts = Post.objects.all().order_by('-timestamp')
+#     context = {
+#         'posts': posts,
+#         'user': request.user,
+#     }
+#     return render(request, 'inspector/discussion_forum.html', context)
 
-@login_required
-def view_discussion(request, post_id):
-    post = Post.objects.get(id=post_id)
-    replies = Reply.objects.filter(post=post).order_by('timestamp')
-    context = {
-        'post': post,
-        'replies': replies,
-        'user': request.user,
-    }
-    return render(request, 'inspector/discussion.html', context)
+# @login_required
+# def view_discussion(request, post_id):
+#     post = Post.objects.get(id=post_id)
+#     replies = Reply.objects.filter(post=post).order_by('timestamp')
+#     context = {
+#         'post': post,
+#         'replies': replies,
+#         'user': request.user,
+#     }
+#     return render(request, 'inspector/discussion.html', context)
 
-@login_required
-def create_post(request):
-    if request.method == 'POST':
-        content = request.POST.get('content')
-        if content.strip():  # Check if content is not just whitespace
-            Post.objects.create(
-                user1=request.user,
-                post_content=content,
-                # Remove timestamp=timezone.now() as it's handled by auto_now_add
-            )
-            messages.success(request, 'Post created successfully!')
-        else:
-            messages.error(request, 'Post content cannot be empty!')
-    return redirect('discussion_forum')
+# @login_required
+# def create_post(request):
+#     if request.method == 'POST':
+#         content = request.POST.get('content')
+#         if content.strip():  # Check if content is not just whitespace
+#             Post.objects.create(
+#                 user1=request.user,
+#                 post_content=content,
+#                 # Remove timestamp=timezone.now() as it's handled by auto_now_add
+#             )
+#             messages.success(request, 'Post created successfully!')
+#         else:
+#             messages.error(request, 'Post content cannot be empty!')
+#     return redirect('discussion_forum')
 
-@login_required
-def create_reply(request, post_id):
+# @login_required
+# def create_reply(request, post_id):
+#     try:
+#         post = Post.objects.get(id=post_id)
+#         if request.method == 'POST':
+#             content = request.POST.get('content')
+#             if content.strip():
+#                 Reply.objects.create(
+#                     user=request.user,
+#                     post=post,
+#                     reply_content=content,
+#                     # Remove timestamp=timezone.now()
+#                 )
+#                 messages.success(request, 'Reply added successfully!')
+#             else:
+#                 messages.error(request, 'Reply content cannot be empty!')
+#     except Post.DoesNotExist:
+#         messages.error(request, 'Post not found!')
+#     return redirect('view_discussion', post_id=post_id)
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+import pymongo
+from inspection_system.settings import db
+from institute.models import certificate
+from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse
+
+
+from django.shortcuts import get_object_or_404
+
+
+def view_certificates(request):
+    """
+    View function for inspectors to view certificates uploaded by institutes
+    """
+    
     try:
-        post = Post.objects.get(id=post_id)
-        if request.method == 'POST':
-            content = request.POST.get('content')
-            if content.strip():
-                Reply.objects.create(
-                    user=request.user,
-                    post=post,
-                    reply_content=content,
-                    # Remove timestamp=timezone.now()
-                )
-                messages.success(request, 'Reply added successfully!')
-            else:
-                messages.error(request, 'Reply content cannot be empty!')
-    except Post.DoesNotExist:
-        messages.error(request, 'Post not found!')
-    return redirect('view_discussion', post_id=post_id)
+        # Using MongoEngine to query certificates
+        uploaded_certificates = certificate.objects.all()
+
+        # Prepare certificate details
+        certificate_details = []
+        for cert in uploaded_certificates:
+            certificate_details.append({
+                'name': cert.name,
+                'college_name': cert.college_name,
+                'id': str(cert.id)
+            })
+
+        context = {
+            'certificates': certificate_details
+        }
+
+        return render(request, 'inspector/view_certificates.html', context)
+
+    except Exception as e:
+        # Log the error and show a user-friendly message
+        print(f"Error retrieving certificates: {str(e)}")
+        messages.error(request, "An error occurred while retrieving certificates")
+        return render(request, 'inspector/view_certificates.html')
+from django.http import FileResponse, Http404
+
+def download_uploaded_certificate(request, certificate_id):
+    """
+    Download function for specific uploaded certificate.
+    """
+    try:
+        # Find the specific certificate by ID
+        cert = certificate.objects.get(id=certificate_id)
+
+        # Ensure the file field exists and is accessible
+        if not cert.file:
+            raise ValueError("No file associated with this certificate.")
+
+        # Create a response with the file
+        response = FileResponse(cert.file, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{cert.name}.pdf"'
+        return response
+
+    except certificate.DoesNotExist:
+        messages.error(request, "Certificate not found.")
+        return redirect('view_certificates')
+    except ValueError as e:
+        messages.error(request, str(e))
+        return redirect('view_certificates')
+    except Exception as e:
+        print(f"Error downloading certificate: {str(e)}")
+        messages.error(request, "An error occurred while downloading the certificate.")
+        return redirect('view_certificates')
+
