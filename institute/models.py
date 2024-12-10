@@ -33,9 +33,9 @@ class certificate(Document):
         'collection': 'certificate_unverified'
     }
     
-    # def url(self):
-    #     # Ensure the URL is returned from the correct file field
-    #     return self.file.url if self.file else None
+    def url(self):
+        # Ensure the URL is returned from the correct file field
+        return self.file.url if self.file else None
 
 class mandatory_dis(Document):
     name = StringField(required=True) 
