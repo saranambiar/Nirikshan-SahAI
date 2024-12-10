@@ -4,7 +4,7 @@ import pymongo
 from inspection_system.settings import db
 from mongoengine import DoesNotExist
 from django.contrib.auth.decorators import login_required
-from .models import certificate
+from .models import certificate,mandatory_dis
 from .forms import CertificateUploadForm
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.hashers import check_password
@@ -94,6 +94,37 @@ def login_view(request):
 
     return render(request, 'college_login.html')
 
+def upload_mandatory_dis(request):
+    if request.method == 'POST':
+        print("POST received for mandatory document upload")  # Debugging statement
+
+        # Check if a file is included in the request
+        if 'mandatory_doc' not in request.FILES:
+            print("HELLO")
+            messages.error(request, "No mandatory document uploaded!")
+            return redirect('upload_excel')
+
+        college_name = request.session.get('college_name')  # Fetch college name from session
+
+        # Get the uploaded file
+        file = request.FILES['mandatory_doc']  # Assuming the input name is 'mandatory_doc'
+
+        # Create and save the mandatory document entry
+        try:
+            mandatory_document_entry = mandatory_dis(  # Assuming you are using the same model
+                name="Mandatory Disclosure",  # You can customize this name as needed
+                file=file,
+                college_name=college_name  # Add metadata like the college name
+            )
+            mandatory_document_entry.save()  # Save to the database
+            messages.success(request, 'Mandatory document uploaded successfully!')
+        except Exception as e:
+            messages.error(request, f"Error uploading document: {str(e)}")
+            return redirect('upload_excel')
+
+        return redirect('index')  # Redirect to the index or another page after successful upload
+
+    return render(request, 'upload_excel.html')  # Render the upload page if not a POST request
 
 
 # upload certificates
@@ -142,7 +173,7 @@ def upload_certificate(request):
         messages.success(request, 'Certificate uploaded successfully!')
         return redirect('index')
 
-    return redirect('index')
+    return redirect('upload_certificate')
 
 def college_logout(request):
     request.session.flush()

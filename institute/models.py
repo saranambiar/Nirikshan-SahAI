@@ -32,3 +32,12 @@ class certificate(Document):
     meta = {
         'collection': 'certificate_unverified'
     }
+
+class mandatory_dis(Document):
+    name = StringField(required=True) 
+    file = FileField(required=True)
+    college_name = StringField(required=True)
+
+    meta = {
+        'collection': 'mandatory_disclosure'
+    }

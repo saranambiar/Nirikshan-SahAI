@@ -75,7 +75,7 @@ urlpatterns = [
     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
     path('upload_certificate_check/',institute.views.upload_certificate,name='upload_certificates_check'),
     path('college_logout/', institute.views.college_logout ,name='college_logout'),
-     path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
+    path('upload_certificate/', views.upload_certificate, name='upload_certificate'),
     path('annexure/', views.annexure, name='annexure'),
     path('upload_image/', views.upload_image, name='upload_image'),
     path('feedback_view/', views.feedback_view, name='feedback_view'),
@@ -83,5 +83,6 @@ urlpatterns = [
     path('canteen_upload/', views.canteen_upload, name='canteen_upload'),
     path('report3/', views.report3, name="report3"),
     path('upload_excel/',views.upload_excel, name='upload_excel'),
+    path('upload_mandatory_disclosure/',institute.views.upload_mandatory_dis, name='upload_mandatory_check'),
 ]
 

@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form class="dropzone-box">
-        <h2>Upload Mandatory Disclosure </h2>
+    <form class="dropzone-box" enctype="multipart/form-data" method="POST" action="{% url 'upload_mandatory_check' %}">
+        {% csrf_token %}
+        <h2>Upload Mandatory Disclosure </h2>S
         <p>
            <a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2018%20MANDATORY%20DISCLOSURES.pdf"> Follow this format to create and Upload </a>
         </p>
@@ -28,7 +29,7 @@
                 </svg>
             </div>
             <p>Click to upload or drag and drop</p>
-            <input type="file" required id="upload-file" name="uploaded-file">
+            <input type="file" required id="mandatory_doc" name="mandatory_doc" accept=".pdf">
             <p class="message">No Files Selected</p>
         </div>
         <div class="dropzone-actions">
@@ -159,7 +160,21 @@ body {
     cursor: pointer;
 }
     </style>
-
-    <script src="script.js"></script>
+        
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('mandatory_doc');
+            const messageParagraph = document.querySelector('.message');
+        
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const fileName = fileInput.files[0].name;
+                    messageParagraph.textContent = `Selected file: ${fileName}`;
+                } else {
+                    messageParagraph.textContent = 'No Files Selected';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
