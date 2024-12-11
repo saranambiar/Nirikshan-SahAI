@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -149,9 +150,9 @@
       }
 
       /* .submit:hover {
-          background-color: #333;
-          color: white;
-        } */
+        background-color: #333;
+        color: white;
+      } */
 
       .submit::before {
         content: "";
@@ -312,112 +313,144 @@
         <button class="submit">Submit</button>
       </form>
 
-      <form class="dropzone-box">
-        <h2>Upload Image</h2>
-        <p>Label each image with Classroom number</p>
+      <form class="dropzone-box" id="upload-form">
+        <h2>Upload Images</h2>
+        <p>Select a folder containing images to upload</p>
         <div class="dropzone-area">
-          <div class="file-upload-icon">
-            <!-- SVG icon for file upload -->
-            <svg
-              width="800px"
-              height="800px"
-              viewBox="0 -2 20 20"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <title>image_picture</title>
-              <desc>Created with Sketch.</desc>
-              <g
-                id="Page-1"
-                stroke="none"
-                stroke-width="1"
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  id="Dribbble-Light-Preview"
-                  transform="translate(-340.000000, -3881.000000)"
-                  fill="#000000"
+            <div class="file-upload-icon">
+                <svg
+                    width="50px"
+                    height="50px"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g id="icons" transform="translate(56.000000, 160.000000)">
                     <path
-                      d="M296,3725.5 C296,3724.948 296.448,3724.5 297,3724.5 C297.552,3724.5 298,3724.948 298,3725.5 C298,3726.052 297.552,3726.5 297,3726.5 C296.448,3726.5 296,3726.052 296,3725.5 L296,3725.5 Z M296.75,3728.75 L300,3733 L288,3733 L292.518,3726.812 L295.354,3730.625 L296.75,3728.75 Z M302,3734 C302,3734.552 301.552,3735 301,3735 L287,3735 C286.448,3735 286,3734.552 286,3734 L286,3724 C286,3723.448 286.448,3723 287,3723 L301,3723 C301.552,3723 302,3723.448 302,3724 L302,3734 Z M302,3721 L286,3721 C284.896,3721 284,3721.895 284,3723 L284,3735 C284,3736.104 284.896,3737 286,3737 L302,3737 C303.105,3737 304,3736.104 304,3735 L304,3723 C304,3721.895 303.105,3721 302,3721 L302,3721 Z"
-                      id="image_picture"
-                    ></path>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <p>Click to upload or drag and drop</p>
-          <input type="file" required id="upload-file" name="uploaded-file" />
-          <p class="message">No Files Selected</p>
+                        d="M10 0C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zM15 9h-4V5H9v4H5v2h4v4h2v-4h4V9z"
+                        fill="#000000"
+                    />
+                </svg>
+            </div>
+            <p>Click to upload or drag and drop</p>
+            <input
+                type="file"
+                id="upload-file"
+                name="uploaded-files"
+                webkitdirectory
+                directory
+                multiple
+            />
+            <p class="message">No Files Selected</p>
         </div>
+        
+        <!-- Dynamically enter College ID here -->
+        <div class="college-id-container">
+            <label for="college-id">Enter College ID:</label>
+            <input type="text" id="college-id" placeholder="Enter your college ID" required />
+        </div>
+        
         <div class="dropzone-actions">
-          <button type="reset">Cancel</button>
-          <button id="submit-button" type="submit">Save</button>
+            <button type="reset">Cancel</button>
+            <button id="submit-button" type="submit">Save</button>
         </div>
-      </form>
-    </div>
-
-    <script>
-      const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
-
-      const inputFiles = document.querySelectorAll(
-        ".dropzone-area input[type='file']"
-      );
-
-      const inputElement = inputFiles[0];
-
-      const dropZoneElement = inputElement.closest(".dropzone-area");
-
-      inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-          updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
-        }
-      });
-
-      dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("dropzone--over");
-      });
-
-      ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
+    </form>
+    
+    
+      <script>
+        const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
+        const inputFiles = document.querySelectorAll(".dropzone-area input[type='file']");
+        const inputElement = inputFiles[0];
+        const dropZoneElement = inputElement.closest(".dropzone-area");
+      
+        inputElement.addEventListener("change", (e) => {
+          if (inputElement.files.length) {
+            updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
+          }
+        });
+      
+        dropZoneElement.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          dropZoneElement.classList.add("dropzone--over");
+        });
+      
+        ["dragleave", "dragend"].forEach((type) => {
+          dropZoneElement.addEventListener(type, (e) => {
+            dropZoneElement.classList.remove("dropzone--over");
+          });
+        });
+      
+        dropZoneElement.addEventListener("drop", (e) => {
+          e.preventDefault();
+          if (e.dataTransfer.files.length) {
+            inputElement.files = e.dataTransfer.files;
+            updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
+          }
           dropZoneElement.classList.remove("dropzone--over");
         });
-      });
+      
+        const updateDropzoneFileList = (dropzoneElement, file) => {
+          let dropzoneFileMessage = dropzoneElement.querySelector(".message");
+          dropzoneFileMessage.innerHTML = `${file.name}, ${file.size} bytes`;
+        };
+      
+        dropzoneBox.addEventListener("reset", (e) => {
+          let dropzoneFileMessage = dropZoneElement.querySelector(".message");
+          dropzoneFileMessage.innerHTML = `No Files Selected`;
+        });
+      
+        document.getElementById("upload-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      dropZoneElement.addEventListener("drop", (e) => {
-        e.preventDefault();
+  const fileInput = document.getElementById("upload-file");
+  const files = Array.from(fileInput.files);
+  const currentRoute = window.location.pathname;
+  
+  // Dynamically fetch college ID from a hidden input field or DOM
+  const collegeId = document.getElementById("college-id").value; // Hidden input or data from session
+  
+  if (!collegeId) {
+      alert("Unable to determine college ID.");
+      return;
+  }
 
-        if (e.dataTransfer.files.length) {
-          inputElement.files = e.dataTransfer.files;
+  if (files.length) {
+      const imageFiles = files.filter((file) =>
+          file.type.startsWith("image/")
+      );
 
-          updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
-        }
+      if (!imageFiles.length) {
+          alert("No image files found in the selected folder.");
+          return;
+      }
 
-        dropZoneElement.classList.remove("dropzone--over");
-      });
+      for (const imageFile of imageFiles) {
+          const formData = new FormData();
+          formData.append("image", imageFile);
+          formData.append("route", currentRoute);
+          formData.append("college_id", collegeId);
 
-      const updateDropzoneFileList = (dropzoneElement, file) => {
-        let dropzoneFileMessage = dropzoneElement.querySelector(".message");
+          try {//change
+              const response = await fetch("/classroom_upload/upload_ui/", {
+                  method: "POST",
+                  body: formData,
+              });
 
-        dropzoneFileMessage.innerHTML = `${file.name}, ${file.size} bytes`;
-      };
+              if (response.ok) {
+                  const result = await response.json();
+                  console.log("Uploaded:", result);
+              } else {
+                  console.error("Error during upload");
+              }
+          } catch (error) {
+              console.error("Upload error:", error);
+          }
+      }
 
-      dropzoneBox.addEventListener("reset", (e) => {
-        let dropzoneFileMessage = dropZoneElement.querySelector(".message");
+      alert("All valid images uploaded.");
+  } else {
+      alert("Please select some files to upload.");
+  }
+});
 
-        dropzoneFileMessage.innerHTML = `No Files Selected`;
-      });
-
-      dropzoneBox.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const myFiled = document.getElementById("upload-file");
-        console.log(myFiled.files[0]);
-      });
-    </script>
+      </script> 
   </body>
 </html>

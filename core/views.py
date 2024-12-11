@@ -150,7 +150,17 @@ def view_pwd(request):
 def view_canteen(request):
     return render(request,'inspector/view_canteen.html')
 
+def lab_upload(request):
+    return render(request,'institute/lab_upload.html')
 
+def pwd_upload(request):
+    return render(request,'institute/pwd_upload.html')
+
+def parking_upload(request):
+    return render(request,'institute/parking_upload.html')
+
+def washroom_upload(request):
+    return render(request,'institute/washroom_upload.html')
 
 def report3(request):
     # Fetch all feedback entries or filter as needed

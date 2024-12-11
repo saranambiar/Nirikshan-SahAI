@@ -82,8 +82,17 @@ urlpatterns = [
     path('feedback_view/', views.view_feedback, name='feedback_view'),
     path('classroom_upload/', views.classroom_upload, name='classroom_upload'),
     path('canteen_upload/', views.canteen_upload, name='canteen_upload'),
+    path('pwd_upload/', views.pwd_upload, name="pwd_upload"),
+    path('parking_upload/', views.parking_upload, name="parking_upload"),
+    path('lab_upload/', views.lab_upload, name="lab_upload"),
+    path('washroom_upload/', views.washroom_upload, name="washroom_upload"),
     path('report3/', views.report3, name="report3"),
     path('upload_excel/',views.upload_excel, name='upload_excel'),
     path('upload_mandatory_disclosure/',institute.views.upload_mandatory_dis, name='upload_mandatory_check'),
+
+
+
+    # comment for uploading image route to cloudinary
+    path('classroom_upload/upload_ui/', institute.views.u_i, name='upload_ui'),
 ]
 
