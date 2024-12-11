@@ -1,13 +1,12 @@
 /*=============== GOOGLE FONTS ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
 /*=============== VARIABLES CSS ===============*/
 :root {
   /*========== Colors ==========*/
-  /*Color mode HSL(hue, saturation, lightness)*/
   --white-color: hsl(0, 0%, 100%);
   --black-color: hsl(0, 0%, 0%);
   /*========== Font and typography ==========*/
-  /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Poppins", sans-serif;
   --h1-font-size: 1.75rem;
   --normal-font-size: 1rem;
@@ -29,24 +28,9 @@ input,
   text-decoration: none; /* Remove underline from link */
 }
 
-.login__button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #000; /* Black background */
-  color: #000000; /* White text */
-  border: none;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  /* Add any additional styling you need */
-}
-
-
-
-
 body {
   color: var(--black-color);
+  font-family: var(--body-font);
 }
 
 input,
@@ -71,6 +55,7 @@ img {
   display: grid;
   align-items: center;
 }
+
 .login__img {
   position: absolute;
   width: 100%;
@@ -78,6 +63,7 @@ img {
   object-fit: cover;
   object-position: center;
 }
+
 .login__form {
   position: relative;
   background-color: hsla(0, 0%, 10%, 0.1);
@@ -87,116 +73,91 @@ img {
   border-radius: 1rem;
   backdrop-filter: blur(8px);
 }
+
 .login__title {
   text-align: center;
   font-size: var(--h1-font-size);
   font-weight: var(--font-medium);
   margin-bottom: 2rem;
 }
+
 .login__content, .login__box {
   display: grid;
 }
+
 .login__content {
   row-gap: 1.75rem;
   margin-bottom: 1.5rem;
 }
+
 .login__box {
-  grid-template-columns: max-content 1fr;
-  align-items: center;
-  column-gap: 0.75rem;
-  border-bottom: 2px solid var(--black-color);
-}
-.login__icon, .login__eye {
-  font-size: 1rem;
-}
-.login__input {
-  width: 100%;
-  padding-block: 0.8rem;
-  background: none;
-  color: var(--black-color);
   position: relative;
-  z-index: 1;
+  margin: 20px 0;
 }
+
 .login__box-input {
-  position: relative;
-}
-.login__label {
-  position: absolute;
-  left: 0;
-  top: 13px;
-  font-weight: var(--font-medium);
-  transition: top 0.3s, font-size 0.3s;
-}
-.login__eye {
-  position: absolute;
-  right: 0;
-  top: 18px;
-  z-index: 10;
-  cursor: pointer;
-}
-.login__box:nth-child(2) input {
-  padding-right: 1.8rem;
-}
-.login__check, .login__check-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
-.login__check {
-  margin-bottom: 1.5rem;
+
+.login__input {
+  width: 200%; /* Full width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding in width */
 }
-.login__check-label, .login__forgot, .login__register {
-  font-size: var(--small-font-size);
+
+.login__label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  transition: 0.2s;
+  pointer-events: none;
 }
-.login__check-group {
-  column-gap: 0.5rem;
+
+.login__input:focus + .login__label,
+.login__input:not(:placeholder-shown) + .login__label {
+  top: -10px;
+  font-size: 12px;
+  color: #007BFF; /* Change to your desired color */
 }
-.login__check-input {
-  width: 16px;
-  height: 16px;
-}
-.login__forgot {
-  color: var(--black-color);
-}
-.login__forgot:hover {
-  text-decoration: underline;
-}
-.login__button {
-  
-  width: 70%;
-  position: relative;
-  left: 50px;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: #101010;
-  background-color:#03a9f4;
-  font-size: 20px;
-  font-weight: var(--font-medium);
+
+.login__eye {
   cursor: pointer;
-  margin-bottom: 2rem;
+  margin-left: -30px; /* Adjust as needed */
+  color: #aaa; /* Default color */
+}
+
+.login__eye:hover {
+  color: #007BFF; /* Change to your desired hover color */
+}
+
+.login__button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #03a9f4; /* Button background color */
+  color: #ffffff; /* Button text color */
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
   margin-top: 2rem;
 }
+
 .login__register {
   text-align: center;
 }
+
 .login__register a {
   color: var(--black-color);
   font-weight: var(--font-medium);
 }
+
 .login__register a:hover {
   text-decoration: underline;
-}
-
-/* Input focus move up label */
-.login__input:focus + .login__label {
-  top: -12px;
-  font-size: var(--small-font-size);
-}
-
-/* Input focus sticky top label */
-.login__input:not(:placeholder-shown).login__input:not(:focus) + .login__label {
-  top: -12px;
-  font-size: var(--small-font-size);
 }
 
 /*=============== BREAKPOINTS ===============*/
@@ -214,30 +175,3 @@ img {
     font-size: 2rem;
   }
 }
-
-.login__input{
-  border-color: transparent;
-}
-
-
-
-.navbar{
-  background: rgb(0, 0, 0); font-family: calibri; padding-right: 10px;padding-left: 10px;
-}
-.navdiv{
-  display: flex; align-items: center; justify-content: space-between;
-}
-.logo a{
-  font-size: 10px; font-weight: bold; color: white;
-}
-li{
-  list-style: none; display: inline-block;
-}
-li a{
-  color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
-}
-button{
-  background-color: black; margin-left: 10px; border-radius: 10px; padding: 10px; width: 90px;
-}
-button a{
-  color: white; font-weight: bold; font-size: 15px;}

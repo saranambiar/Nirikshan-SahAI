@@ -30,8 +30,9 @@
                     <h2>Enter Feedback</h2>
                     <p>Enter your feedback or suggestions for the college below:</p>
                     <div class="form-group">
-                        <textarea name="feedback" id="feedback" placeholder="Your feedback here..." required></textarea>
+                        <textarea name="feedback" placeholder="Your feedback here..." required></textarea>
                     </div>
+                    <input type="hidden" name="college_name" value="{{ college_name }}">  <!-- Pass the college name -->
                     <button type="submit">Submit Feedback</button>
                 </div>
     
@@ -55,6 +56,9 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="submit-container">
+        <button type="submit" class="submit-button" style="margin-bottom:50px;">Submit</button>
     </div>
 </body>
 <script>
