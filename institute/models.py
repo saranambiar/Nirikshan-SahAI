@@ -1,5 +1,5 @@
 from django.db import models
-from mongoengine import Document, StringField, EmailField, FileField
+from mongoengine import Document, StringField, EmailField, FileField,URLField,ListField,DictField
 from django import forms
 from django.utils.timezone import now
 
@@ -44,11 +44,23 @@ class mandatory_dis(Document):
     name = StringField(required=True) 
     file = FileField(required=True)
     college_name = StringField(required=True)
+    college_intake = StringField(required=True)
 
     meta = {
         'collection': 'mandatory_disclosure'
     }
 
+class Images(Document):
+    college = StringField(required=True)
+    classroom = ListField(DictField(), required=False)  # List of dictionaries for classrooms
+    lab = ListField(DictField(), required=False)        # List of dictionaries for labs
+    canteen = ListField(URLField(), required=False)    # Links for canteens
+    pwd = ListField(URLField(), required=False)        # Links for PWD (accessible facilities)
+    parking = ListField(URLField(), required=False)    # Links for parking areas
+    washroom = ListField(URLField(), required=False)   # Links for washrooms
 
+    meta = {
+        'collection': 'images'
+    }
 
 

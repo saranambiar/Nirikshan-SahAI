@@ -15,10 +15,17 @@
 <body>
     <form class="dropzone-box" enctype="multipart/form-data" method="POST" action="{% url 'upload_mandatory_check' %}">
         {% csrf_token %}
-        <h2>Upload Mandatory Disclosure </h2>S
+        <h2>Upload Mandatory Disclosure</h2>
         <p>
            <a href="https://www.aicte-india.org/sites/default/files/ANNEXURE%2018%20MANDATORY%20DISCLOSURES.pdf"> Follow this format to create and Upload </a>
         </p>
+        
+        <!-- New input field for college intake -->
+        <div class="form-group">
+            <label for="college_intake">College Intake</label>
+            <input type="text" id="college_intake" name="college_intake" required placeholder="Enter college intake">
+        </div>
+    
         <div class="dropzone-area">
             <div class="file-upload-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"

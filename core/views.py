@@ -1,6 +1,8 @@
 # core/views.py
 from django.shortcuts import render, redirect
 from .models import Certificate
+from django.contrib import messages
+from inspector.models import Feedback
 
 from inspector.models import Feedback
 
@@ -59,10 +61,6 @@ def upload_image(request):
 def upload_excel(request):
     return render(request,'institute/upload_excel.html')
 
-
-def feedback_view(request):
-    return render(request,'institute/feedback_view.html')
-
 def classroom_upload(request):
     return render(request,'institute/classroom_upload.html')
 
@@ -89,6 +87,23 @@ def view_reports(request):
 def discussion_forum(request):
     return render(request, 'inspector/discussion_forum.html')
 
+def view_feedback(request):
+    college_name = request.session.get('college_name')  # Get college name from session
+    if not college_name:
+        messages.error(request, "College information is missing!")
+        return redirect('college_login')  # Redirect to a default page if college name is not found
+
+    # Retrieve feedback entries for the specific college
+    feedback_entry = Feedback.objects(college_name=college_name)
+    
+    for feedback in feedback_entry:
+            print(f"Inspector Name: {feedback.inspector_name}, College Name: {feedback.college_name}, Feedback: {feedback.feedback_text}")
+
+    context = {
+        'feedback_entry': feedback_entry,
+        'college_name': college_name  # Pass college name to the template
+    }
+    return render(request, 'feedback_view.html', context)  # Updated template name
 
 def inspector_login(request):
     return render(request, 'inspector/inspector_login.html')
@@ -135,7 +150,17 @@ def view_pwd(request):
 def view_canteen(request):
     return render(request,'inspector/view_canteen.html')
 
+def lab_upload(request):
+    return render(request,'institute/lab_upload.html')
 
+def pwd_upload(request):
+    return render(request,'institute/pwd_upload.html')
+
+def parking_upload(request):
+    return render(request,'institute/parking_upload.html')
+
+def washroom_upload(request):
+    return render(request,'institute/washroom_upload.html')
 
 def report3(request):
     # Fetch all feedback entries or filter as needed

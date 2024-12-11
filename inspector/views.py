@@ -6,11 +6,12 @@ from core.models import Certificate
 from django.views.decorators.http import require_http_methods
 from .models import Post, Reply,Inspector
 from django.utils import timezone
-
-
+from django.http import FileResponse, HttpResponseNotFound
+from institute.models import mandatory_dis
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from inspector.models import Feedback
+import io
 
 def login_view(request):
     if request.method == 'POST':
@@ -200,3 +201,37 @@ def submit_feedback(request):
 
 def feedback_page(request):
     return render(request, 'inspector/feedback.html')  # Adjust the template path as needed
+
+def view_mandatory(request):
+    try:
+        # Check if user is logged in via session
+        if 'user_id' not in request.session:
+            return redirect('login')
+
+        # Get college name from session
+        college_name = request.session.get('college_name')
+
+        if not college_name:
+            return HttpResponseNotFound("No college associated with this session")
+
+        # Find the mandatory disclosure file for the specific college
+        mandatory_entry = mandatory_dis.objects.filter(college_name=college_name).first()
+
+        if not mandatory_entry or not mandatory_entry.file:
+            return HttpResponseNotFound("Mandatory disclosure file not found")
+
+        # Create a file-like object from the stored file
+        file_content = io.BytesIO(mandatory_entry.file.read())
+        
+        # Prepare the file response
+        response = FileResponse(
+            file_content, 
+            as_attachment=True, 
+            filename=f"{college_name}_mandatory_disclosure.pdf"
+        )
+        
+        return response
+
+    except Exception as e:
+        print(f"Error downloading mandatory file: {e}")
+        return HttpResponseNotFound("Error downloading file")
