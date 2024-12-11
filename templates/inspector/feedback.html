@@ -26,7 +26,7 @@
         <div class="container">
             <form method="POST" action="{% url 'submit_feedback' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="card">
+                <div class="card card-1">
                     <h2>Enter Feedback</h2>
                     <p>Enter your feedback or suggestions for the college below:</p>
                     <div class="form-group">
@@ -34,8 +34,8 @@
                     </div>
                     <button type="submit">Submit Feedback</button>
                 </div>
-
-                <div class="card">
+    
+                <div class="card card-2">
                     <h2>Upload Manual Report</h2>
                     <p>Attach the PDF copy of the manual report.</p>
                     <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
@@ -49,7 +49,7 @@
                         <button type="submit">Save</button>
                     </div>
                 </div>
-
+    
                 <div class="submit-container">
                     <button type="submit" class="submit-button" style="margin-bottom:50px;">Submit</button>
                 </div>

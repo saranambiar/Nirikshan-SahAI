@@ -36,7 +36,6 @@ class Inspector(Document):
 
 
 from datetime import datetime
-
 from mongoengine import Document, StringField, DateTimeField
 
 class Feedback(Document):
