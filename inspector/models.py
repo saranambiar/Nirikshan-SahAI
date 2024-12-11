@@ -42,7 +42,12 @@ from mongoengine import Document, StringField, DateTimeField
 class Feedback(Document):
     inspector_name = StringField(required=True)
     college_name = StringField(required=True)
-    feedback_text = StringField(required=True, max_length=2000)  # Adjust max_length as needed
+    feedback_text = StringField(required=False, max_length=2000)  # Adjust max_length as needed
+    manual_report = FileField(required=False)
     created_at = DateTimeField(default=datetime.utcnow)
-    def __str__(self):
-        return f"Feedback from {self.inspector_name} for {self.college_name}"
+    # def __str__(self):
+    #     return f"Feedback from {self.inspector_name} for {self.college_name}"
+    meta = {
+        'collection': 'feedback'  # Maps to the "inspector" collection in MongoDB
+    }
+

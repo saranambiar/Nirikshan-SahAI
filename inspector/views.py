@@ -105,7 +105,7 @@ def view_certificates(request):
     """
     View function for inspectors to view certificates uploaded by institutes
     """
-    
+
     try:
         # Using MongoEngine to query certificates
         uploaded_certificates = certificate.objects.all()
@@ -119,11 +119,7 @@ def view_certificates(request):
                 'id': str(cert.id)
             })
 
-        context = {
-            'certificates': certificate_details
-        }
-
-        return render(request, 'inspector/view_certificates.html', context)
+        return render(request, 'inspector/view_certificates.html',{'certificates': certificate_details})
 
     except Exception as e:
         # Log the error and show a user-friendly message
@@ -167,22 +163,31 @@ from .models import Feedback
 def submit_feedback(request):
     if request.method == 'POST':
         feedback_text = request.POST.get('feedback')
-        college_name = request.POST.get('college_name')  # Ensure this is passed in the form
-        inspector_name = request.session.get('inspector_name')  # Get inspector name from session
+        # college_name = request.session.get('college') # Ensure this is passed in the form
+        inspector_name = request.session.get('user_id')  # Get inspector name from session
+        inspector = Inspector.objects.get(user_id=inspector_name)
+        college_name = inspector.college    
+        file = request.FILES['manual_report']
+
+        if not inspector_name:
+            messages.error(request, "User  not logged in.")
+            return redirect('inspector_login')
 
         if not inspector_name or not college_name:
             messages.error(request, "Inspector or College information is missing!")
             return redirect('feedback_page')  # Ensure this matches the URL name
 
         if not feedback_text.strip():
+            print("Hello")
             messages.error(request, "Feedback text cannot be empty!")
             return redirect('feedback_page')
-
+        print(feedback_text)
         # Save feedback
         feedback_entry = Feedback(
             inspector_name=inspector_name,
             college_name=college_name,
-            feedback_text=feedback_text
+            feedback_text=feedback_text,
+            manual_report=file
         )
         feedback_entry.save()
 
@@ -191,5 +196,5 @@ def submit_feedback(request):
 
     return render(request, 'inspector/feedback.html')  # Render the feedback form for GET requests
 
-def feedback_page_view(request):
+def feedback_page(request):
     return render(request, 'inspector/feedback.html')  # Adjust the template path as needed

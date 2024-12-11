@@ -13,7 +13,7 @@ urlpatterns = [
     # path('create-reply/<int:post_id>/', views.create_reply, name='create_reply'),
     
     path('submit-feedback/', views.submit_feedback, name='submit_feedback'),
-    path('feedback-page/', views.feedback_page_view, name='feedback_page'),
+    path('feedback-page/', views.feedback_page, name='feedback_page'),
     path('inspector/view-uploaded-certificates/', views.view_certificates, name='view_certificates'),
     path('inspector/download-uploaded-certificate/<str:certificate_id>/', views.download_uploaded_certificate, name='download_uploaded_certificate'),
    
