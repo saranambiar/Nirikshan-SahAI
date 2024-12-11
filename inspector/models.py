@@ -50,3 +50,11 @@ class Feedback(Document):
         'collection': 'feedback'  # Maps to the "inspector" collection in MongoDB
     }
 
+class compliancereport(Document):
+    college_name = StringField(required=True)
+    intake = StringField(required=True)
+    report_file = FileField()
+    
+    meta = {
+        'collection': 'compliance_reports'
+    }

@@ -236,6 +236,47 @@ def view_mandatory(request):
         print(f"Error downloading mandatory file: {e}")
         return HttpResponseNotFound("Error downloading file")
     
+
+from inspector.models import compliancereport
+
+def view_compliance(request):
+    try:
+        # Check if user is logged in via session
+        if 'user_id' not in request.session:
+            return redirect('inspector_login')
+
+        # Get college name from session
+        college_name = request.session.get('college_name')
+
+        if not college_name:
+            return HttpResponseNotFound("No college associated with this session")
+
+        # Find the compliance file for the specific college
+        compliance_entry = compliancereport.objects.filter(college_name=college_name).first()
+
+        if not compliance_entry:
+            return HttpResponseNotFound("Compliance entry not found")
+
+        if not compliance_entry.report_file:
+            return HttpResponseNotFound("Compliance file not found")
+
+        # Create a file-like object from the stored file
+        file_content = io.BytesIO(compliance_entry.report_file.read())
+        
+        # Prepare the file response
+        response = FileResponse(
+            file_content, 
+            as_attachment=True, 
+            filename=f"{college_name}_compliance_document.pdf"
+        )
+        
+        return response
+
+    except Exception as e:
+        print(f"Error downloading compliance file: {str(e)}")  # Log the error message
+        messages.error(request, "An error occurred while downloading the file.")
+        return HttpResponseNotFound(f"Error downloading file: {str(e)}")
+    
 from institute.models import Images 
 
 def view_category_images(request, category):
@@ -267,3 +308,5 @@ def view_category_images(request, category):
         image_urls.extend(item.get('url', []))
 
     return render(request, 'category_images.html', {'image_urls': image_urls, 'category': category})
+
+
