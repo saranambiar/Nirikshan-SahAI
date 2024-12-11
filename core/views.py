@@ -4,6 +4,7 @@ from .models import Certificate
 from django.contrib import messages
 from inspector.models import Feedback
 
+from inspector.models import Feedback
 
 #common
 def homepage(request):
@@ -150,3 +151,11 @@ def view_canteen(request):
     return render(request,'inspector/view_canteen.html')
 
 
+
+def report3(request):
+    # Fetch all feedback entries or filter as needed
+    feedback_entries = Feedback.objects.all()
+
+    # Pass data to the template
+    context = {'feedback_entries': feedback_entries}
+    return render(request, 'institute/report3.html', context)
