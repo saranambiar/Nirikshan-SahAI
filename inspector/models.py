@@ -2,6 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from mongoengine import Document,StringField,ListField
+from mongoengine import Document, StringField, EmailField, FileField
+from django import forms
+from mongoengine import  ReferenceField, DateTimeField
+from django.utils.timezone import now
 
 class Post(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,3 +33,16 @@ class Inspector(Document):
     meta = {
         'collection': 'inspector'  # Maps to the "inspector" collection in MongoDB
     }
+
+
+from datetime import datetime
+
+from mongoengine import Document, StringField, DateTimeField
+
+class Feedback(Document):
+    inspector_name = StringField(required=True)
+    college_name = StringField(required=True)
+    feedback_text = StringField(required=True, max_length=2000)  # Adjust max_length as needed
+    created_at = DateTimeField(default=datetime.utcnow)
+    def __str__(self):
+        return f"Feedback from {self.inspector_name} for {self.college_name}"

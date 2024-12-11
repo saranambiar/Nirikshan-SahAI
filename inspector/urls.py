@@ -11,6 +11,9 @@ urlpatterns = [
     # path('discussion/<int:post_id>/', views.view_discussion, name='view_discussion'),
     # path('create-post/', views.create_post, name='create_post'),
     # path('create-reply/<int:post_id>/', views.create_reply, name='create_reply'),
+    
+    path('submit-feedback/', views.submit_feedback, name='submit_feedback'),
+    path('feedback-page/', views.feedback_page_view, name='feedback_page'),
     path('inspector/view-uploaded-certificates/', views.view_certificates, name='view_certificates'),
     path('inspector/download-uploaded-certificate/<str:certificate_id>/', views.download_uploaded_certificate, name='download_uploaded_certificate'),
    

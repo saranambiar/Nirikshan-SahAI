@@ -197,3 +197,22 @@ def upload_certificate(request):
 def college_logout(request):
     request.session.flush()
     return render(request, 'options.html')
+
+
+from django.shortcuts import render
+from .models import Feedback
+
+def view_feedback(request):
+    college_name = request.session.get('college_name')  # Get college name from session
+    if not college_name:
+        messages.error(request, "College information is missing!")
+        return redirect('some_default_page')  # Redirect to a default page if college name is not found
+
+    # Retrieve feedback entries for the specific college
+    feedback_entries = Feedback.objects(college_name=college_name).order_by('-created_at')
+
+    context = {
+        'feedback_entries': feedback_entries,
+        'college_name': college_name  # Pass college name to the template
+    }
+    return render(request, 'inspector/feedback_view.html', context)  # Updated template name

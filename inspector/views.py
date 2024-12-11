@@ -160,3 +160,36 @@ def download_uploaded_certificate(request, certificate_id):
         messages.error(request, "An error occurred while downloading the certificate.")
         return redirect('view_certificates')
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Feedback
+def submit_feedback(request):
+    if request.method == 'POST':
+        feedback_text = request.POST.get('feedback')
+        college_name = request.POST.get('college_name')  # Ensure this is passed in the form
+        inspector_name = request.session.get('inspector_name')  # Get inspector name from session
+
+        if not inspector_name or not college_name:
+            messages.error(request, "Inspector or College information is missing!")
+            return redirect('feedback_page')  # Ensure this matches the URL name
+
+        if not feedback_text.strip():
+            messages.error(request, "Feedback text cannot be empty!")
+            return redirect('feedback_page')
+
+        # Save feedback
+        feedback_entry = Feedback(
+            inspector_name=inspector_name,
+            college_name=college_name,
+            feedback_text=feedback_text
+        )
+        feedback_entry.save()
+
+        messages.success(request, "Feedback submitted successfully!")
+        return redirect('feedback_page')  # Ensure this matches the URL name
+
+    return render(request, 'inspector/feedback.html')  # Render the feedback form for GET requests
+
+def feedback_page_view(request):
+    return render(request, 'inspector/feedback.html')  # Adjust the template path as needed
