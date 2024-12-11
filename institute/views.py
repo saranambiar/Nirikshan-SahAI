@@ -12,6 +12,8 @@ from inspection_system.decorators import college_login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import College  # Import the College model
+from django.shortcuts import render
+from inspector.models import Feedback
 
 def signup_view(request):
     if request.method == 'POST':
@@ -199,20 +201,17 @@ def college_logout(request):
     return render(request, 'options.html')
 
 
-from django.shortcuts import render
-from .models import Feedback
-
 def view_feedback(request):
     college_name = request.session.get('college_name')  # Get college name from session
     if not college_name:
         messages.error(request, "College information is missing!")
-        return redirect('some_default_page')  # Redirect to a default page if college name is not found
+        return redirect('college_login')  # Redirect to a default page if college name is not found
 
     # Retrieve feedback entries for the specific college
-    feedback_entries = Feedback.objects(college_name=college_name).order_by('-created_at')
+    feedback_entry = Feedback.objects.all()
 
     context = {
-        'feedback_entries': feedback_entries,
+        'feedback_entry': feedback_entry,
         'college_name': college_name  # Pass college name to the template
     }
-    return render(request, 'inspector/feedback_view.html', context)  # Updated template name
+    return render(request, 'feedback_view.html', context)  # Updated template name

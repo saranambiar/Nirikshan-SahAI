@@ -444,32 +444,26 @@
 
     <div class="container-wrapper">
       <div class="feedback-container">
-        <div class="feedback-header">
-          <h2>Feedback</h2>
-        </div>
-
-        <div
-          class="feedback-content"
-          id="feedbackContent"
-          contenteditable="true"
-          placeholder="Enter your feedback here..."
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, quasi,
-          itaque quibusdam ab consectetur aliquam eveniet odio blanditiis, quam
-          ratione mollitia voluptates aperiam ullam exercitationem libero! Eius
-          quo soluta quaerat!
-        </div>
-
-        <div class="feedback-actions">
-          <button class="action-btn download-btn" id="downloadBtn">
-            <i class="fas fa-download"></i> Download Report
-          </button>
-          <button class="action-btn share-btn" id="shareBtn">
-            <i class="fas fa-share-alt"></i> Share Insights
-          </button>
-        </div>
+          <div class="feedback-header">
+              <h2>Feedback</h2>
+          </div>
+  
+          <div class="feedback-content" id="feedbackContent">
+              {% if feedback_entry %}
+                  <ul>
+                      {% for feedback in feedback_entry %}
+                          <li>
+                              <p>{{ feedback.feedback_text }}</p>
+                              <hr>
+                          </li>
+                      {% endfor %}
+                  </ul>
+              {% else %}
+                  <p>No feedback available.</p>
+              {% endif %}
+          </div>
       </div>
-    </div>
+  </div>
 
     <script>
       document

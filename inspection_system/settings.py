@@ -66,7 +66,14 @@ ROOT_URLCONF = 'inspection_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'templates'],
+        'DIRS': [
+            BASE_DIR,
+            'templates',
+            'E:/Programming/SIH_24/frontend/inspection_system/inspection_system/templates',
+            'E:/Programming/SIH_24/frontend/inspection_system/inspection_system/templates/aicte',
+            'E:/Programming/SIH_24/frontend/inspection_system/inspection_system/templates/institute',
+            'E:/Programming/SIH_24/frontend/inspection_system/inspection_system/templates/inspector',
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
