@@ -1,6 +1,8 @@
 from django.db import models
 from mongoengine import Document, StringField, EmailField, FileField
 from django import forms
+from django.utils.timezone import now
+
 class College(Document):
     college_name = StringField(required=True)
     college_id = StringField(required=True, unique=True)
@@ -46,3 +48,19 @@ class mandatory_dis(Document):
     meta = {
         'collection': 'mandatory_disclosure'
     }
+
+
+
+
+
+from datetime import datetime
+
+from mongoengine import Document, StringField, DateTimeField
+
+class Feedback(Document):
+    inspector_name = StringField(required=True)
+    college_name = StringField(required=True)
+    feedback_text = StringField(required=True, max_length=2000)  # Adjust max_length as needed
+    created_at = DateTimeField(default=datetime.utcnow)
+    def __str__(self):
+        return f"Feedback from {self.inspector_name} for {self.college_name}"

@@ -31,6 +31,8 @@ urlpatterns = [
     # path('certificates/upload/', views.upload_certificate, name='upload_certificate'),
     
     path('inspector/', include('inspector.urls')),
+    
+    path('institute/', include('institute.urls')),
 
 
     #aicte
