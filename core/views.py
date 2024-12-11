@@ -94,7 +94,7 @@ def view_feedback(request):
         return redirect('college_login')  # Redirect to a default page if college name is not found
 
     # Retrieve feedback entries for the specific college
-    feedback_entry = Feedback.objects.all()
+    feedback_entry = Feedback.objects(college_name=college_name)
     
     for feedback in feedback_entry:
             print(f"Inspector Name: {feedback.inspector_name}, College Name: {feedback.college_name}, Feedback: {feedback.feedback_text}")

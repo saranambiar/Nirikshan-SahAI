@@ -44,6 +44,7 @@ class mandatory_dis(Document):
     name = StringField(required=True) 
     file = FileField(required=True)
     college_name = StringField(required=True)
+    college_intake = StringField(required=True)
 
     meta = {
         'collection': 'mandatory_disclosure'

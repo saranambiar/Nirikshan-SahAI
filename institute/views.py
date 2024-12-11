@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import pymongo
+from django.http import JsonResponse
 from inspection_system.settings import db
 from mongoengine import DoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -14,6 +15,7 @@ from django.contrib import messages
 from .models import College  # Import the College model
 from django.shortcuts import render
 from inspector.models import Feedback
+import requests
 
 def signup_view(request):
     if request.method == 'POST':
@@ -108,25 +110,43 @@ def upload_mandatory_dis(request):
 
         college_name = request.session.get('college_name')  # Fetch college name from session
 
+        fastapi_url = "http://localhost:8000/process-mandatory-disclosure/"
+
         # Get the uploaded file
         file = request.FILES['mandatory_doc']  # Assuming the input name is 'mandatory_doc'
+        intake = request.POST.get("college_intake")
 
         # Create and save the mandatory document entry
         try:
             mandatory_document_entry = mandatory_dis(  # Assuming you are using the same model
                 name="Mandatory Disclosure",  # You can customize this name as needed
                 file=file,
-                college_name=college_name  # Add metadata like the college name
+                college_name=college_name,  # Add metadata like the college name
+                college_intake=intake
             )
             mandatory_document_entry.save()  # Save to the database
             messages.success(request, 'Mandatory document uploaded successfully!')
+
+            data = {    
+                "college_name": college_name,
+                "intake":intake
+            }
+
+            # Send the data to FastAPI
+            response = requests.post(fastapi_url, json=data)
+
+            # Handle FastAPI's response
+            if response.status_code == 200:
+                messages.success(request, "Mandatory disclosure processed successfully.")
+            else:
+                messages.error(request, f"FastAPI returned an error: {response.status_code}, details: {response.json()}")
+
+            return redirect('index')  # Redirect to the index or another page after successful upload
         except Exception as e:
             messages.error(request, f"Error uploading document: {str(e)}")
             return redirect('upload_excel')
 
-        return redirect('index')  # Redirect to the index or another page after successful upload
-
-    return render(request, 'upload_excel.html')  # Render the upload page if not a POST request
+    return render(request, 'upload_excel.html')
 
 
 # upload certificates

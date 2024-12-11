@@ -1,34 +1,31 @@
-from mongoengine import StringField, FileField, Document, connect
-MONGO_ATLAS_URI = 'mongodb+srv://param4mc:3Fj0PbA9t4V6bT1E@cluster0.9f6ij.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&appName=Cluster0'
-connect('Login',host=MONGO_ATLAS_URI)
+from mongoengine import connect, Document, FileField, StringField
+import io
+import pandas as pd
 
-class certificate(Document):
-    name = StringField(required=True) 
-    file = FileField(required=True)
+# MongoDB connection details
+MONGODB_URI = "mongodb+srv://param4mc:3Fj0PbA9t4V6bT1E@cluster0.9f6ij.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&appName=Cluster0"
+DB_NAME = "Login"
+
+# Connect to MongoDB Atlas
+connect(db=DB_NAME, host=MONGODB_URI)
+
+class excel_data(Document):
+    college_name = StringField(required=True)
+    file_data = FileField()
 
     meta = {
-        'collection': 'certificate_format'
+        'collection': 'excel_data'
     }
 
-name = [
-    'Certificate of Advocate format',
-    'Certificate of Architect Registered with Council of Architecture format',
-    'Certificate of the Bank Manager format'
-]
+# Retrieve the document by college_name
+document = excel_data.objects(college_name="Pune Institute of Computer Technology").first()
 
-pdf_file_paths = [
-    "E:/Programming/SIH_24/frontend/certificate formats/CERTIFICATE-1.pdf",
-    "E:/Programming/SIH_24/frontend/certificate formats/CERTIFICATE-2.pdf",
-    "E:/Programming/SIH_24/frontend/certificate formats/CERTIFICATE-3_0.pdf"
-]
+# Extract the Excel file data from the document
+excel_data_bytes = document.file_data.read()
 
-for i, file_path in enumerate(pdf_file_paths):
-    # Read the file
-    with open(file_path, 'rb') as filee:
-        # Create a new certificate entry in the database
-        cert = certificate(
-            name=name[i],  # You can adjust the name as needed
-            file=filee
-        )
-        cert.save()
-        print(f"Certificate {i + 1} uploaded successfully.")
+# Save the Excel file
+output_file = "output.xlsx"
+with open(output_file, "wb") as f:
+    f.write(excel_data_bytes)
+
+print(f"Excel file saved as: {output_file}")
