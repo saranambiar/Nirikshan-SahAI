@@ -13,6 +13,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import College  # Import the College model
 
+from django.shortcuts import render
+from inspector.models import Feedback
+
+
 def signup_view(request):
     if request.method == 'POST':
         # Retrieve form data from POST request
@@ -199,9 +203,6 @@ def college_logout(request):
     return render(request, 'options.html')
 
 
-from django.shortcuts import render
-from .models import Feedback
-
 def view_feedback(request):
     college_name = request.session.get('college_name')  # Get college name from session
     if not college_name:
@@ -216,3 +217,33 @@ def view_feedback(request):
         'college_name': college_name  # Pass college name to the template
     }
     return render(request, 'inspector/feedback_view.html', context)  # Updated template name
+from django.shortcuts import redirect
+from django.http import FileResponse, Http404
+from django.contrib import messages
+from inspector.models import Feedback
+
+def download_manual_report(request, feedback_id):
+    """
+    Download the manual report uploaded by the inspector.
+    """
+    try:
+        # Fetch the feedback document by ID
+        feedback = Feedback.objects.get(id=feedback_id)
+    except Feedback.DoesNotExist:
+        messages.error(request, "Feedback entry not found.")
+        return redirect('report3')  # Redirect to the appropriate page if feedback does not exist
+
+    # Check if the manual report exists
+    if not feedback.manual_report:
+        messages.error(request, "No manual report associated with this feedback.")
+        return redirect('report3')  # Redirect to the appropriate page if no manual report
+
+    try:
+        # Serve the manual report as a file response
+        response = FileResponse(feedback.manual_report, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{feedback.college_name}_report.pdf"'
+        return response
+    except Exception as e:
+        print(f"Error downloading report: {e}")
+        messages.error(request, "An error occurred while downloading the report.")
+        return redirect('report3')

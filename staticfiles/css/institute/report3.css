@@ -1,7 +1,7 @@
 :root {
   --primary-color: #0288d1;
   --secondary-color: #03a9f4;
-  --background-color: #BED7DC;
+  --background-color:  #BED7DC;
   --text-color: #333;
   --card-bg-color: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.1);
@@ -101,11 +101,11 @@ body {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
-  justify-content: ce;
+  grid-template-columns: repeat(3, 1fr); /* This will create 3 equal columns */
+  gap: 10px; /* Optional: adds space between the boxes */
+  margin-bottom: 40px; /* Adjust as needed */
 }
+
 
 .card {
   background-color: var(--card-bg-color);

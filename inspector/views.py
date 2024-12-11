@@ -7,6 +7,11 @@ from django.views.decorators.http import require_http_methods
 from .models import Post, Reply,Inspector
 from django.utils import timezone
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from inspector.models import Feedback
+
 def login_view(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
@@ -157,9 +162,6 @@ def download_uploaded_certificate(request, certificate_id):
         return redirect('view_certificates')
 
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Feedback
 def submit_feedback(request):
     if request.method == 'POST':
         feedback_text = request.POST.get('feedback')
