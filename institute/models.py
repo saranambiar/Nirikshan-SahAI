@@ -50,9 +50,6 @@ class mandatory_dis(Document):
     }
 
 
-
-
-
 from datetime import datetime
 
 from mongoengine import Document, StringField, DateTimeField
@@ -64,3 +61,7 @@ class Feedback(Document):
     created_at = DateTimeField(default=datetime.utcnow)
     def __str__(self):
         return f"Feedback from {self.inspector_name} for {self.college_name}"
+    meta = {
+        'collection': 'feedback'  # Maps to the "inspector" collection in MongoDB
+    }
+

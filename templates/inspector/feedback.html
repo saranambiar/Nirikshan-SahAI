@@ -24,37 +24,37 @@
     </nav>
     <div class="container-wrapper">
         <div class="container">
-            <div class="card">
-                <h2>Enter Feedback</h2>
-                <p>Enter your feedback or suggestions for the college below:</p>
-                <form method="POST" action="{% url 'submit_feedback' %}">
-                    {% csrf_token %}
+            <form method="POST" action="{% url 'submit_feedback' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card">
+                    <h2>Enter Feedback</h2>
+                    <p>Enter your feedback or suggestions for the college below:</p>
                     <div class="form-group">
-                        <textarea name="feedback" placeholder="Your feedback here..." required></textarea>
+                        <textarea name="feedback" id="feedback" placeholder="Your feedback here..." required></textarea>
                     </div>
-                    <input type="hidden" name="college_name" value="{{ college_name }}">  <!-- Pass the college name -->
                     <button type="submit">Submit Feedback</button>
-                </form>
-            </div>
+                </div>
 
-            <div class="card">
-                <h2>Upload Manual Report</h2>
-                <p>Attach the PDF copy of the manual report.</p>
-                <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
-                    <div class="upload-icon">&#128196;</div>
-                    <p>Click to upload or drag and drop</p>
-                    <p id="upload-status">No Files Selected</p>
+                <div class="card">
+                    <h2>Upload Manual Report</h2>
+                    <p>Attach the PDF copy of the manual report.</p>
+                    <div class="upload-area" onclick="document.getElementById('pdf-upload').click()">
+                        <div class="upload-icon">&#128196;</div>
+                        <p>Click to upload or drag and drop</p>
+                        <p id="upload-status">No Files Selected</p>
+                    </div>
+                    <input type="file" id="pdf-upload" name="manual_report" style="display: none;" accept=".pdf" onchange="updateFileName()">
+                    <div class="button-group">
+                        <button class="cancel-button" type="reset">Cancel</button>
+                        <button type="submit">Save</button>
+                    </div>
                 </div>
-                <input type="file" id="pdf-upload" name="manual_report" style="display: none;" accept=".pdf" onchange="updateFileName()">
-                <div class="button-group">
-                    <button class="cancel-button" type="reset">Cancel</button>
-                    <button type="submit">Save</button>
+
+                <div class="submit-container">
+                    <button type="submit" class="submit-button" style="margin-bottom:50px;">Submit</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
-    <div class="submit-container">
-        <button type="submit" class="submit-button" style="margin-bottom:50px;">Submit</button>
     </div>
 </body>
 <script>
