@@ -62,6 +62,7 @@ urlpatterns = [
     path('view_parking/',views.view_parking, name='view_parking'),
     path('view_pwd/',views.view_pwd, name='view_pwd'),
     path('view_canteen/',views.view_canteen, name='view_canteen'),
+    path('view_mandatory/',inspector.views.view_mandatory, name='view_mandatory'),
    
 
 
