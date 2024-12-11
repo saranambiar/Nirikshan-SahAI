@@ -7,61 +7,6 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 
-def upload_pdf():
-    root = tk.Tk()
-    root.withdraw()  # Hide the main window
-    file_path = filedialog.askopenfilename(
-        title="Select PDF File",
-        filetypes=[("PDF files", "*.pdf")]
-    )
-    return file_path
-
-def extract_tables_to_excel(pdf_path):
-    output_excel_path = "Extracted_Tables_with_Titles.xlsx"
-
-    table_titles = {
-        "Professor": "Faculty Information",
-        "Classroom": "Classroom Details",
-        "Laboratory": "Lab Information",
-        "Course": "Courses Offered",
-        "Intake": "Student Intake",
-        "PCs": "PC Details",
-        "titles": "Library Details",
-    }
-
-    tables_with_titles = []
-
-    with pdfplumber.open(pdf_path) as pdf:
-        for page_num, page in enumerate(pdf.pages, start=1):
-            try:
-                tables = page.extract_tables()
-                for table in tables:
-                    df = pd.DataFrame(table)
-                    if df.shape[0] < 3 or df.shape[1] < 3:
-                        continue
-                    for keyword, title in table_titles.items():
-                        if df.astype(str).apply(lambda x: x.str.contains(keyword, case=False, na=False)).any().any():
-                            if title in ["Courses Offered", "Library Details"] and df.shape[0] > 20:
-                                continue
-                            df["Source_Page"] = page_num
-                            tables_with_titles.append((df, title))
-                            break
-            except Exception as e:
-                print(f"Error on page {page_num}: {e}")
-
-    if tables_with_titles:
-        with pd.ExcelWriter(output_excel_path, engine="openpyxl") as writer:
-            title_counts = {}
-            for table, title in tables_with_titles:
-                title_counts[title] = title_counts.get(title, 0) + 1
-                sheet_name = f"{title} ({title_counts[title]})" if title_counts[title] > 1 else title
-                table.to_excel(writer, sheet_name=sheet_name[:31], index=False, header=False)
-
-        print(f"Extracted tables saved to: {output_excel_path}")
-        return output_excel_path
-    else:
-        print("No relevant tables found.")
-        return None
 
 def analyze_faculty_data(excel_file):
     excel_data = pd.ExcelFile(excel_file)
