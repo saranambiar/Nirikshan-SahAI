@@ -8,44 +8,33 @@
     <title>inspX.ai - Upload Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/inspector/viewi.css' %}">
-    
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="navdiv">
-         <div class="logo">
-          <a href="homepage.html">
-           <img alt="inspX.ai Logo" height="50" src="{% static 'images/logo.png' %}" style="padding: 5px;"/>
-          </a>
-         </div>
-         <ul>
-          <li>
-           <a href="{% url 'homepage' %}">
-            Home
-           </a>
-          </li>
-          <li>
-           <a href="{% url 'view_reports' %}">
-            College Data
-           </a>
-        </li>
-         </ul> 
-           
-          </div>
-          <div>
-          </div>
-          <div>
-          </div>
-         </div>
+            <div class="logo">
+                <a href="homepage.html">
+                    <img alt="inspX.ai Logo" height="50" src="{% static 'images/logo.png' %}" style="padding: 5px;"/>
+                </a>
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'homepage' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'view_reports' %}">College Data</a>
+                </li>
+            </ul>
         </div>
-       </nav>
+    </nav>
+
     <main class="dashboard">
         <div class="container">
             <h1 class="text-2xl md:text-3xl font-bold text-center text-blue-900 mb-4 md:mb-6">View Dashboard</h1>
             <div class="card-grid">
                 <div class="card-container">
-                    <a href="{% url 'view_classroom'%}">
+                    <a href="{% url 'view_category_images' 'classroom' %}">
                         <div class="card">
                             <div class="img-content" style="background-image: url('{% static "images/classroom.jpg" %}');"></div>
                             <div class="content">
@@ -58,7 +47,7 @@
                 </div>
 
                 <div class="card-container">
-                    <a href="{% url 'view_lab'%}">
+                    <a href="{% url 'view_category_images' 'lab' %}">
                         <div class="card">
                             <div class="img-content" style="background-image: url('{% static "images/lab.jpeg" %}');"></div>
                             <div class="content">
@@ -71,37 +60,25 @@
                 </div>
 
                 <div class="card-container">
-                    <a href="{% url 'view_canteen'%}">
+                    <a href="{% url 'view_category_images' 'canteen' %}">
+                       
                         <div class="card">
-                            <div class="img-content" style="background-image: url('{% static "images/canteen.jpeg" %}');"></div>
+                            <div class="img-content" style="background-image:  url('{% static "images/washroom.jpg" %}');"></div>
                             <div class="content">
-                                <p class="heading">Canteen</p>
-                                <p>View the pictures of the Canteen</p>
+                                <p class="heading">Washrooms</p>
+                                <p>View the pictures of Washrooms</p>
                             </div>
                         </div>
                     </a>
                     <div class="label">Canteen</div>
                 </div>
 
-                <!-- <div class="card-container">
-                    <a href="////////////////////">
-                        <div class="card">
-                            <div class="img-content" style="background-image: url('{% static "images/library.jpg" %}');"></div>
-                            <div class="content">
-                                <p class="heading">Library</p>
-                                <p>View the pictures of Library</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="label">Library</div>
-                </div> -->
-
                 <div class="card-container">
-                    <a href="{% url 'view_pwd'%}">
+                    <a href="{% url  'homepage' %}">
                         <div class="card">
                             <div class="img-content" style="background-image: url('{% static "images/pwd.png" %}');"></div>
                             <div class="content">
-                                <p class="heading">PWD facilities</p>
+                                <p class="heading">PWD Facilities</p>
                                 <p>View the pictures of PWD facilities</p>
                             </div>
                         </div>
@@ -110,7 +87,7 @@
                 </div>
 
                 <div class="card-container">
-                    <a href="{% url 'view_parking'%}">
+                    <a href="{% url 'homepage' %}">
                         <div class="card">
                             <div class="img-content" style="background-image: url('{% static "images/parking.jpg" %}');"></div>
                             <div class="content">
@@ -122,39 +99,13 @@
                     <div class="label">Parking</div>
                 </div>
 
-                <!-- <div class="card-container">
-                    <a href="////////////////////">
-                        <div class="card">
-                            <div class="img-content" style="background-image:  url('{% static "images/solar.png" %}');"></div>
-                            <div class="content">
-                                <p class="heading">Solar Panels</p>
-                                <p>View the pictures of Solar panels</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="label">Solar Panels</div>
-                </div> -->
-
-                <!-- <div class="card-container">
-                    <a href="////////////////////">
-                        <div class="card">
-                            <div class="img-content" style="background-image:  url('{% static "images/medical.avif" %}');;"></div>
-                            <div class="content">
-                                <p class="heading">Medical Facilities</p>
-                                <p>View pictures of First AID boxes, medical & counselling facilities</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="label">Medical Facilities</div>
-                </div> -->
-
                 <div class="card-container">
-                    <a href="{% url 'view_washroom'%}">
+                    <a href="{% url 'homepage' %}">
                         <div class="card">
-                            <div class="img-content" style="background-image:  url('{% static "images/washroom.jpg" %}');"></div>
+                            <div class="img-content" style="background-image: url('{% static "images/canteen.jpeg" %}');"></div>
                             <div class="content">
-                                <p class="heading">Washrooms</p>
-                                <p>View the pictures of Washrooms</p>
+                                <p class="heading">Canteen</p>
+                                <p>View the pictures of the Canteen</p>
                             </div>
                         </div>
                     </a>
@@ -173,6 +124,4 @@
         });
     </script>
 </body>
-
-
 {% endblock %}

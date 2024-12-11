@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center text-2xl font-bold mb-4">{{ category|title }} Images</h1>
+    {% if image_urls %}
+        <div class="grid grid-cols-3 gap-4 mt-4">
+            {% for url in image_urls %}
+                <div class="border rounded-lg overflow-hidden">
+                    <img src="{{ url }}" alt="{{ category }} image" class="w-full h-auto">
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-red-500 mt-4">No images available for this category.</p>
+    {% endif %}
+    <div class="text-center mt-4">
+        <a href="{% url 'homepage' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

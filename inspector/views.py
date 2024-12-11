@@ -235,3 +235,35 @@ def view_mandatory(request):
     except Exception as e:
         print(f"Error downloading mandatory file: {e}")
         return HttpResponseNotFound("Error downloading file")
+    
+from institute.models import Images 
+
+def view_category_images(request, category):
+    # Fetch the college name from the session
+    college_name = request.session.get('college_name')
+
+    # Fetch the images entry for the specific college
+    images_entry = Images.objects(college=college_name).first()
+
+    if not images_entry:
+        return render(request, 'category_images.html', {'error': 'No images found for the selected category.'})
+
+    # Map categories to their respective fields
+    category_map = {
+        'classroom': images_entry.classroom,
+        'lab': images_entry.lab,
+        'canteen': images_entry.canteen,
+        'pwd': images_entry.pwd,
+        'parking': images_entry.parking,
+        'washroom': images_entry.washroom,
+    }
+
+    # Retrieve the data for the specified category
+    category_data = category_map.get(category, [])
+
+    # Flatten URLs if necessary
+    image_urls = []
+    for item in category_data:
+        image_urls.extend(item.get('url', []))
+
+    return render(request, 'category_images.html', {'image_urls': image_urls, 'category': category})
