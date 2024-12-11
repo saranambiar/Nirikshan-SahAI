@@ -105,7 +105,7 @@ def view_certificates(request):
     """
     View function for inspectors to view certificates uploaded by institutes
     """
-    
+
     try:
         # Using MongoEngine to query certificates
         uploaded_certificates = certificate.objects.all()
@@ -119,11 +119,7 @@ def view_certificates(request):
                 'id': str(cert.id)
             })
 
-        context = {
-            'certificates': certificate_details
-        }
-
-        return render(request, 'inspector/view_certificates.html', context)
+        return render(request, 'inspector/view_certificates.html',{'certificates': certificate_details})
 
     except Exception as e:
         # Log the error and show a user-friendly message

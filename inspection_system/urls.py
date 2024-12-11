@@ -28,7 +28,7 @@ urlpatterns = [
     #common
     path('', views.homepage, name='homepage'),
     path('options/', views.options, name='options'),
-    path('certificates/upload/', views.upload_certificate, name='upload_certificate'),
+    # path('certificates/upload/', views.upload_certificate, name='upload_certificate'),
     
     path('inspector/', include('inspector.urls')),
 

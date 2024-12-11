@@ -28,6 +28,7 @@ class certificate(Document):
     name = StringField(required=True) 
     file = FileField(required=True)
     college_name = StringField(required=True)
+    field_name = StringField(required=True) 
 
     meta = {
         'collection': 'certificate_unverified'
