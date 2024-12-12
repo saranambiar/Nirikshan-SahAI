@@ -279,12 +279,12 @@ async def generate_report(info : data):
             pdf_data = pdf_file.read()
 
         # Create a DeficiencyReport instance and save it to MongoDB
-        deficiency_report = deficiency_report(
+        Deficiency_report = deficiency_report(
             file=pdf_data,  # Save the binary data of the PDF
             college=info.college_name,
             branch=info.branch
         )
-        deficiency_report.save()
+        Deficiency_report.save()
         # Return the PDF file to the user
         return {
             "message": "Report generated and saved successfully",
