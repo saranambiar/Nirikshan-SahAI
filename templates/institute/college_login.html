@@ -49,7 +49,13 @@
                     <div class="login__box-input">
                         <input type="password" name="password" required class="login__input" id="login-password" placeholder=" ">
                         <label for="login-password" class="login__label">Password</label>
-                        <i class="ri-eye-off-line login__eye" id="toggle-password" onclick="togglePasswordVisibility('login-password', 'toggle-password')"></i>
+                        <i
+                            class="ri-eye-off-line login__eye"
+                            id="toggle-password"
+                            onclick="togglePasswordVisibility('login-password', 'toggle-password')"
+                            ></i>
+
+
                     </div>
                 </div>
             </div>
@@ -63,20 +69,20 @@
     </div>
 
     <script>
-        function togglePasswordVisibility(inputId, iconId) {
-            const passwordInput = document.getElementById(inputId);
-            const toggleIcon = document.getElementById(iconId);
-            
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text"; // Show password
-                toggleIcon.classList.remove('ri-eye-off-line');
-                toggleIcon.classList.add('ri-eye-line'); // Change to eye icon
-            } else {
-                passwordInput.type = "password"; // Hide password
-                toggleIcon.classList.remove('ri-eye-line');
-                toggleIcon.classList.add('ri-eye-off-line'); // Change to eye-off icon
-            }
-        }
+      function togglePasswordVisibility(inputId, iconId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("ri-eye-off-line");
+          toggleIcon.classList.add("ri-eye-line");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("ri-eye-line");
+          toggleIcon.classList.add("ri-eye-off-line");
+        }
+      }
     </script>
 </body>
 </html>

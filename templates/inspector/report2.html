@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="{% static 'css/inspector/report2.css' %}">
     
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        
+    </style>
     
 </head>
 
@@ -75,11 +79,7 @@
                     <h2>Deficiency Report</h2>
                     <p>Highlights areas where institute lacks in meeting AICTE norms</p>
                 </a>
-                <a href="facultyreport.pdf" class="card">
-                    <div class="card-icon"><i class="fas fa-users"></i></div>
-                    <h2>Faculty Report</h2>
-                    <p>Highlights qualifications and compliance with norms regarding Faculty</p>
-                </a>
+               
                 <a href="{% url 'pattern_pred' %}" class="card">
                     <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                     <h2>Pattern Recognition</h2>
@@ -89,6 +89,11 @@
                     <div class="card-icon"><i class="fas fa-comments"></i></div>
                     <h2>Manual Report + Feedback</h2>
                     <p>Upload a manual report and give feedback to college.</p>
+                </a>
+                <a href="{% url 'anamoly' %}" class="card">
+                    <div class="card-icon"><i class="fas fa-warning"></i></div>
+                    <h2>Anomaly Detection & Analysis</h2>
+                    <p>Anomaly Detection of Placement Data </p>
                 </a>
                 
             </div>

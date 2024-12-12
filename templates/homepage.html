@@ -1,154 +1,770 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nirikshan SahaAI - AI-Driven Institute Inspection</title>
-    <link rel="stylesheet" href="{%static 'css/homepage.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
-<body>
-    <header class="fi">
-        <div class="header-container">
-            <div class="imageee">
-                <a href="homepage.html" class="hh">
-                    <img src="{% static 'images/logo.png' %}" alt="image here" height="45" width="45">
-                </a>
-            </div>
-            <div class="components">
-                <div class="home">
-                    <a href="{% url 'homepage' %}" class="hh">Home</a>
-                </div>
-                <div class="aboutus">
-                    <a href="#" class="hh">About </a>
-                </div>
-                <!-- <div class="login">
-                    <a href="options.html" class="hh">Login</a>
-                </div> -->
-                <!-- <div class="home"> <a href="#"></a>working</div> -->
-            </div>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #0056b3;
+        --secondary-color: #003366;
+        --accent-color: orange;
+        --text-color: #333;
+        --light-bg: #f4f4f4;
+        --dark-bg: #1a2a3a;
+        --white: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: background-color 0.3s ease;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+      }
+
+      .logo img {
+        height: 60px;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url('{% static "images/inspx.background.png" %}') no-repeat center
+            center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Ensure content is centered */
+        text-align: center;
+        color: var(--white);
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero-content img.aicte-logo {
+        width: 150px; /* Set a specific size for the image */
+        margin-bottom: 20px; /* Space between image and heading */
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease-out 0.5s forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .cta-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .cta-btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* What We Do Section */
+      .what-we-do {
+        padding: 5rem 0;
+        background-color: var(--light-bg);
+        overflow: hidden;
+      }
+
+      .what-we-do h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--secondary-color);
+      }
+
+      .slideshow-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+      }
+
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        background-color: var(--white);
+      }
+
+      .slide.active {
+        opacity: 1;
+      }
+
+      .slide i {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .slide h3 {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .slide p {
+        font-size: 1.1rem;
+        color: var(--text-color);
+      }
+
+      .dots-container {
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin: 0 5px;
+        background-color: rgb(186, 185, 185);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .dot.active {
+        background-color: var(--primary-color);
+      }
+
+      /* Benefits Section */
+      .benefits {
+        padding: 5rem 0;
+        background-color: var(--dark-bg);
+        color: var(--white);
+      }
+
+      .benefits h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--accent-color);
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        justify-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .benefit-item {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .benefit-item:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .benefit-item i {
+        font-size: 2.5rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .benefit-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+      }
+
+      .benefit-item p {
+        font-size: 1rem;
+        color: var(--white);
+      }
+
+      /* Footer Styles */
+      footer {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        padding: 3rem 0;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-section {
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--accent-color);
+      }
+
+      .footer-section p {
+        margin-bottom: 0.5rem;
+      }
+
+      .social-links {
+        margin-top: 4rem;
+      }
+
+      .social-links a {
+        color: var(--white);
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .map-container {
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header-container {
+          flex-direction: column;
+        }
+
+        .nav-links {
+          margin-top: 1rem;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-content p {
+          font-size: 1rem;
+        }
+
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+
+        .slideshow-container {
+          height: 450px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <a href="homepage.html" class="hh">
+            <img
+              src="{% static 'images/logo.png' %}"
+              alt="image here"
+              height="45"
+              width="45"
+            />
+          </a>
         </div>
+        <nav class="nav-links">
+          <a href="#">Home</a>
+          <a href="#what-we-do">What We Do</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
     </header>
-    
-      
-      
 
-    <section class="hero" id="home">
-        <!-- <img src="./djd.png" alt="img is here"> -->
-        <img src="{% static 'images/inspx.background.png' %}" class="of">
-        <div class="hero-content">
-            <div style="font-size: 60px; ">Introducing Nirikshan SahAI</div>
-            <p> An AI-driven solution to aid AICTE in inspection of institutes </p>
-            <div class="cta-buttons">
-                <a href="{% url 'options' %}" class="cta-btn primary" id="get-started-btn">
-                    <button class="animated-button wo">
-                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                        </svg>
-                        <span class="text">Get Started</span>
-                        <span class="circle"></span>
-                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                        </svg>
-                    </button>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    
-
-    <section id="what-we-do" class="section-light">
-        <div class="container">
-            <h2>What We Do</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <i class="icon-efficiency"></i>
-                    <h3>Streamline Inspections</h3>
-                    <p>Our AI-powered solution simplifies and accelerates the institute evaluation process.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="icon-accuracy"></i>
-                    <h3>Enhance Accuracy</h3>
-                    <p>Leverage machine learning for precise and consistent assessments.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="icon-insights"></i>
-                    <h3>Provide Actionable Insights</h3>
-                    <p>Generate comprehensive reports with clear recommendations for improvement.</p>
-                </div>
-            </div>
-        </div>
+    <section class="hero">
+      <div class="hero-content">
+        <!-- Image added before the heading -->
+        <img
+          src="{% static 'images/AICTE.png' %}"
+          alt="AICTE Logo"
+          class="aicte-logo"
+        />
+        <h1>Nirikshan SahAI</h1>
+        <p>An AI-driven solution to the inspection of institutes</p>
+        <a href="{% url 'options' %}" class="cta-btn">Get Started</a>
+      </div>
     </section>
 
-    <section id="why-inspx" class="section-dark">
-        <div class="container">
-            <h2>Why Choose Nirikshan SahAI?</h2>
-            <ul class="benefits-list">
-                <li><strong>Efficiency: </strong> Reduce inspection time by up to 50%</li>
-                <!-- <li><strong>Accuracy:</strong> Minimize human error with our 99.9% accurate AI analysis</li> -->
-                <li><strong>Insights: </strong> Receive detailed reports with data-driven recommendations</li>
-                <li><strong>Compliance: </strong> Stay up-to-date with the latest educational standards</li>
-            </ul>
+    <section id="what-we-do" class="what-we-do">
+      <div class="container">
+        <h2>What We Do</h2>
+        <div class="slideshow-container">
+          <div class="slide active">
+            <i class="fas fa-clipboard-check"></i>
+            <h3>Streamline Inspections</h3>
+            <p>
+              Our AI-powered solution simplifies and accelerates the institute
+              evaluation process.
+            </p>
+          </div>
+          <div class="slide">
+            <i class="fas fa-chart-line"></i>
+            <h3>Enhance Accuracy</h3>
+            <p>
+              Leverage machine learning for precise and consistent assessments.
+            </p>
+          </div>
+          <div class="slide">
+            <i class="fas fa-lightbulb"></i>
+            <h3>Provide Actionable Insights</h3>
+            <p>
+              Generate comprehensive reports with clear recommendations for
+              improvement.
+            </p>
+          </div>
+          <div class="slide">
+            <i class="fas fa-clock"></i>
+            <h3>Save Time</h3>
+            <p>
+              Dramatically reduce inspection time while increasing the depth of
+              evaluations.
+            </p>
+          </div>
         </div>
+        <div class="dots-container"></div>
+      </div>
+    </section>
+    <!-- <section id="how-it-works" class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <p class="subtitle">
+          Discover the step-by-step process behind Nirikshan SahaAI’s powerful
+          inspection capabilities.
+        </p>
+        <div class="text-content">
+          <p class="step" id="step-1">
+            <strong>Step 1: Data Collection - </strong>
+            Our system begins by gathering critical information from various
+            sources, including institutional records, compliance documents, and
+            on-site data inputs. This ensures a comprehensive dataset for
+            analysis.
+          </p>
+          <p class="step" id="step-2">
+            <strong>Step 2: Intelligent Analysis - </strong>
+            Leveraging advanced machine learning models, the system analyzes the
+            collected data to identify patterns, inconsistencies, and areas
+            needing improvement. The AI ensures precision and impartiality.
+          </p>
+          <p class="step" id="step-3">
+            <strong>Step 3: Automated Reporting - </strong>
+            Once the analysis is complete, Nirikshan SahaAI generates detailed
+            and actionable reports, highlighting key findings, compliance gaps,
+            and tailored recommendations for improvement.
+          </p>
+          <p class="step" id="step-4">
+            <strong>Step 4: Continuous Monitoring - </strong>
+            Beyond inspections, our solution facilitates ongoing monitoring,
+            enabling institutions to track progress and make informed decisions
+            for long-term growth.
+          </p>
+        </div>
+      </div>
+      <style>
+        .how-it-works {
+          padding: 5rem 0;
+          background-color: var(--light-bg);
+        }
+
+        .how-it-works h2 {
+          text-align: center;
+          font-size: 2.5rem;
+          margin-bottom: 1.5rem;
+          color: var(--secondary-color);
+        }
+
+        .how-it-works .subtitle {
+          text-align: center;
+          font-size: 1.2rem;
+          color: var(--text-color);
+          margin-bottom: 2rem;
+        }
+
+        .how-it-works .text-content {
+          max-width: 800px;
+          margin: 0 auto;
+          font-size: 1rem;
+          line-height: 1.8;
+          color: var(--text-color);
+        }
+
+        .how-it-works .text-content p {
+          margin-bottom: 1.5rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .how-it-works .text-content p.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .how-it-works strong {
+          color: var(--primary-color);
+        }
+      </style>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const steps = document.querySelectorAll(".step");
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                }
+              });
+            },
+            { threshold: 0.1 }
+          );
+
+          steps.forEach((step) => observer.observe(step));
+        });
+      </script>
+    </section> -->
+    <section id="benefits" class="benefits">
+      <div class="container">
+        <h2>Why Choose Nirikshan SahaAI?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <i class="fas fa-rocket"></i>
+            <h3>Efficiency Boost</h3>
+            <p>
+              Reduce inspection time by up to 70%, allowing for more frequent
+              and thorough evaluations.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-brain"></i>
+            <h3>AI-Driven Insights</h3>
+            <p>
+              Harness the power of machine learning for deeper, more accurate
+              data analysis and predictions.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Compliance Assurance</h3>
+            <p>
+              Stay up-to-date with the latest educational standards and
+              regulatory requirements.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-chart-bar"></i>
+            <h3>Continuous Improvement</h3>
+            <p>
+              Receive actionable recommendations and track progress over time
+              for sustained growth.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-balance-scale"></i>
+            <h3>Enhanced Fairness</h3>
+            <p>
+              Eliminate human bias and ensure consistent, objective evaluations
+              across all institutions.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-clock"></i>
+            <h3>Time-Efficient</h3>
+            <p>
+              Dramatically reduce inspection time while increasing the depth and
+              breadth of evaluations.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer class="footer"  style="padding-top: 32px; align-items: center;">
+    <section id="how-it-works" class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <p class="subtitle">
+          Discover the step-by-step process behind Nirikshan SahaAI’s powerful
+          inspection capabilities.
+        </p>
+        <div class="text-content">
+          <p>
+            <strong>Step 1: Data Collection - </strong>
+            Our system begins by gathering critical information from various
+            sources, including institutional records, compliance documents, and
+            on-site data inputs. This ensures a comprehensive dataset for
+            analysis.
+          </p>
+          <p>
+            <strong>Step 2: Intelligent Analysis - </strong>
+            Leveraging advanced machine learning models, the system analyzes the
+            collected data to identify patterns, inconsistencies, and areas
+            needing improvement. The AI ensures precision and impartiality.
+          </p>
+          <p>
+            <strong>Step 3: Automated Reporting - </strong>
+            Once the analysis is complete, Nirikshan SahaAI generates detailed
+            and actionable reports, highlighting key findings, compliance gaps,
+            and tailored recommendations for improvement.
+          </p>
+          <p>
+            <strong>Step 4: Continuous Monitoring - </strong>
+            Beyond inspections, our solution facilitates ongoing monitoring,
+            enabling institutions to track progress and make informed decisions
+            for long-term growth.
+          </p>
+        </div>
+      </div>
+      <style>
+        .how-it-works {
+          padding: 5rem 0;
+          background-color: var(--light-bg);
+        }
+
+        .how-it-works h2 {
+          text-align: center;
+          font-size: 2.5rem;
+          margin-bottom: 1.5rem;
+          color: var(--secondary-color);
+        }
+
+        .how-it-works .subtitle {
+          text-align: center;
+          font-size: 1.2rem;
+          color: var(--text-color);
+          margin-bottom: 2rem;
+        }
+
+        .how-it-works .text-content {
+          max-width: 800px;
+          margin: 0 auto;
+          font-size: 1rem;
+          line-height: 1.8;
+          color: var(--text-color);
+        }
+
+        .how-it-works .text-content p {
+          margin-bottom: 1.5rem;
+        }
+
+        .how-it-works strong {
+          color: var(--primary-color);
+        }
+      </style>
+    </section>
+
+    <footer id="contact">
+      <div class="container">
         <div class="footer-content">
-            <div >
-                <div class="footer-logo">
-                   
-                    <h4>Contact Us</h4>
-                </div>
-
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>contact@nirikshanai.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Pune Institute of Computer Technology , Pune</span>
-                    </div>
-                </div>
-
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-
-                
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-envelope"></i> : contact@nirikshanai.com</p>
+            <p><i class="fas fa-phone"></i> : +1 (555) 123-4567</p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> : Pune Institute of Computer
+              Technology, Pune
+            </p>
+            <div class="social-links">
+              <h4>Follow Us</h4>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
             </div>
-            <div class="map-section" style="flex: 1; margin-left: 3rem; ">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.576189831729!2d73.84825867388511!3d18.457542082623785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2eac85230ba47%3A0x871eddd0a8a0a108!2sSCTR'S%20Pune%20Institute%20of%20Computer%20Technology!5e0!3m2!1sen!2sin!4v1731908258586!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="220" 
-                   
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+          </div>
+          <div class="footer-section">
+            <h4>Location</h4>
+            <div class="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.576189831729!2d73.84825867388511!3d18.457542082623785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2eac85230ba47%3A0x871eddd0a8a0a108!2sSCTR'S%20Pune%20Institute%20of%20Computer%20Technology!5e0!3m2!1sen!2sin!4v1731908258586!5m2!1sen!2sin"
+                width="100%"
+                height="300"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              >
+              </iframe>
             </div>
+          </div>
         </div>
-        
-        
-        <div class="footer-copyright">
-            <p>&copy; 2024 Nirikshan SahAI. All rights reserved.</p>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Nirikshan SahaAI. All rights reserved.</p>
         </div>
+      </div>
     </footer>
 
-  
+    <script>
+      // Add scroll event listener to change header background on scroll
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header");
+        if (window.scrollY > 50) {
+          header.style.backgroundColor = "rgba(0, 51, 102, 0.9)";
+        } else {
+          header.style.backgroundColor = "transparent";
+        }
+      });
 
-   
-</body>
+      //   Slideshow functionality
+      let slideIndex = 0;
+      const slides = document.querySelectorAll(".slide");
+      const dotsContainer = document.querySelector(".dots-container");
+
+      // Create dots
+      slides.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.addEventListener("click", () => currentSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll(".dot");
+
+      function showSlides(n) {
+        if (n >= slides.length) slideIndex = 0;
+        if (n < 0) slideIndex = slides.length - 1;
+
+        slides.forEach((slide) => slide.classList.remove("active"));
+        dots.forEach((dot) => dot.classList.remove("active"));
+
+        slides[slideIndex].classList.add("active");
+        dots[slideIndex].classList.add("active");
+      }
+
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+
+      // Auto-advance slides every 5 seconds
+      setInterval(() => {
+        slideIndex++;
+        showSlides(slideIndex);
+      }, 5000);
+
+      // Initial slide display
+      showSlides(slideIndex);
+    </script>
+  </body>
 </html>

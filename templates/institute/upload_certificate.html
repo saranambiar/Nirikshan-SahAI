@@ -85,10 +85,32 @@
         .submit-btn:hover {
             background: #27ae60;
         }
+        
+
+
     </style>
+
 </head>
-<body>
-    {{ request.session.college_name }}
+<body class="bg-[#BED7DC]">
+  
+
+   
+<script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById('profileDropdown');
+    dropdown.classList.toggle('show');
+  }
+
+  document.addEventListener('click', function (event) {
+    const profileContainer = document.querySelector('.profile-container');
+    const dropdown = document.getElementById('profileDropdown');
+    if (!profileContainer.contains(event.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+</script>
+
+    
     <div class="upload-container">
         <div class="upload-header">
             <h1>Certificate Upload Portal</h1>
