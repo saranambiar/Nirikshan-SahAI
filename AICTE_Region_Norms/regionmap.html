@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Closures in India</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Number of Colleges Applying for Closure (AICTE)</h2>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map centered on India
+        var map = L.map('map').setView([22.5937, 82.9629], 5);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Marker data with approximate coordinates for each state
+        var states = [
+            { name: "Andhra Pradesh", coords: [15.9129, 79.7400], closures: 16 },
+            { name: "Assam", coords: [26.2006, 92.9376], closures: 2 },
+            { name: "Chhattisgarh", coords: [21.2787, 81.8661], closures: 4 },
+            { name: "Delhi", coords: [28.7041, 77.1025], closures: 1 },
+            { name: "Gujarat", coords: [22.2587, 71.1924], closures: 7 },
+            { name: "Haryana", coords: [29.0588, 76.0856], closures: 19 },
+            { name: "Himachal Pradesh", coords: [31.1048, 77.1734], closures: 3 },
+            { name: "Karnataka", coords: [15.3173, 75.7139], closures: 9 },
+            { name: "Kerala", coords: [10.8505, 76.2711], closures: 3 },
+            { name: "Madhya Pradesh", coords: [22.9734, 78.6569], closures: 22 },
+            { name: "Maharashtra", coords: [19.7515, 75.7139], closures: 24 },
+            { name: "Odisha", coords: [20.9517, 85.0985], closures: 5 },
+            { name: "Puducherry", coords: [11.9416, 79.8083], closures: 2 },
+            { name: "Punjab", coords: [31.1471, 75.3412], closures: 10 },
+            { name: "Rajasthan", coords: [27.0238, 74.2179], closures: 15 },
+            { name: "Tamil Nadu", coords: [11.1271, 78.6569], closures: 22 },
+            { name: "Telangana", coords: [17.1232, 79.2089], closures: 50 },
+            { name: "Uttar Pradesh", coords: [26.8467, 80.9462], closures: 32 },
+            { name: "Uttarakhand", coords: [30.0668, 79.0193], closures: 4 },
+            { name: "West Bengal", coords: [22.9868, 87.8550], closures: 2 }
+        ];
+
+        // Add markers with closure numbers
+        states.forEach(state => {
+            L.marker(state.coords)
+                .addTo(map)
+                .bindPopup(`<b>${state.name}</b><br>Closures: ${state.closures}`);
+        });
+    </script>
+</body>
+</html>

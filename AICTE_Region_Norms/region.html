@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regional Climate and Classroom Norms</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: #add8e6; /* Light Blue Background */
+            color: #00008b; /* Dark Blue Text */
+            margin: 20px;
+        }
+        h2 {
+            cursor: pointer;
+            background-color: #87ceeb;
+            padding: 10px;
+            border: 1px solid #00008b;
+            width: fit-content;
+            user-select: none;
+        }
+        .content {
+            display: none;
+            margin-left: 20px;
+            padding: 10px;
+            background-color: #e0ffff; /* Light Cyan */
+            border: 1px solid #87ceeb;
+        }
+        ul {
+            list-style-type: square;
+        }
+        h2:hover {
+            background-color: #6495ed;
+            color: white;
+        }
+    </style>
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</head>
+<body>
+    <h1>Regional Climate and Classroom Norms</h1>
+
+    <!-- Northern Plains -->
+    <h2 onclick="toggleContent('northern-plains')">1. Northern Plains - Delhi, Uttar Pradesh, Haryana, Punjab, Rajasthan</h2>
+    <div id="northern-plains" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Extreme (Hot Summers, Cold Winters)</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>Temperature Variation</li>
+                    <li>High Solar Radiation</li>
+                    <li>Dust Protection</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: North-South</li>
+                    <li>Recommended Window Area: 15-20% of floor area</li>
+                    <li>Ceiling Height: 3.0-3.5 meters</li>
+                    <li>Ventilation Rate: 4-6 air changes per hour</li>
+                    <li>Thermal Comfort Temperature: 24-26°C</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Western Coastal -->
+    <h2 onclick="toggleContent('western-coastal')">2. Western Coastal - Maharashtra, Goa, Gujarat</h2>
+    <div id="western-coastal" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Humid Tropical</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>High Humidity</li>
+                    <li>Monsoon Rains</li>
+                    <li>Corrosion Risk</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: East-West with overhangs</li>
+                    <li>Recommended Window Area: 20-25% of floor area</li>
+                    <li>Ceiling Height: 3.5-4.0 meters</li>
+                    <li>Ventilation Rate: 6-8 air changes per hour</li>
+                    <li>Thermal Comfort Temperature: 23-25°C</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Southern Plateau -->
+    <h2 onclick="toggleContent('southern-plateau')">3. Southern Plateau - Karnataka, Andhra Pradesh, Tamil Nadu, Telangana</h2>
+    <div id="southern-plateau" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Semi-Arid to Tropical</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>Temperature Fluctuations</li>
+                    <li>Glare Management</li>
+                    <li>Dust Control</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: Northeast-Southwest</li>
+                    <li>Recommended Window Area: 18-22% of floor area</li>
+                    <li>Ceiling Height: 3.2-3.7 meters</li>
+                    <li>Ventilation Rate: 5-7 air changes per hour</li>
+                    <li>Thermal Comfort Temperature: 24-26°C</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Eastern Coastal -->
+    <h2 onclick="toggleContent('eastern-coastal')">4. Eastern Coastal - Odisha, West Bengal, Andhra Pradesh</h2>
+    <div id="eastern-coastal" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Tropical Monsoon</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>High Rainfall</li>
+                    <li>Humidity</li>
+                    <li>Cyclone Prone Areas</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: East with deep overhangs</li>
+                    <li>Recommended Window Area: 22-27% of floor area</li>
+                    <li>Ceiling Height: 3.6-4.1 meters</li>
+                    <li>Ventilation Rate: 7-9 air changes per hour</li>
+                    <li>Thermal Comfort Temperature: 23-25°C</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Himalayan Region -->
+    <h2 onclick="toggleContent('himalayan-region')">5. Himalayan Region - Himachal Pradesh, Uttarakhand, Jammu & Kashmir</h2>
+    <div id="himalayan-region" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Alpine to Temperate</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>Cold Temperature</li>
+                    <li>Limited Sunlight</li>
+                    <li>Snow Protection</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: South-facing</li>
+                    <li>Recommended Window Area: 15-20% of floor area</li>
+                    <li>Ceiling Height: 3.0-3.5 meters</li>
+                    <li>Ventilation Rate: 3-5 air changes per hour</li>
+                    <li>Thermal Comfort Temperature: 22-24°C</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- North-Eastern Hilly -->
+    <h2 onclick="toggleContent('north-eastern-hilly')">6. North-Eastern Hilly - Assam, Manipur, Meghalaya, Nagaland, Tripura</h2>
+    <div id="north-eastern-hilly" class="content">
+        <ul>
+            <li><strong>Climate of the Region:</strong> Sub-Tropical Monsoon</li>
+            <li><strong>Key Challenges:</strong>
+                <ul>
+                    <li>High Rainfall</li>
+                    <li>Humidity</li>
+                    <li>Terrain Variations</li>
+                </ul>
+            </li>
+            <li><strong>Classroom Norms:</strong>
+                <ul>
+                    <li>Window Orientation: Northeast with side ventilation</li>
+                    <li>Recommended Window Area: 20-25% of floor area</li>
+                    <li>Ceiling Height: 3.3-3.8 meters</li>
+                    <li>Ventilation Rate: 5-7 air changes per hour</li>
+                    <li>Thermal Comfort Temperature
