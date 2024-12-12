@@ -11,266 +11,262 @@
       rel="stylesheet"
     />
     <style>
-      * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        text-decoration: none;
-      }
-
       :root {
-        --primary: #000;
-        --white: #fff;
-        --background: #bed7dc;
-        --gray: #d3d3d3;
-        --input-border-focus: #03a9f4;
-        --input-label-active: #03a9f4;
-      }
+  /* Color Palette */
+  --color-primary: #000;
+  --color-white: #fff;
+  --color-background: #bed7dc;
+  --color-gray-light: #d3d3d3;
+  --color-gray-dark: rgba(88, 87, 87, 0.822);
+  --color-accent-blue: #03a9f4;
+  --color-accent-green: #4CAF50;
+  
+  /* Transitions */
+  --transition-speed: 0.3s;
+  
+  /* Border Radius */
+  --border-radius-small: 0.5rem;
+  --border-radius-large: 1rem;
+}
 
-      body {
-        font-family: "Work Sans", sans-serif;
-        background-color: #bed7dc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        padding: 1rem;
-      }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  transition: all var(--transition-speed) ease;
+}
 
-      .container {
-        display: flex;
-        gap: 1.5rem;
-        max-width: 900px;
-        width: 100%;
-        justify-content: space-between;
-      }
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
 
-      .form,
-      .dropzone-box {
-        flex: 1;
-        background-color: var(--white);
-        border-radius: 1rem;
-        padding: 2rem;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
-        display: flex;
-        flex-direction: column;
-      }
+.container {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 900px;
+  width: 100%;
+  justify-content: space-between;
+}
 
-      .form {
-        max-width: 100%;
-      }
+.form,
+.dropzone-box {
+  flex: 1;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-large);
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-      .title {
-        font-size: 1.75rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        position: relative;
-      }
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  color: var(--color-primary);
+}
 
-      .message {
-        color: rgba(88, 87, 87, 0.822);
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
+.message {
+  color: var(--color-gray-dark);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
 
-      .flex {
-        display: flex;
-        width: 100%;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
-      .form label {
-        position: relative;
-        width: 100%;
-      }
+.form label {
+  position: relative;
+  width: 100%;
+}
 
-      .form label .input {
-        width: 100%;
-        padding: 0.5rem 0.5rem 1.5rem 0.5rem;
-        border: 2px solid var(--gray);
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        background-color: transparent;
-        color: var(--primary);
-        outline: none;
-        transition: all 0.3s ease;
-      }
+.form label .input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--color-gray-light);
+  border-radius: var(--border-radius-small);
+  background-color: transparent;
+  color: var(--color-primary);
+  outline: none;
+  transition: 
+    border-color var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
 
-      .form label .input:focus {
-        border-color: var(--input-border-focus);
-        box-shadow: 0 0 8px rgba(3, 169, 244, 0.3);
-      }
+.form label .input:focus {
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 10px rgba(3, 169, 244, 0.2);
+}
 
-      .form label .input + span {
-        position: absolute;
-        left: 0.5rem;
-        top: 0.75rem;
-        color: grey;
-        font-size: 0.9em;
-        cursor: text;
-        transition: 0.3s ease;
-        pointer-events: none;
-      }
+.form label .input + span {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  color: var(--color-gray-dark);
+  font-size: 0.9em;
+  pointer-events: none;
+  transition: all var(--transition-speed) ease;
+}
 
-      .form label .input:placeholder-shown + span {
-        top: 0.75rem;
-        font-size: 0.9em;
-      }
+.form label .input:placeholder-shown + span {
+  top: 0.75rem;
+  font-size: 0.9em;
+}
 
-      .form label .input:focus + span,
-      .form label .input:valid + span {
-        top: -0.75rem;
-        font-size: 0.7em;
-        font-weight: 600;
-        color: var(--input-label-active);
-        background-color: var(--white);
-        padding: 0 0.25rem;
-      }
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: -0.75rem;
+  font-size: 0.7em;
+  font-weight: 600;
+  color: var(--color-accent-blue);
+  background-color: var(--color-white);
+  padding: 0 0.25rem;
+}
 
-      .form label .input:valid + span {
-        color: green;
-      }
+.form label .input:valid + span {
+  color: var(--color-accent-green);
+}
 
-      .submit {
-        border: none;
-        outline: none;
-        background-color: #03a9f4;
-        padding: 0.8rem 1rem;
-        border-radius: 0.5rem;
-        color: black;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .submit::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          120deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent
-        );
-        transition: all 0.5s ease;
-      }
+.submit,
+.dropzone-actions button {
+  border: none;
+  outline: none;
+  background-color: var(--color-accent-blue);
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius-small);
+  color: var(--color-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-      .submit:hover::before {
-        left: 100%;
-      }
+.submit::before,
+.dropzone-actions button:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
 
-      .dropzone-box h2 {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-      }
+.submit:hover::before,
+.dropzone-actions button:hover::before {
+  left: 100%;
+}
 
-      .dropzone-area {
-        padding: 1rem;
-        position: relative;
-        margin-top: 1rem;
-        min-height: 16rem;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        border: 2px dashed var(--primary);
-        border-radius: 1rem;
-        color: var(--primary);
-        cursor: pointer;
-      }
+.dropzone-area {
+  padding: 1rem;
+  position: relative;
+  min-height: 16rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--border-radius-large);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: 
+    background-color var(--transition-speed) ease,
+    border-style var(--transition-speed) ease;
+}
 
-      .dropzone-area [type="file"] {
-        cursor: pointer;
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
+.dropzone-area [type="file"] {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
 
-      .dropzone-area .file-upload-icon svg {
-        height: 5rem;
-        width: 5rem;
-        margin-bottom: 0.5rem;
-        stroke: var(--primary);
-      }
+.dropzone-area .file-upload-icon svg {
+  height: 5rem;
+  width: 5rem;
+  margin-bottom: 0.5rem;
+  stroke: var(--color-primary);
+}
 
-      .dropzone--over {
-        border-style: solid;
-        background-color: var(--gray);
-      }
+.dropzone--over {
+  border-style: solid;
+  background-color: var(--color-gray-light);
+}
 
-      .dropzone-actions {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 1rem;
-        margin-top: 1rem;
-        border-top: 1px solid var(--gray);
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
+.dropzone-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-gray-light);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
-      .dropzone-actions button {
-        flex-grow: 1;
-        min-height: 3rem;
-        font-size: 1rem;
-      }
+.dropzone-actions button {
+  flex-grow: 1;
+  min-height: 3rem;
+  font-size: 1rem;
+}
 
-      .dropzone-actions button:hover {
-        text-decoration: underline;
-      }
+.dropzone-actions button[type="reset"] {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-light);
+  color: var(--color-primary);
+}
 
-      .dropzone-actions button[type="reset"] {
-        background-color: transparent;
-        border: 1px solid var(--gray);
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        color: var(--primary);
-        cursor: pointer;
-      }
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-      .dropzone-actions button[type="submit"] {
-        background-color: #03a9f4;
-        border: 1px solid var(--primary);
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        color: black;
-        cursor: pointer;
-      }
+  .form,
+  .dropzone-box {
+    width: 100%;
+  }
+}
 
-      @media (max-width: 768px) {
-        .container {
-          flex-direction: column;
-          gap: 1rem;
-        }
+.college-id-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
 
-        .form,
-        .dropzone-box {
-          width: 100%;
-        }
-      }
+.college-id-container label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
 
-      button {
-        background-color: black;
-        margin-left: 10px;
-        border-radius: 10px;
-        padding: 10px;
-        width: 90px;
-      }
-
-      button a {
-        color: white;
-        font-weight: bold;
-        font-size: 15px;
-      }
+.college-id-container input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--border-radius-small);
+}
     </style>
   </head>
 
@@ -281,7 +277,6 @@
 
         <!-- College Data Form -->
         <div class="college-data-form">
-          <p class="title">Enter College Data</p>
           <p class="message">Enter Norms to be followed for inspection</p>
           <div class="flex">
             <label style="height: 50px">
@@ -334,17 +329,7 @@
         <p>Select a folder containing images to upload</p>
         <div class="dropzone-area">
           <div class="file-upload-icon">
-            <svg
-              width="50px"
-              height="50px"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 0C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zM15 9h-4V5H9v4H5v2h4v4h2v-4h4V9z"
-                fill="#000000"
-              />
-            </svg>
+            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,13a1,1,0,0,0-1,1v.38L16.52,12.9a2.79,2.79,0,0,0-3.93,0l-.7.7L9.41,11.12a2.85,2.85,0,0,0-3.93,0L4,12.6V7A1,1,0,0,1,5,6h7a1,1,0,0,0,0-2H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V14A1,1,0,0,0,19,13ZM5,20a1,1,0,0,1-1-1V15.43l2.9-2.9a.79.79,0,0,1,1.09,0l3.17,3.17,0,0L15.46,20Zm13-1a.89.89,0,0,1-.18.53L13.31,15l.7-.7a.77.77,0,0,1,1.1,0L18,17.21ZM22.71,4.29l-3-3a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-3,3a1,1,0,0,0,1.42,1.42L18,4.41V10a1,1,0,0,0,2,0V4.41l1.29,1.3a1,1,0,0,0,1.42,0A1,1,0,0,0,22.71,4.29Z"/></svg>
           </div>
           <p>Click to upload or drag and drop</p>
           <input

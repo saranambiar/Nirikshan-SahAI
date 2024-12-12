@@ -109,6 +109,13 @@ img {
 .login__icon {
   font-size: 1rem;
 }
+.login__eye {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.8rem;
+  cursor: pointer;
+  color: var(--white-color);
+      }
 .login__input {
   width: 100%;
   padding-block: 0.8rem;

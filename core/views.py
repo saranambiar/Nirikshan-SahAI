@@ -43,6 +43,11 @@ def region2(request):
     return render(request, 'aicte/region2.html')
 
 
+def anamoly(request):
+    return render(request, 'inspector/anamoly.html')
+
+
+
 
 #college
 

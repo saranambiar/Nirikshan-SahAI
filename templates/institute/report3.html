@@ -414,9 +414,7 @@ body {
             </li>
             <li class="profile-container">
               <button class="profile-button" onclick="toggleDropdown()">
-                <img src="{% static 'images/profile-placeholder.png' %}" 
-                     alt="Profile Picture" 
-                     class="profile-image">
+              
                 <span class="profile-name">{{ request.session.college_name }}</span>
                 <svg class="dropdown-arrow" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -469,7 +467,7 @@ body {
                 </button>
             </div>
             <div class="card-grid">
-              <a href="Compliance_Report_ML.pdf" class="card">
+              <a href="{% url 'view_compliance' %}" class="card">
                   <div class="card-icon"><i class="fas fa-check-circle"></i></div>
                   <h2>Compliance Report</h2>
                   <p>Institution Compliance with AICTE norms and standards</p>
@@ -479,11 +477,7 @@ body {
                   <h2>Deficiency Report</h2>
                   <p>Highlights areas where institute lacks in meeting AICTE norms</p>
               </a>
-              <a href="facultyreport.pdf" class="card">
-                  <div class="card-icon"><i class="fas fa-users"></i></div>
-                  <h2>Faculty Report</h2>
-                  <p>Highlights qualifications and compliance with norms regarding Faculty</p>
-              </a>
+              
               <a href="{% url 'pattern_pred' %}" class="card">
                   <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                   <h2>Pattern Recognition</h2>
