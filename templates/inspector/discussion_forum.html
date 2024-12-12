@@ -1,141 +1,305 @@
-{% extends 'inspector/forum_base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}Discussion Forum{% endblock %}
-
-{% block extra_css %}
-<style>
-    .jumbotron {
-        background-color: white;
-        border-radius: 1rem;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .post-card {
-        background: white;
-        border-radius: 0.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s;
-    }
-    .post-card:hover {
-        transform: translateY(-3px);
-    }
-    .post-header {
-        padding: 1rem;
-        border-bottom: 1px solid #eee;
-    }
-    .post-content {
-        padding: 1.5rem;
-        color: #2c3e50;
-    }
-    .post-footer {
-        padding: 1rem;
-        background-color: #f8f9fa;
-        border-top: 1px solid #eee;
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 8px;
-        width: 80%;
-        max-width: 600px;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<!-- Forum Header -->
-<div class="jumbotron text-center">
-    <h1 class="text-3xl font-bold text-blue-900 mb-4">AICTE Inspectors Discussion Forum</h1>
-    <p class="text-gray-600 mb-6">Connect with fellow inspectors to discuss inspection-related queries and share insights</p>
-    <button onclick="openModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-        <i class="fas fa-plus-circle mr-2"></i>Add Post
-    </button>
-</div>
-
-<!-- Posts Container -->
-<div class="posts-container">
-    {% for post in posts %}
-    <div class="post-card">
-        <div class="post-header flex items-center">
-            <img src="{% static 'images/profile-placeholder.png' %}" alt="User" class="profile-img rounded-full mr-3">
-            <div>
-                <h5 class="font-semibold text-lg">{{ post.user1.username }}</h5>
-                <span class="text-sm text-gray-500">{{ post.timestamp|date:"F d, Y H:i" }}</span>
-            </div>
-        </div>
-        <div class="post-content">
-            <p>{{ post.post_content }}</p>
-        </div>
-        <div class="post-footer flex justify-between items-center">
-            <a href="{% url 'view_discussion' post.id %}" class="text-blue-600 hover:text-blue-800">
-                <i class="fas fa-comments mr-2"></i>View Discussion
-            </a>
-            <span class="text-gray-500">
-                <i class="fas fa-reply mr-1"></i>{{ post.replies.count }} Replies
-            </span>
-        </div>
-    </div>
-    {% empty %}
-    <div class="text-center py-8">
-        <p class="text-gray-600">No posts yet. Be the first to start a discussion!</p>
-    </div>
-    {% endfor %}
-</div>
-
-<!-- New Post Modal -->
-<div id="postModal" class="modal">
-    <div class="modal-content">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Create New Post</h3>
-            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <form method="POST" action="{% url 'create_post' %}">
-            {% csrf_token %}
-            <textarea name="content" rows="5" class="w-full p-3 border rounded-lg mb-4" 
-                      placeholder="Write your post here..."></textarea>
-            <div class="flex justify-end">
-                <button type="button" onclick="closeModal()" class="mr-2 px-4 py-2 text-gray-600 hover:text-gray-800">
-                    Cancel
-                </button>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Post
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    function openModal() {
-        document.getElementById('postModal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('postModal').style.display = 'none';
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('postModal')) {
-            closeModal();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>PICT Institutional Performance Dashboard</title>
+    <style>
+        :root {
+            --primary-bg: #bed7dc;
+            --card-bg: #ffffff;
+            --text-primary: #1a365d;
+            --text-secondary: #4a5568;
+            --accent-color: #2c5282;
+            --border-color: #e2e8f0;
         }
-    }
-</script>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-card {
+            background-color: var(--primary-bg);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .data-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #e2e8f0;
+            margin: 0 15px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard, .data-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1 class="header-title"> INSTITUTIONAL PERFORMANCE DASHBOARD</h1>
+                <div>
+                    <span>Academic Year 2023-2024</span>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div>
+                    <div class="card">
+                        <h2>OVERVIEW</h2>
+                        <p>(June 2023 to December 2023)</p>
+
+                        <div class="overview-stats">
+                            <div class="stat-card">
+                                <div class="stat-value" style="color: green;">COMPLIANT</div>
+                                <div class="stat-label">ACADEMIC COMPLIANCE</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">67</div>
+                                <div class="stat-label">TOTAL FACULTY</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">780</div>
+                                <div class="stat-label">TOTAL STUDENTS</div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="data-section">
+                            <div>
+                                <h3>FACULTY ANALYSIS</h3>
+                                <div class="data-row">
+                                    <span>Professors</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span>7</span>
+                                </div>
+                                <div class="data-row">
+                                    <span>Asistant Professors </span>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="width: 72%"></div>
+                                    </div>
+                                    <span>28</span>
+                                </div>
+                                <div class="data-row">
+                                    <span>Associate Professors</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="width: 65%"></div>
+                                    </div>
+                                    <span>34</span>
+                                </div>
+                                
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="card">
+                        <h2>COMPLIANCE DEFICIENCIES</h2>
+                        <div class="data-row">
+                            <span>Faculty-Student Ratio</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 35%" data-status="warning"></div>
+                            </div>
+                            <span>1:18 (Target: 1:20)</span>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Classroom Infrastructure</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 65%"></div>
+                            </div>
+                            <span>3/5 Requirements Met</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Lab Infrastructure</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 65%"></div>
+                            </div>
+                            <span>2/5 Requirements Met</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Tutorial Infrastructure</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 65%"></div>
+                            </div>
+                            <span>3/5 Requirements Met</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2>STUDENT PERFORMANCE</h2>
+                        <br>
+                        <h3>PLACEMENT STATISTICS</h3>
+                        <div class="data-row">
+                            <span>Computer Science</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 92%"></div>
+                            </div>
+                            <span>97%</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Information Technology</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 85%"></div>
+                            </div>
+                            <span>93%</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Electronics & Technology</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 78%"></div>
+                            </div>
+                            <span>87%</span>
+                        </div>
+                       <br><br><br>
+
+                        <h3>ACADEMIC PERFORMANCE</h3>
+                        <div class="data-row">
+                            <span>First Class % (All Branches)</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 82%"></div>
+                            </div>
+                            <span>82%</span>
+                        </div>
+                        <div class="data-row">
+                            <span>University Rank Holders</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 65%"></div>
+                            </div>
+                            <span>12</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>INSTITUTIONAL HEALTH</h2>
+                        
+                        <div class="data-row">
+                            <span>Faculty Satisfaction</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 78%"></div>
+                            </div>
+                            <span>78</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Infrastructure Quality</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 72%"></div>
+                            </div>
+                            <span>72</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Student Support Services</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 85%"></div>
+                            </div>
+                            <span>85</span>
+                        </div>
+                        <div class="data-row">
+                            <span>Industry Connect</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 68%"></div>
+                            </div>
+                            <span>68</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 {% endblock %}

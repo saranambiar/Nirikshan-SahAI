@@ -43,6 +43,8 @@ urlpatterns = [
     path('aicte_institutes/', views.aicte_institutes, name='aicte_institutes'),
     path('aicte_inspector/', views.aicte_inspector, name='aicte_inspector'),
     path('aicte_annexure/', views.aicte_annexure, name='aicte_annexure'),
+    path('regionmap/', views.regionmap, name='regionmap'),
+    path('region2/', views.region2, name='region2'),
     path('',include('aicte_admin.urls')),
 
     #inspector

@@ -35,6 +35,14 @@ def aicte_annexure(request):
     return render(request, 'aicte/aicte_annexure.html')
 
 
+def regionmap(request):
+    return render(request, 'aicte/regionmap.html')
+
+
+def region2(request):
+    return render(request, 'aicte/region2.html')
+
+
 
 #college
 
