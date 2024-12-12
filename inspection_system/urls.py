@@ -66,7 +66,7 @@ urlpatterns = [
     path('view_canteen/',views.view_canteen, name='view_canteen'),
     path('view_mandatory/',inspector.views.view_mandatory, name='view_mandatory'),
     path('view_compliance/', inspector.views.view_compliance, name='view_compliance'),
-   
+    path('view_deficiency/', inspector.views.view_deficiancy, name='view_deficiency'),
 
 
     

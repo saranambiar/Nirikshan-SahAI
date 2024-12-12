@@ -102,7 +102,7 @@ from inspection_system.settings import db
 from institute.models import certificate
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
-
+from .models import Inspector,deficiency_report
 
 from django.shortcuts import get_object_or_404
 
@@ -209,13 +209,14 @@ def view_mandatory(request):
             return redirect('login')
 
         # Get college name from session
-        college_name = request.session.get('college_name')
+        inspector = request.session.get('user_id')
 
-        if not college_name:
+        if not Inspector:
             return HttpResponseNotFound("No college associated with this session")
 
+        inspector_real = Inspector.objects.get(user_id=inspector)
         # Find the mandatory disclosure file for the specific college
-        mandatory_entry = mandatory_dis.objects.filter(college_name=college_name).first()
+        mandatory_entry = mandatory_dis.objects.filter(college_name=inspector_real.college).first()
 
         if not mandatory_entry or not mandatory_entry.file:
             return HttpResponseNotFound("Mandatory disclosure file not found")
@@ -227,7 +228,7 @@ def view_mandatory(request):
         response = FileResponse(
             file_content, 
             as_attachment=True, 
-            filename=f"{college_name}_mandatory_disclosure.pdf"
+            filename=f"{inspector_real.college}_mandatory_disclosure.pdf"
         )
         
         return response
@@ -246,28 +247,35 @@ def view_compliance(request):
             return redirect('inspector_login')
 
         # Get college name from session
-        college_name = request.session.get('college_name')
+        inspector = request.session.get('user_id')
 
-        if not college_name:
+        if not Inspector:
+            return HttpResponseNotFound("No college associated with this session")
+
+        inspector_real = Inspector.objects.get(user_id=inspector)
+        # Find the mandatory disclosure file for the specific college
+        college = inspector_real.college
+
+        if not college:
             return HttpResponseNotFound("No college associated with this session")
 
         # Find the compliance file for the specific college
-        compliance_entry = compliancereport.objects.filter(college_name=college_name).first()
+        deficiency = compliancereport.objects.filter(college_name=college).first()
 
-        if not compliance_entry:
+        if not deficiency:
             return HttpResponseNotFound("Compliance entry not found")
 
-        if not compliance_entry.report_file:
+        if not deficiency.report_file:
             return HttpResponseNotFound("Compliance file not found")
 
         # Create a file-like object from the stored file
-        file_content = io.BytesIO(compliance_entry.report_file.read())
+        file_content = io.BytesIO(deficiency.report_file.read())
         
         # Prepare the file response
         response = FileResponse(
             file_content, 
             as_attachment=True, 
-            filename=f"{college_name}_compliance_document.pdf"
+            filename=f"{college}_compliance_document.pdf"
         )
         
         return response
@@ -310,3 +318,42 @@ def view_category_images(request, category):
     return render(request, 'category_images.html', {'image_urls': image_urls, 'category': category})
 
 
+def view_deficiancy(request):   
+    try:
+        # Check if user is logged in via session
+        if 'user_id' not in request.session:
+            return redirect('inspector_login')
+
+        # Get college name from session
+        inspector = request.session.get('user_id')
+
+        if not Inspector:
+            return HttpResponseNotFound("No college associated with this session")
+
+        inspector_real = Inspector.objects.get(user_id=inspector)
+        # Find the mandatory disclosure file for the specific college
+        college = inspector_real.college
+        deficiency = deficiency_report.objects.filter(college=college).first()
+
+        if not deficiency:
+            return HttpResponseNotFound("Compliance entry not found")
+
+        if not deficiency.file:
+            return HttpResponseNotFound("Compliance file not found")
+
+        # Create a file-like object from the stored file
+        file_content = io.BytesIO(deficiency.file.read())
+        
+        # Prepare the file response
+        response = FileResponse(
+            file_content, 
+            as_attachment=True, 
+            filename=f"{college}_deficiency_document.pdf"
+        )
+        
+        return response
+
+    except Exception as e:
+        print(f"Error downloading deficiency file: {str(e)}")  # Log the error message
+        messages.error(request, "An error occurred while downloading the file.")
+        return HttpResponseNotFound(f"Error downloading file: {str(e)}")
