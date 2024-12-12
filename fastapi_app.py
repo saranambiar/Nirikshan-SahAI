@@ -12,6 +12,14 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
+import requests
+import google.generativeai as genai
+import io
+import spacy
+import PyPDF2
+import requests
+import base64
+import pandas as pd
 
 app = FastAPI()
 
@@ -241,6 +249,7 @@ async def create_compliance_report(info: CollegeLoginInfo):
                 print(pd.DataFrame(validation_results))
         return pd.DataFrame(validation_results)
 
+
     def generate_report(faculty_data, infrastructure_data, validation_results=None, college_name=None, intake=None):
         try:
             # Create an in-memory PDF file
@@ -288,6 +297,42 @@ async def create_compliance_report(info: CollegeLoginInfo):
                         ]))
 
                 elements.append(table)
+
+            def markdown_to_formatted_paragraphs(markdown_text, styles):
+                elements = []
+                
+                # Split the markdown into lines
+                lines = markdown_text.split('\n')
+                
+                for line in lines:
+                    # Headers
+                    if line.startswith('# '):
+                        elements.append(Paragraph(line.replace('# ', ''), styles['Title']))
+                    elif line.startswith('## '):
+                        elements.append(Paragraph(line.replace('## ', ''), styles['Heading2']))
+                    elif line.startswith('### '):
+                        elements.append(Paragraph(line.replace('### ', ''), styles['Heading3']))
+                    
+                    # Bold text
+                    elif '**' in line:
+                        formatted_line = line.replace('**', '<b>', 1).replace('**', '</b>', 1)
+                        elements.append(Paragraph(formatted_line, styles['Normal']))
+                    
+                    # Italic text
+                    elif '*' in line and line.count('*') == 2:
+                        formatted_line = line.replace('*', '<i>', 1).replace('*', '</i>', 1)
+                        elements.append(Paragraph(formatted_line, styles['Normal']))
+                    
+                    # Bullet points
+                    elif line.startswith('- '):
+                        formatted_line = line.replace('- ', '• ', 1)
+                        elements.append(Paragraph(formatted_line, styles['Normal']))
+                    
+                    # Regular text
+                    elif line.strip():
+                        elements.append(Paragraph(line, styles['Normal']))
+                
+                return elements
 
             # Create infrastructure compliance table
             def create_infrastructure_compliance_table(elements, infrastructure_data):
@@ -364,17 +409,88 @@ async def create_compliance_report(info: CollegeLoginInfo):
                 elements.append(Spacer(1, 12))
                 create_classroom_validation_table(elements, validation_results)
 
-            # Build the PDF
+            validation_summary = ""
+            if validation_results is not None and not validation_results.empty:
+                validation_summary = "Classroom Validation Details:\n"
+                for _, row in validation_results.iterrows():
+                    validation_summary += f"- Room Type: {row['Room Type (3rd Column)']}, Capacity: {row['Capacity (4th Column)']} - Status: {row['Status']}\n"
+            # # Build the PDF
+            # doc.build(elements)
+
+            # nlp = spacy.load("en_core_web_sm")
+
+            # # Extract text from the PDF
+            # output_pdf.seek(0)
+            # pdf_text = PyPDF2.PdfFileReader(output_pdf).getPage(0).extractText()
+
+            # # Process the text using Spacy
+            # doc = nlp(pdf_text)
+
+            # # Extract relevant information from the text
+            # extracted_info = ""
+            # for ent in doc.ents:
+            #     extracted_info += f"{ent.text} ({ent.label_})\n"
+
+            # Use the Gemini API to generate a report
+            genai.configure(api_key="AIzaSyCDSadSw6oKpiEZ_-446p3Ngn8n90I8aXs")
+            model = genai.GenerativeModel("gemini-1.5-flash")
+
+            prompt = f"""
+                You are an expert educational compliance inspector reviewing an AICTE compliance report.
+
+                Compliance Overview:
+                - Total Professors: {faculty_data['professors']} (Required: {faculty_data['required_professors']})
+                - Total Associate Professors: {faculty_data['associate_professors']} (Required: {faculty_data['required_associate_professors']})
+                - Total Assistant Professors: {faculty_data['assistant_professors']} (Required: {faculty_data['required_assistant_professors']})
+                
+                Infrastructure Details:
+                - Classrooms: {infrastructure_data['classrooms']} (Required: {infrastructure_data['required_classrooms']})
+                - Laboratories: {infrastructure_data['labs']} (Required: {infrastructure_data['required_labs']})
+                - Workshops: {infrastructure_data['workshops']} (Required: {infrastructure_data['required_workshops']})
+                - Smart Classrooms: {infrastructure_data['smart_classrooms']} (Required: {infrastructure_data['required_smart_classrooms']})
+
+                Add a heading 'Actionable Insights:' before giving response.
+                Analyze the compliance data and provide a comprehensive summary focusing on:
+                1. Detailed breakdown of compliance status
+                2. Specific areas of non-compliance
+                3. Constructive suggestions for improvement
+                4. Potential risks or challenges in meeting AICTE norms
+
+                Classroom Space Validation:
+                {validation_summary}
+
+                For each non-compliant area, provide:
+                - Current status
+                - Specific shortfall
+                - Concrete recommendations for improvement
+                - Potential impact on educational quality
+                Format your response as a professional, actionable report.
+                """
+            try:
+                response = model.generate_content(prompt)
+                ai_summary = response.text
+            except Exception as e:
+                print(f"Gemini API error: {e}")
+                ai_summary = "Unable to generate AI-powered insights"
+
+            summary_title = Paragraph("<b>AI-Generated Compliance Insights</b>", styles['Heading2'])
+            elements.append(summary_title)
+            
+            # Add the AI summary as a paragraph
+            summary_elements = markdown_to_formatted_paragraphs(ai_summary, styles)
+            elements.extend(summary_elements)
             doc.build(elements)
 
-            # Save the report in MongoDB
             output_pdf.seek(0)
+            final_pdf_content = output_pdf.read()
+            # Save the generated report in the database
             compliance_report = compliancereport(
-                college_name=college_name,
-                intake=intake,
-                report_file=output_pdf.read()
+                college_name=info.college_name,
+                intake=info.intake,
+                report_file=final_pdf_content
             )
             compliance_report.save()
+
 
             return {"message": "Report generated and saved successfully", "report_id": str(compliance_report.id)}
         except Exception as e:

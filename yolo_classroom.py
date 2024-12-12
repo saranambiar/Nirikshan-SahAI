@@ -12,10 +12,38 @@ import shutil
 import zipfile
 from io import BytesIO
 from tempfile import NamedTemporaryFile
+from mongoengine import connect
+from institute.models import Images
+import cloudinary
+import cloudinary.uploader
+from io import BytesIO
+
+connect(
+    db="Login",
+    host="mongodb+srv://param4mc:3Fj0PbA9t4V6bT1E@cluster0.9f6ij.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&appName=Cluster0"
+)
+
+cloudinary.config(
+    cloud_name='sih24',  
+    api_key='491834354871145',        
+    api_secret='JAzYjhW7CXXvUFehkGF7IDMUsSM'  
+)
+
+def get_cloudinary_image_as_binary(cloudinary_url):
+    """Retrieves a Cloudinary image as binary data from a given URL."""
+    try:
+        response = cloudinary.uploader.download(cloudinary_url)
+        return BytesIO(response).getvalue()
+    except Exception as e:
+        print(f"Error retrieving image from Cloudinary: {e}")
+        return None
+
+image_document = Images.objects.get(college='college_name')
+classroom_urls = image_document.get_cloudinary_urls_from_field('classroom')
 
 app = FastAPI()
 
-model = YOLO("yolov8l.pt")
+model = YOLO("yolov8l.pt") 
 
 @app.get("/")
 def read_root():
