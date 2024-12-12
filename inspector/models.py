@@ -58,3 +58,11 @@ class compliancereport(Document):
     meta = {
         'collection': 'compliance_reports'
     }
+
+class deficiency_report(Document):
+    file = FileField(required=True)
+    college = StringField(required=True)
+    branch = StringField(required=True)
+    meta = {
+        'collection': 'deficiency_report'
+    }

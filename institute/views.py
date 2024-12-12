@@ -283,6 +283,7 @@ from .models import Images, College
 def u_i(request):
     if request.method == 'POST':
         print("Request received")  # Debugging: Confirm request received
+        college_name = request.session.get('college_name')
 
         uploaded_files = request.FILES.getlist('image')  # Get all uploaded files
         route = request.POST.get('route')  # Get the route sent from the frontend
@@ -316,6 +317,20 @@ def u_i(request):
                 '/parking_upload/': 'parking',
                 '/washroom_upload/': 'washroom',
             }
+
+            data={
+                'college_name':college_name,
+                'branch':branch
+            }
+
+            fastapi_url = "http://localhost:8000/generate-report/"
+            
+            response = requests.post(fastapi_url, json=data)
+            # Handle FastAPI's response
+            if response.status_code == 200:
+                messages.success(request, "Mandatory disclosure processed successfully.")
+            else:
+                messages.error(request, f"FastAPI returned an error: {response.status_code}, details: {response.json()}")
 
             target_field = route_to_field_map.get(route)
             if not target_field:

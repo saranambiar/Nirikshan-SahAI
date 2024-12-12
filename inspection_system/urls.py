@@ -69,6 +69,7 @@ urlpatterns = [
     
     path('anamoly/', views.anamoly, name='anamoly'),
    
+    path('view_deficiency/', inspector.views.view_deficiancy, name='view_deficiency'),
 
 
     
