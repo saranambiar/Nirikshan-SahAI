@@ -1,8 +1,5 @@
-Here’s a refined and well-structured version of your README file for **Nirikshan SahAI**, with improved clarity, formatting, and visual appeal:
 
----
-
-# 🚀 **Nirikshan SahAI**  
+#  **Nirikshan SahAI**  
 ### **AI-Driven Inspection System for Educational Institutes**  
 
 A comprehensive and user-friendly AI-powered system designed to **automate and streamline the inspection process of educational institutes across India**.  
