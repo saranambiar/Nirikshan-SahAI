@@ -432,7 +432,7 @@ async def create_compliance_report(info: CollegeLoginInfo):
             #     extracted_info += f"{ent.text} ({ent.label_})\n"
 
             # Use the Gemini API to generate a report
-            genai.configure(api_key="AIzaSyCDSadSw6oKpiEZ_-446p3Ngn8n90I8aXs")
+            genai.configure(api_key="ENTER_API_KEY")
             model = genai.GenerativeModel("gemini-1.5-flash")
 
             prompt = f"""
