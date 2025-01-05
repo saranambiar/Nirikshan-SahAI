@@ -6,7 +6,7 @@ A comprehensive and user-friendly AI-powered system designed to **automate and s
 
 ---
 
-## 📌 **Overview**  
+##  **Overview**  
 Traditional inspection processes suffer from:  
 - 📊 **Manual data collection**  
 - ❌ **Inconsistent results**  
@@ -19,15 +19,15 @@ Traditional inspection processes suffer from:
 
 ## 🛠️ **Core Technologies**  
 
-- **📝 Document Analysis:** TAPAS (LLM), OCR (Optical Character Recognition)  
-- **📷 Image Inspection:** YOLOv8, Custom CNN Models  
-- **📊 Anomaly Detection:** Isolation Forest  
-- **📈 Insights & Reporting:** GenAI for actionable intelligence  
-- **🌍 Region Mapping:** Data-driven institutional visualization  
+- ** Document Analysis:** TAPAS (LLM), OCR (Optical Character Recognition)  
+- ** Image Inspection:** YOLOv8, Custom CNN Models  
+- ** Anomaly Detection:** Isolation Forest  
+- ** Insights & Reporting:** GenAI for actionable intelligence  
+- ** Region Mapping:** Data-driven institutional visualization  
 
 ---
 
-## 📊 **Key Features**  
+##  **Key Features**  
 
 ✅ **Automated Document & Image Verification:**  
 Advanced AI tools ensure compliance with regulatory norms.  
@@ -55,17 +55,17 @@ Ensure transparency and detect anomalies in submissions.
 
 ---
 
-## 🖥️ **System Workflow**  
-1. 📝 **Document Upload & Analysis:** Validate compliance with AI models.  
-2. 📷 **Image Inspection:** Analyze infrastructure data using CNN & YOLOv8.  
-3. 📊 **Anomaly Detection:** Spot statistical irregularities in submitted data.  
-4. 🗂️ **Automated Report Generation:** Generate compliance and deficiency reports.  
-5. 🌍 **Region-Based Visualization:** Display mapped data for institutional insights.  
-6. 📑 **Actionable Feedback:** Provide actionable suggestions for improvement.  
+##  **System Workflow**  
+1.  **Document Upload & Analysis:** Validate compliance with AI models.  
+2.  **Image Inspection:** Analyze infrastructure data using CNN & YOLOv8.  
+3.  **Anomaly Detection:** Spot statistical irregularities in submitted data.  
+4.  **Automated Report Generation:** Generate compliance and deficiency reports.  
+5.  **Region-Based Visualization:** Display mapped data for institutional insights.  
+6.  **Actionable Feedback:** Provide actionable suggestions for improvement.  
 
 ---
 
-## 🎯 **Impact**  
+##  **Impact**  
 
 - 🚀 **Efficiency:** Streamlined inspection workflows.  
 - 📊 **Accuracy:** AI-powered analysis reduces errors.  
@@ -74,20 +74,20 @@ Ensure transparency and detect anomalies in submissions.
 
 ---
 
-## 📸 **System Snapshot**  
+##  **System Snapshot**  
 
 ![Nirikshan SahAI Dashboard](https://github.com/user-attachments/assets/b85f2313-a9e1-4ca6-8c1a-79a7e24567e6)  
 
 ---
 
-## 📚 **Future Enhancements**  
+##  **Future Enhancements**  
 - Integration with **AICTE regulatory updates**  
 - Advanced **predictive analytics** for institutional trends  
 - Enhanced **fraud detection models**  
 
 ---
 
-## 🤝 **Contributors**  
+##  **Contributors**  
 - Sara Nambiar
 - Isha Shah
 - Nikita Bhedasgaonkar
@@ -97,7 +97,7 @@ Ensure transparency and detect anomalies in submissions.
 
 ---
 
-## 📸 **Website Snapshot**  
+##  **Website**  
 ![Screenshot 2024-12-20 091647](https://github.com/user-attachments/assets/c8ce0d23-c987-4e46-9114-0904025b2391)
 ![Screenshot 2024-12-20 091829](https://github.com/user-attachments/assets/ac431d74-4c65-4207-af43-980fa014f757)
 ![Screenshot 2024-12-20 091947](https://github.com/user-attachments/assets/ebf00132-86e4-4ea3-b2f3-e80fe61bb710)
