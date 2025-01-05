@@ -15,7 +15,7 @@ from pymongo import MongoClient
 from mongoengine import connect
 
 #django atlas connection string and database name
-MONGO_ATLAS_URI = 'mongodb+srv://param4mc:3Fj0PbA9t4V6bT1E@cluster0.9f6ij.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true&appName=Cluster0'
+MONGO_ATLAS_URI = 'ENTER_CONNECTION_URL'
 connect('Login',host=MONGO_ATLAS_URI)
 db = 0
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
