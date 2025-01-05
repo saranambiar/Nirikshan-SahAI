@@ -96,3 +96,11 @@ Ensure transparency and detect anomalies in submissions.
 - Shree Mengshetti
 
 ---
+
+## 📸 **Website Snapshot**  
+![Screenshot 2024-12-20 091647](https://github.com/user-attachments/assets/c8ce0d23-c987-4e46-9114-0904025b2391)
+![Screenshot 2024-12-20 091829](https://github.com/user-attachments/assets/ac431d74-4c65-4207-af43-980fa014f757)
+![Screenshot 2024-12-20 091947](https://github.com/user-attachments/assets/ebf00132-86e4-4ea3-b2f3-e80fe61bb710)
+![Screenshot 2024-12-20 092008](https://github.com/user-attachments/assets/391e513b-9164-457d-b219-fd707cd6a91e)
+
+
